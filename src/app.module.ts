@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
       type: 'mongodb',
       host: 'localhost',
       port: 27017,
+      // username: process.env.MONGO_INITDB_ROOT_USERNAME,
+      // password: process.env.MONGO_INITDB_ROOT_PASSWORD,
       database: 'test-ktech',
       useNewUrlParser: true,
       autoLoadEntities: true,

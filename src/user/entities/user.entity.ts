@@ -7,7 +7,7 @@ import {
   ObjectIdColumn,
 } from 'typeorm';
 
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
@@ -25,6 +25,7 @@ export class UserEntity {
   createdAt: Date;
 
   @Field(() => Date)
+  @Column()
   updatedAt: Date;
 
   @BeforeInsert()

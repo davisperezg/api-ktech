@@ -4,7 +4,4 @@ import { InputType, Field, Int } from '@nestjs/graphql';
 export class CreateUserDTO {
   @Field()
   readonly name: string;
-
-  @Field(() => Int)
-  readonly amount: number;
 }
