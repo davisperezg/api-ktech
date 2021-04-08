@@ -7,24 +7,20 @@ import {
   ObjectIdColumn,
 } from 'typeorm';
 
-import { ObjectType, Field, ID } from '@nestjs/graphql';
-
-@ObjectType()
 @Entity()
 export class UserEntity {
-  @Field(() => ID)
   @ObjectIdColumn()
-  id: ObjectID;
+  id: string;
 
-  @Field()
   @Column()
-  name: string;
+  username: string;
 
-  @Field(() => Date)
+  @Column()
+  password: string;
+
   @Column()
   createdAt: Date;
 
-  @Field(() => Date)
   @Column()
   updatedAt: Date;
 
