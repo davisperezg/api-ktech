@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserService } from './../user/services/user.service';
 import { AuthResolver } from './resolvers/auth.resolver';
 import { UserEntity } from './../user/entities/user.entity';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from 'src/strategies/jwt.strategies';
+import { GqlAuthGuard } from '../guards/gql-auth.guard';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '24h' },
     }),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
-  providers: [UserService, AuthResolver, AuthService, JwtStrategy],
+  providers: [AuthResolver, AuthService, JwtStrategy, GqlAuthGuard],
 })
 export class AuthModule {}

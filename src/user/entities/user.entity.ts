@@ -7,10 +7,10 @@ import {
   ObjectIdColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('User')
 export class UserEntity {
   @ObjectIdColumn()
-  id: string;
+  id: ObjectID;
 
   @Column()
   username: string;

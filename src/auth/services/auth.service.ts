@@ -1,9 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { Repository } from 'typeorm';
-import { UserInput } from 'src/user/dto/inputs/user.input';
-import { UserType } from 'src/user/dto/querys/user.type';
+import { ObjectID, Repository } from 'typeorm';
 import { AuthInput } from '../dto/inputs/auth.input';
 import { UserTokenType } from '../dto/querys/user-token.type';
 import { AuthHelper } from 'src/helpers/auth.helper';
@@ -21,28 +19,32 @@ export class AuthService {
 
   //login user
   async signIn(authInput: AuthInput): Promise<UserTokenType> {
+    const { username, password } = authInput;
+
     const findUser = await this.userRepository.findOne({
-      username: authInput.username,
+      username,
     });
 
     if (!findUser) throw new NotFoundException(`Usuario no existe`);
 
     const isMatch = await AuthHelper.comparePassword(
-      authInput.password,
+      password,
       findUser.password,
     );
 
     if (!isMatch) throw new Error(`Contraseña invalida`);
 
-    return { token: this.signToken(findUser.id) };
+    return { token: this.getToken(findUser.id) };
   }
 
-  signToken(id: string): string {
+  //method to get token in login
+  getToken(id: ObjectID): string {
     const payload: JwtType = { userId: id };
     return this.jwt.sign(payload);
   }
 
-  async findUserById(id: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ id });
+  //validate user searching by id to jwt.strategies.ts
+  async validateUser(id: ObjectID): Promise<UserEntity> {
+    return await this.userRepository.findOne(id);
   }
 }

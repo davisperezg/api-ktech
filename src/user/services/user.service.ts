@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthService } from 'src/auth/services/auth.service';
 import { AuthHelper } from 'src/helpers/auth.helper';
 import { Repository } from 'typeorm';
 import { UserInput } from '../dto/inputs/user.input';
@@ -11,7 +10,6 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private readonly authService: AuthService,
   ) {}
 
   //Get all user
@@ -20,13 +18,15 @@ export class UserService {
   }
 
   //Post a single user
-  async createUser(userInput: UserInput): Promise<UserEntity | any> {
+  async createUser(userInput: UserInput): Promise<UserEntity> {
+    const { username } = userInput;
+
     const findEmail = await this.userRepository.findOne({
-      username: userInput.username,
+      username,
     });
 
     if (findEmail)
-      throw new BadRequestException(`Username ${userInput.username} ya existe`);
+      throw new BadRequestException(`Username ${username} ya existe`);
 
     const password = await AuthHelper.hashPassword(userInput.password);
 
@@ -38,7 +38,7 @@ export class UserService {
     try {
       return await this.userRepository.save(newUser);
     } catch (e) {
-      return console.log('Error en AuthService.signUp', e);
+      throw new Error(`Error en UserService.createUser ${e}`);
     }
   }
 }

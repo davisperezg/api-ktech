@@ -1,3 +1,5 @@
+import { ObjectID } from 'typeorm';
+
 export class JwtType {
-  userId: string;
+  userId: ObjectID;
 }

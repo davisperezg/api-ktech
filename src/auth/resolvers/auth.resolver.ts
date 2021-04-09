@@ -1,50 +1,21 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { UserInput } from 'src/user/dto/inputs/user.input';
-import { UserType } from 'src/user/dto/querys/user.type';
-import { UserEntity } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/services/user.service';
 import { AuthInput } from '../dto/inputs/auth.input';
 import { UserTokenType } from '../dto/querys/user-token.type';
 import { AuthService } from '../services/auth.service';
 
 @Resolver()
 export class AuthResolver {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
+  //mutation - post login
   @Mutation(() => UserTokenType)
-  async login(
-    @Args({ name: 'input', type: () => AuthInput }) input: AuthInput,
-  ) {
-    return this.authService.signIn(input);
+  async login(@Args('authInput') authInput: AuthInput) {
+    return this.authService.signIn(authInput);
   }
 
-  @Mutation(() => UserType)
-  async registerUser(
-    @Args({ name: 'input', type: () => UserInput }) input: UserInput,
-  ) {
-    return this.userService.createUser(input);
-  }
-
-  // //query Get Users Graphql
+  //query hello test
   @Query(() => String)
-  getUsers() {
+  hello() {
     return 'Hola mundo';
   }
-
-  // //query Get Users Graphql
-  // @Query(() => [UserEntity])
-  // async getUsers(): Promise<UserEntity[]> {
-  //   return await this.userService.findAllUsers();
-  // }
-
-  // //mutation Create Product Graphql
-  // @Mutation(() => UserEntity)
-  // async createUser(
-  //   @Args('createUserDTO') createUserDTO: CreateUserDTO,
-  // ): Promise<UserEntity> {
-  //   return await this.userService.createUser(createUserDTO);
-  // }
 }
