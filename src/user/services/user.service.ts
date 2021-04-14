@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthHelper } from 'src/helpers/auth.helper';
+import { AuthHelper } from '../../lib/helpers/auth.helper';
 import { Repository } from 'typeorm';
 import { UserInput } from '../dto/inputs/user.input';
 import { UserEntity } from '../entities/user.entity';

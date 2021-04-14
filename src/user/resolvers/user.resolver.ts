@@ -1,6 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
-import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
+import { CtxUser } from '../../lib/decorators/ctx-user.decorators';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 import { UserInput } from '../dto/inputs/user.input';
 import { UserType } from '../dto/querys/user.type';
 import { UserEntity } from '../entities/user.entity';
@@ -21,7 +22,8 @@ export class UserResolver {
   //query get users
   @UseGuards(GqlAuthGuard)
   @Query(() => [UserType])
-  async getUsers(): Promise<UserEntity[]> {
+  async getUsers(@CtxUser() user: UserEntity): Promise<UserEntity[]> {
+    console.log(user);
     return await this.userService.findAllUsers();
   }
 }
