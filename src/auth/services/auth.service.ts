@@ -28,11 +28,11 @@ export class AuthService {
 
   //login user
   async signIn(authInput: AuthInput): Promise<UserTokenType> {
-    const { username, password } = authInput;
+    const { email, password } = authInput;
     const refresh_token = uid(256);
 
     const findUser = await this.userRepository.findOne({
-      username,
+      email,
     });
 
     if (!findUser) throw new NotFoundException(`Usuario no existe`);
@@ -44,7 +44,7 @@ export class AuthService {
 
     if (!isMatch) throw new Error(`Contraseña invalida`);
 
-    refreshTokens[refresh_token] = username;
+    refreshTokens[refresh_token] = email;
     return { access_token: this.getToken(findUser.id), refresh_token };
   }
 
@@ -58,15 +58,15 @@ export class AuthService {
   async getTokenWithRefresh(
     authRefreshTokenInput: AuthRefreshTokenInput,
   ): Promise<UserRefreshTokenType> {
-    const username = authRefreshTokenInput.username;
+    const email = authRefreshTokenInput.email;
     const refreshToken = authRefreshTokenInput.refresh_token;
 
     if (
       refreshToken in refreshTokens &&
-      refreshTokens[refreshToken] === username
+      refreshTokens[refreshToken] === email
     ) {
       const findUser = await this.userRepository.findOne({
-        username,
+        email,
       });
 
       return { access_token: this.getToken(findUser.id) };

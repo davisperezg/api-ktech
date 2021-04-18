@@ -13,7 +13,7 @@ export class UserResolver {
 
   //@reminder-> name and type in @Args({ name: 'input', type: () => UserInput })
   //mutation register new user
-  @UseGuards(GqlAuthGuard)
+  //@UseGuards(GqlAuthGuard)
   @Mutation(() => UserType)
   async registerUser(@Args('userInput') userInput: UserInput) {
     return this.userService.createUser(userInput);

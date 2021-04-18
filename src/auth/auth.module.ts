@@ -12,7 +12,7 @@ import { GqlAuthGuard } from '../lib/guards/gql-auth.guard';
   imports: [
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '24h' },
     }),
     TypeOrmModule.forFeature([UserEntity]),
   ],

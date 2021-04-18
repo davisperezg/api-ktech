@@ -19,14 +19,14 @@ export class UserService {
 
   //Post a single user
   async createUser(userInput: UserInput): Promise<UserEntity> {
-    const { username } = userInput;
+    const { email } = userInput;
 
     const findEmail = await this.userRepository.findOne({
-      username,
+      email,
     });
 
     if (findEmail)
-      throw new BadRequestException(`Username ${username} ya existe`);
+      throw new BadRequestException(`El Correo ${email} ya existe`);
 
     const password = await AuthHelper.hashPassword(userInput.password);
 

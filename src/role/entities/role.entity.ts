@@ -7,22 +7,16 @@ import {
   ObjectIdColumn,
 } from 'typeorm';
 
-@Entity('User')
-export class UserEntity {
+@Entity('Role')
+export class RoleEntity {
   @ObjectIdColumn()
   id: ObjectID;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
-  lastName: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
+  description?: string;
 
   @Column()
   createdAt: Date;
@@ -33,7 +27,6 @@ export class UserEntity {
   //more info -> https://typeorm.io/#/listeners-and-subscribers
   @BeforeInsert()
   beforeInsertAction() {
-    this.email = this.email.toLocaleLowerCase();
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

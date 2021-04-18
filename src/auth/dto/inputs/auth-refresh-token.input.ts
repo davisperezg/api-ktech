@@ -6,5 +6,5 @@ export class AuthRefreshTokenInput {
   refresh_token: string;
 
   @Field()
-  username: string;
+  email: string;
 }

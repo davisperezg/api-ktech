@@ -4,11 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
-    AuthModule,
-    UserModule,
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'mongodb',
@@ -26,7 +25,11 @@ import { UserModule } from './user/user.module';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
+      playground: true,
     }),
+    RoleModule,
+    AuthModule,
+    UserModule,
   ],
 })
 export class AppModule {}
