@@ -1,16 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IsNotEmpty, Length, IsOptional, Matches } from 'class-validator';
+import { Length, IsOptional, Matches } from 'class-validator';
 
 @InputType()
-export class RoleInput {
-  @Field()
+export class RoleUpdateInput {
+  @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9\s]+$/, {
     message: 'El nombre del rol solo puede contener letras y números',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @Length(3, 55)
-  name: string;
+  name?: string;
 
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9\s]+$/, {

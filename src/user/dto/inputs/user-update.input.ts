@@ -1,50 +1,44 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IsNotEmpty, Length, IsEmail, Matches } from 'class-validator';
+import { Length, IsEmail, Matches, IsOptional } from 'class-validator';
+
 import { IsMatchPassword } from 'src/lib/decorators/match.decorator';
-import { RoleInput } from 'src/role/dto/inputs/role.input';
-import { RoleType } from 'src/role/dto/querys/role.type';
-import { RoleEntity } from 'src/role/entities/role.entity';
-import { ObjectID } from 'typeorm';
 
 @InputType()
-export class UserInput {
-  @Field()
+export class UserUpdateInput {
+  @Field({ nullable: true })
   @Matches(/^[A-Za-z\s]+$/, { message: 'El nombre solo puede contener letras' })
-  @IsNotEmpty()
+  @IsOptional()
   @Length(3, 55)
-  name: string;
+  name?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Matches(/^[A-Za-z\s]+$/, {
     message: 'El apellido solo puede contener letras',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @Length(3, 55)
-  lastName: string;
+  lastName?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  @IsOptional()
+  email?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'La contraseña debe contener por lo menos una mayúscula y números',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @Length(6, 55)
-  password: string;
+  password?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsMatchPassword('password', {
     message:
       'La confirmación de contraseña no coincide con la contraseña ingresada',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @Length(6, 55)
-  confirmPassword: string;
-
-  @Field(() => String)
-  role: RoleInput;
+  confirmPassword?: string;
 }

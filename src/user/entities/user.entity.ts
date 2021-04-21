@@ -1,3 +1,4 @@
+import { RoleEntity } from 'src/role/entities/role.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -23,6 +24,12 @@ export class UserEntity {
 
   @Column()
   password: string;
+
+  @Column()
+  confirmPassword: string;
+
+  @ObjectIdColumn()
+  role: ObjectID;
 
   @Column()
   createdAt: Date;

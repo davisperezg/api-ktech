@@ -35,8 +35,12 @@ export class RoleService {
     try {
       role = await this.roleRepository.findOne(id);
     } catch (e) {
-      throw new BadRequestException(`El rol no se encuentra o no existe`);
+      throw new BadRequestException(
+        `Error en RoleService.updateRole.UserfindOne ${e}`,
+      );
     }
+
+    if (!role) throw new BadRequestException(`El rol no existe en el servicio`);
 
     try {
       this.roleRepository.merge(role, roleInput);
@@ -49,18 +53,21 @@ export class RoleService {
   //Delete one role by id
   async deleteRoleById(id: string): Promise<boolean> {
     let result = false;
+
     try {
       const findRole = await this.roleRepository.findOne(id);
 
       if (!findRole) return (result = false);
 
       await this.roleRepository.delete(id);
+
       result = true;
     } catch (e) {
       throw new Error(
-        `${result}. No se pudo eliminar. Error en RoleService.deleteRole ${e}`,
+        `${result}. No se pudo eliminar. Error en RoleService.deleteRoleById ${e}`,
       );
     }
+
     return result;
   }
 
@@ -79,6 +86,15 @@ export class RoleService {
       return await this.roleRepository.findOne(id);
     } catch (e) {
       throw new Error(`Error en RoleService.findOneRoleById ${e}`);
+    }
+  }
+
+  //Get one role by param
+  async findOneRoleByName(name: string): Promise<RoleEntity> {
+    try {
+      return await this.roleRepository.findOne({ name });
+    } catch (e) {
+      throw new Error(`Error en RoleService.findOneRoleByName ${e}`);
     }
   }
 }

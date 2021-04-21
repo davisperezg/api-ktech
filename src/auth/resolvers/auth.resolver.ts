@@ -22,10 +22,4 @@ export class AuthResolver {
   ) {
     return this.authService.getTokenWithRefresh(authRefreshTokenInput);
   }
-
-  //query hello test
-  @Query(() => String)
-  hello() {
-    return 'Hola mundo';
-  }
 }
