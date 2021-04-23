@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { Length, IsEmail, Matches, IsOptional } from 'class-validator';
 
 import { IsMatchPassword } from 'src/lib/decorators/match.decorator';
+import { UpdateRoleUserInput } from 'src/role/dto/inputs/role-update.input';
 
 @InputType()
 export class UserUpdateInput {
@@ -41,4 +42,7 @@ export class UserUpdateInput {
   @IsOptional()
   @Length(6, 55)
   confirmPassword?: string;
+
+  @Field(() => UpdateRoleUserInput, { nullable: true })
+  role?: UpdateRoleUserInput;
 }

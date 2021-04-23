@@ -1,127 +1,184 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AuthHelper } from '../../lib/helpers/auth.helper';
-import { Repository } from 'typeorm';
 import { UserInput } from '../dto/inputs/user.input';
-import { UserEntity } from '../entities/user.entity';
-import { UserUpdateInput } from '../dto/inputs/user-update.input';
 import { RoleService } from 'src/role/services/role.service';
-import { RoleEntity } from 'src/role/entities/role.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { UserDocument } from '../schemas/user.schema';
+import { Model } from 'mongoose';
+import { UserUpdateInput } from '../dto/inputs/user-update.input';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectModel('User')
+    private readonly userModel: Model<UserDocument>,
     private readonly roleService: RoleService,
   ) {}
 
   //Post a single user
-  async createUser(userInput: UserInput): Promise<UserEntity> {
-    const { email, role } = userInput;
-    console.log('entra a servicio', userInput);
-    const findEmail = await this.userRepository.findOne({
-      email,
-    });
+  async createUser(userInput: UserInput): Promise<UserDocument> {
+    const { email } = userInput;
 
-    if (findEmail)
-      throw new BadRequestException(`El Correo ${email} ya existe`);
+    //find email by user
+    await this.findOneUserByEmail(email, 'exist');
 
+    //hash password
     const password = await AuthHelper.hashPassword(userInput.password);
+
+    //hash confirm password
     const confirmPassword = await AuthHelper.hashPassword(
       userInput.confirmPassword,
     );
-    const findRole = await this.roleService.findOneRoleByName('Administrador');
-    console.log('findRole', findRole);
-    console.log('Obteniedo ID del rol', findRole.id);
-    if (!findRole)
-      throw new BadRequestException(`El rol no se encuentra o no existe`);
 
-    const newUser = this.userRepository.create({
+    //find role by name and validate if it exists
+    const findRole: any = await this.roleService.findOneRoleByName(
+      userInput.role.name,
+      'noexist',
+    );
+
+    //create user object
+    const newUser = new this.userModel({
       ...userInput,
-      role: findRole.id,
+      role: findRole._id,
       password,
       confirmPassword,
     });
 
+    let userSaved: UserDocument;
+    let foundUser: UserDocument;
+
     try {
-      return await this.userRepository.save(newUser);
+      //save user
+      userSaved = await newUser.save();
     } catch (e) {
       throw new Error(`Error en UserService.createUser ${e}`);
     }
+
+    try {
+      //list user with role
+      foundUser = await userSaved.populate([{ path: 'role' }]).execPopulate();
+    } catch (e) {
+      throw new Error(`Error en UserService.createUser.list ${e}`);
+    }
+
+    return foundUser;
   }
 
   //Put data user
-  // async updateUser(id: string, userInput: UserInput): Promise<UserEntity> {
-  //   let user: UserEntity;
-  //   console.log(userInput);
-  //   try {
-  //     user = await this.userRepository.findOne(id);
-  //   } catch (e) {
-  //     throw new Error(`Error en UserService.updateUser.UserfindOne ${e}`);
-  //   }
+  async updateUser(
+    id: string,
+    userInput: UserUpdateInput,
+  ): Promise<UserDocument> {
+    const { password, confirmPassword, role } = userInput;
+    const { name } = role;
 
-  //   if (!user)
-  //     throw new BadRequestException(`El usuario no existe en el servicio`);
+    //find user by Id
+    await this.findOneUserById(id);
 
-  //   try {
-  //     const { password, confirmPassword } = userInput;
+    //must not contain a password or confirm password
+    if (password || confirmPassword)
+      throw new BadRequestException(`Ingrese su contraseña correctamente`);
 
-  //     if (password && confirmPassword) {
-  //       const passwordHashed = await AuthHelper.hashPassword(password);
-  //       const confirmPasswordHashed = await AuthHelper.hashPassword(
-  //         confirmPassword,
-  //       );
-  //       userInput.password = passwordHashed;
-  //       userInput.confirmPassword = confirmPasswordHashed;
-  //     } else {
-  //       userInput.password = user.password;
-  //       userInput.confirmPassword = user.confirmPassword;
-  //     }
+    //find role by name
+    const findRole = await this.roleService.findOneRoleByName(name, 'noexist');
 
-  //     this.userRepository.merge(user, userInput);
-  //     return await this.userRepository.save(user);
-  //   } catch (e) {
-  //     throw new Error(`Error en UserService.updateUser ${e}`);
-  //   }
-  // }
+    try {
+      //return user updated
+      return await this.userModel
+        .findByIdAndUpdate(
+          id,
+          { ...userInput, role: findRole._id },
+          {
+            new: true,
+          },
+        )
+        .populate([{ path: 'role' }]);
+    } catch (e) {
+      throw new Error(`Error en UserService.updateUser ${e}`);
+    }
+  }
 
   //Delete one user by id
   async deleteUserById(id: string): Promise<boolean> {
-    let result = false;
+    //find user by Id
+    await this.findOneUserById(id);
 
     try {
-      const findUser = await this.userRepository.findOne(id);
-
-      if (!findUser) return (result = false);
-
-      await this.userRepository.delete(id);
-
-      result = true;
+      //if exists user, delete user
+      await this.userModel.findByIdAndDelete(id);
+      //return is true
+      return true;
     } catch (e) {
-      throw new Error(
-        `${result}. No se pudo eliminar. Error en UserService.deleteUserById ${e}`,
-      );
+      throw new Error(`Error en UserService.deleteUserById ${e}`);
     }
-
-    return result;
   }
 
   //Get all user
-  async findAllUsers(): Promise<UserEntity[]> {
+  async findAllUsers(): Promise<UserDocument[]> {
     try {
-      return await this.userRepository.find();
+      return await this.userModel.find().populate([{ path: 'role' }]);
     } catch (e) {
       throw new Error(`Error en UserService.findAllUsers ${e}`);
     }
   }
 
   //Get one user by id
-  async findOneUserById(id: string): Promise<UserEntity> {
+  async findOneUserById(id: string): Promise<UserDocument> {
+    let user: UserDocument;
+
     try {
-      return await this.userRepository.findOne(id);
+      //find user by Id
+      user = await this.userModel.findById(id).populate([{ path: 'role' }]);
     } catch (e) {
       throw new Error(`Error en UserService.findOneUserById ${e}`);
+    }
+
+    //if does not exist
+    if (!user)
+      throw new NotFoundException(`El usuario no se encuentra o no existe`);
+
+    return user;
+  }
+
+  //Get one user by email
+  async findOneUserByEmail(
+    email: string,
+    param: string,
+  ): Promise<UserDocument> {
+    let user: UserDocument;
+
+    try {
+      //find email by user
+      user = await this.userModel.findOne({
+        email,
+      });
+    } catch (e) {
+      throw new Error(`Error en UserService.findOneUserByEmail ${e}`);
+    }
+
+    switch (param) {
+      case 'exist':
+        //if exists email by user
+        if (user) throw new BadRequestException(`El Correo ${email} ya existe`);
+        break;
+
+      case 'noexist':
+        //if does not user
+        if (!user) throw new NotFoundException(`El usuario no existe`);
+        return user;
+    }
+  }
+
+  //Get user and update password
+  async findOneUserByIdAndUpdate(id: string, model: any) {
+    try {
+      await this.userModel.findByIdAndUpdate(id, model, { new: true });
+    } catch (e) {
+      throw new Error(`Error en UserService.findOneUserByIdAndUpdate`);
     }
   }
 }

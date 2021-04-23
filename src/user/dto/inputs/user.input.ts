@@ -2,10 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { IsNotEmpty, Length, IsEmail, Matches } from 'class-validator';
 import { IsMatchPassword } from 'src/lib/decorators/match.decorator';
-import { RoleInput } from 'src/role/dto/inputs/role.input';
-import { RoleType } from 'src/role/dto/querys/role.type';
-import { RoleEntity } from 'src/role/entities/role.entity';
-import { ObjectID } from 'typeorm';
+import { CreateRoleUserInput } from 'src/role/dto/inputs/role.input';
 
 @InputType()
 export class UserInput {
@@ -45,6 +42,6 @@ export class UserInput {
   @Length(6, 55)
   confirmPassword: string;
 
-  @Field(() => String)
-  role: RoleInput;
+  @Field()
+  role: CreateRoleUserInput;
 }
