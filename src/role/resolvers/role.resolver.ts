@@ -20,11 +20,10 @@ export class RoleResolver {
   //Put role
   @Mutation(() => RoleType)
   updateRole(
-    @Args('id') id: string,
     @Args({ name: 'roleInput', type: () => RoleUpdateInput })
     roleInput: RoleUpdateInput,
   ) {
-    return this.roleService.updateRole(id, roleInput);
+    return this.roleService.updateRole(roleInput);
   }
 
   //Delete role

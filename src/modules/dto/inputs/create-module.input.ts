@@ -1,13 +1,12 @@
+import { IsNotEmpty, Length, IsOptional, Matches } from 'class-validator';
+
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IsNotEmpty, Length, IsOptional, Matches } from 'class-validator';
-import { CreateRoleModuleInput } from 'src/modules/dto/inputs/create-module.input';
-
 @InputType()
-export class RoleInput {
+export class CreateModuleInput {
   @Field()
   @Matches(/^[A-Za-z0-9\s]+$/, {
-    message: 'El nombre del rol solo puede contener letras y números',
+    message: 'El nombre del modulo solo puede contener letras y números',
   })
   @IsNotEmpty()
   @Length(3, 55)
@@ -19,17 +18,14 @@ export class RoleInput {
   })
   @IsOptional()
   @Length(3, 55)
-  description?: string;
-
-  @Field(() => [CreateRoleModuleInput])
-  modules: CreateRoleModuleInput[];
+  description: string;
 }
 
 @InputType()
-export class CreateRoleUserInput {
+export class CreateRoleModuleInput {
   @Field()
   @Matches(/^[A-Za-z0-9\s]+$/, {
-    message: 'El nombre del rol solo puede contener letras y números',
+    message: 'El nombre del modulo solo puede contener letras y números',
   })
   @IsNotEmpty()
   @Length(3, 55)

@@ -1,8 +1,7 @@
 import { Field, ObjectType, ID } from '@nestjs/graphql';
-import { ModuleType } from 'src/modules/dto/querys/module.type';
 
 @ObjectType()
-export class RoleType {
+export class ModuleType {
   @Field(() => ID)
   id: string;
 
@@ -17,7 +16,4 @@ export class RoleType {
 
   @Field(() => Date)
   updatedAt: Date;
-
-  @Field(() => [ModuleType], { nullable: true })
-  modules: ModuleType[];
 }

@@ -8,58 +8,84 @@ import { RoleDocument } from '../schemas/role.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RoleUpdateInput } from '../dto/inputs/role-update.input';
+import { ModuleService } from 'src/modules/services/module.service';
+import { CreateRoleModuleInput } from 'src/modules/dto/inputs/create-module.input';
 
 @Injectable()
 export class RoleService {
   constructor(
     @InjectModel('Role')
     private readonly roleModel: Model<RoleDocument>,
+    private readonly moduleService: ModuleService,
   ) {}
 
   //Post a single role
   async createRole(roleInput: RoleInput): Promise<RoleDocument> {
-    const { name } = roleInput;
+    const { name, modules } = roleInput;
     //find role by name and validate if it exists
     await this.findOneRoleByName(name, 'exist');
 
-    //create one object by role
-    const newRole = new this.roleModel(roleInput);
+    const getIdModules = await this.findIdsByNameModules(modules);
+
+    const newRole = new this.roleModel({
+      ...roleInput,
+      modules: getIdModules,
+    });
+
+    let saveRole: RoleDocument;
+    let foundRole: RoleDocument;
 
     try {
-      //save role
-      return await newRole.save();
+      saveRole = await newRole.save();
     } catch (e) {
       throw new Error(`Error en RoleService.createRole ${e}`);
     }
+
+    try {
+      foundRole = await saveRole.populate([{ path: 'modules' }]).execPopulate();
+    } catch (e) {
+      throw new Error(`Error en RoleService.createRole ${e}`);
+    }
+
+    return foundRole;
   }
 
   //Put one role
-  async updateRole(
-    id: string,
-    roleInput: RoleUpdateInput,
-  ): Promise<RoleDocument> {
-    //find role by Id
+  async updateRole(roleInput: RoleUpdateInput): Promise<RoleDocument> {
+    const { id, modules } = roleInput;
+
+    //find role by id and valid if does not exist
     await this.findOneRoleById(id);
 
+    //get Ids modules by names
+    const getIdModules = await this.findIdsByNameModules(modules);
+
+    let updateRole: RoleDocument;
+
     try {
-      //find user by id and update
-      return await this.roleModel.findByIdAndUpdate(id, roleInput, {
-        new: true,
-      });
+      updateRole = await this.roleModel
+        .findByIdAndUpdate(
+          id,
+          { ...roleInput, modules: getIdModules },
+          {
+            new: true,
+          },
+        )
+        .populate([{ path: 'modules' }]);
     } catch (e) {
       throw new Error(`Error en RoleService.updateRole ${e}`);
     }
+
+    return updateRole;
   }
 
   //Delete one role by id
   async deleteRoleById(id: string): Promise<boolean> {
-    //find role by Id
     await this.findOneRoleById(id);
 
     try {
       //if exists role, delete role
       await this.roleModel.findByIdAndDelete(id);
-      //return is true
       return true;
     } catch (e) {
       throw new Error(`Error en RoleService.deleteRoleById ${e}`);
@@ -69,7 +95,11 @@ export class RoleService {
   //Get all roles
   async findAllRoles(): Promise<RoleDocument[]> {
     try {
-      return await this.roleModel.find();
+      const findRoles = await this.roleModel
+        .find()
+        .populate([{ path: 'modules' }]);
+
+      return findRoles;
     } catch (e) {
       throw new Error(`Error en RoleService.findAllRoles ${e}`);
     }
@@ -80,7 +110,6 @@ export class RoleService {
     let role: RoleDocument;
 
     try {
-      //find role by Id
       role = await this.roleModel.findById(id);
     } catch (e) {
       throw new Error(`Error en RoleService.findOneRoleById ${e}`);
@@ -98,7 +127,6 @@ export class RoleService {
     let role: RoleDocument;
 
     try {
-      //find role by name
       role = await this.roleModel.findOne({ name });
     } catch (e) {
       throw new Error(`Error en RoleService.findOneRoleByName ${e}`);
@@ -114,5 +142,17 @@ export class RoleService {
           throw new NotFoundException(`El rol no se encuentra o no existe`);
         return role;
     }
+  }
+
+  async findIdsByNameModules(modules: any[]): Promise<RoleDocument[]> {
+    const getNameModule = modules.map((module) => module.name);
+
+    const findModulesByName = await this.moduleService.findModulesByNames(
+      getNameModule,
+    );
+
+    const getIdModules = findModulesByName.map((module) => module._id);
+
+    return getIdModules;
   }
 }

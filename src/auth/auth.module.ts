@@ -10,6 +10,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from 'src/user/services/user.service';
 import { RoleService } from 'src/role/services/role.service';
 import { RoleSchema } from 'src/role/schemas/role.schema';
+import { ModuleSchema } from 'src/modules/schemas/module.schema';
+import { ModuleService } from 'src/modules/services/module.service';
 
 @Module({
   imports: [
@@ -20,6 +22,7 @@ import { RoleSchema } from 'src/role/schemas/role.schema';
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
       { name: 'Role', schema: RoleSchema },
+      { name: 'Module', schema: ModuleSchema },
     ]),
   ],
   providers: [
@@ -29,6 +32,7 @@ import { RoleSchema } from 'src/role/schemas/role.schema';
     GqlAuthGuard,
     UserService,
     RoleService,
+    ModuleService,
   ],
 })
 export class AuthModule {}

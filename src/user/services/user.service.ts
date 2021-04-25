@@ -23,7 +23,6 @@ export class UserService {
   async createUser(userInput: UserInput): Promise<UserDocument> {
     const { email } = userInput;
 
-    //find email by user
     await this.findOneUserByEmail(email, 'exist');
 
     //hash password
@@ -40,7 +39,6 @@ export class UserService {
       'noexist',
     );
 
-    //create user object
     const newUser = new this.userModel({
       ...userInput,
       role: findRole._id,
@@ -52,7 +50,6 @@ export class UserService {
     let foundUser: UserDocument;
 
     try {
-      //save user
       userSaved = await newUser.save();
     } catch (e) {
       throw new Error(`Error en UserService.createUser ${e}`);
@@ -76,7 +73,6 @@ export class UserService {
     const { password, confirmPassword, role } = userInput;
     const { name } = role;
 
-    //find user by Id
     await this.findOneUserById(id);
 
     //must not contain a password or confirm password
@@ -86,9 +82,10 @@ export class UserService {
     //find role by name
     const findRole = await this.roleService.findOneRoleByName(name, 'noexist');
 
+    let updateUser: UserDocument;
+
     try {
-      //return user updated
-      return await this.userModel
+      updateUser = await this.userModel
         .findByIdAndUpdate(
           id,
           { ...userInput, role: findRole._id },
@@ -100,17 +97,17 @@ export class UserService {
     } catch (e) {
       throw new Error(`Error en UserService.updateUser ${e}`);
     }
+
+    return updateUser;
   }
 
   //Delete one user by id
   async deleteUserById(id: string): Promise<boolean> {
-    //find user by Id
     await this.findOneUserById(id);
 
     try {
       //if exists user, delete user
       await this.userModel.findByIdAndDelete(id);
-      //return is true
       return true;
     } catch (e) {
       throw new Error(`Error en UserService.deleteUserById ${e}`);
@@ -120,7 +117,11 @@ export class UserService {
   //Get all user
   async findAllUsers(): Promise<UserDocument[]> {
     try {
-      return await this.userModel.find().populate([{ path: 'role' }]);
+      const findUsers = await this.userModel
+        .find()
+        .populate([{ path: 'role' }]);
+
+      return findUsers;
     } catch (e) {
       throw new Error(`Error en UserService.findAllUsers ${e}`);
     }
@@ -131,7 +132,6 @@ export class UserService {
     let user: UserDocument;
 
     try {
-      //find user by Id
       user = await this.userModel.findById(id).populate([{ path: 'role' }]);
     } catch (e) {
       throw new Error(`Error en UserService.findOneUserById ${e}`);
@@ -152,7 +152,6 @@ export class UserService {
     let user: UserDocument;
 
     try {
-      //find email by user
       user = await this.userModel.findOne({
         email,
       });
@@ -162,12 +161,10 @@ export class UserService {
 
     switch (param) {
       case 'exist':
-        //if exists email by user
         if (user) throw new BadRequestException(`El Correo ${email} ya existe`);
         break;
 
       case 'noexist':
-        //if does not user
         if (!user) throw new NotFoundException(`El usuario no existe`);
         return user;
     }
