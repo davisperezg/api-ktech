@@ -1,10 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModulesModule } from './modules/modules.module';
+import { AccessModule } from './access/access.module';
+import { AccessService } from './access/services/access.service';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -13,6 +16,8 @@ import { ModulesModule } from './modules/modules.module';
       {
         useFindAndModify: false,
         useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
       },
     ),
     GraphQLModule.forRoot({
@@ -23,6 +28,8 @@ import { ModulesModule } from './modules/modules.module';
     AuthModule,
     UserModule,
     ModulesModule,
+    AccessModule,
+    MenuModule,
   ],
 })
 export class AppModule {}

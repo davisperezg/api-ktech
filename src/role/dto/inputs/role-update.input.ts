@@ -31,17 +31,17 @@ export class RoleUpdateInput {
   @Length(3, 55)
   description?: string;
 
-  @Field(() => [UpdateRoleUserInput])
-  modules: UpdateRoleUserInput[];
+  @Field(() => [UpdateRoleUserInput], { nullable: true })
+  modules?: UpdateRoleUserInput[];
 }
 
 @InputType()
 export class UpdateRoleUserInput {
-  @Field({ nullable: true })
+  @Field()
   @Matches(/^[A-Za-z0-9\s]+$/, {
     message: 'El nombre del rol solo puede contener letras y números',
   })
-  @IsOptional()
+  @IsNotEmpty()
   @Length(3, 55)
   name?: string;
 }

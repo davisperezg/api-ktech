@@ -9,7 +9,6 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RoleUpdateInput } from '../dto/inputs/role-update.input';
 import { ModuleService } from 'src/modules/services/module.service';
-import { CreateRoleModuleInput } from 'src/modules/dto/inputs/create-module.input';
 
 @Injectable()
 export class RoleService {
@@ -25,7 +24,7 @@ export class RoleService {
     //find role by name and validate if it exists
     await this.findOneRoleByName(name, 'exist');
 
-    const getIdModules = await this.findIdsByNameModules(modules);
+    const getIdModules = await this.moduleService.findIdsByNameModules(modules);
 
     const newRole = new this.roleModel({
       ...roleInput,
@@ -42,9 +41,18 @@ export class RoleService {
     }
 
     try {
-      foundRole = await saveRole.populate([{ path: 'modules' }]).execPopulate();
+      foundRole = await saveRole
+        .populate([
+          {
+            path: 'modules',
+            populate: {
+              path: 'menus',
+            },
+          },
+        ])
+        .execPopulate();
     } catch (e) {
-      throw new Error(`Error en RoleService.createRole ${e}`);
+      throw new Error(`Error en RoleService.createRole.populate ${e}`);
     }
 
     return foundRole;
@@ -58,7 +66,9 @@ export class RoleService {
     await this.findOneRoleById(id);
 
     //get Ids modules by names
-    const getIdModules = await this.findIdsByNameModules(modules);
+    const getIdsModules = await this.moduleService.findIdsByNameModules(
+      modules,
+    );
 
     let updateRole: RoleDocument;
 
@@ -66,12 +76,19 @@ export class RoleService {
       updateRole = await this.roleModel
         .findByIdAndUpdate(
           id,
-          { ...roleInput, modules: getIdModules },
+          { ...roleInput, modules: getIdsModules },
           {
             new: true,
           },
         )
-        .populate([{ path: 'modules' }]);
+        .populate([
+          {
+            path: 'modules',
+            populate: {
+              path: 'menus',
+            },
+          },
+        ]);
     } catch (e) {
       throw new Error(`Error en RoleService.updateRole ${e}`);
     }
@@ -94,15 +111,22 @@ export class RoleService {
 
   //Get all roles
   async findAllRoles(): Promise<RoleDocument[]> {
-    try {
-      const findRoles = await this.roleModel
-        .find()
-        .populate([{ path: 'modules' }]);
+    let findRoles: RoleDocument[];
 
-      return findRoles;
+    try {
+      findRoles = await this.roleModel.find().populate([
+        {
+          path: 'modules',
+          populate: {
+            path: 'menus',
+          },
+        },
+      ]);
     } catch (e) {
       throw new Error(`Error en RoleService.findAllRoles ${e}`);
     }
+
+    return findRoles;
   }
 
   //Get one role by id
@@ -110,7 +134,14 @@ export class RoleService {
     let role: RoleDocument;
 
     try {
-      role = await this.roleModel.findById(id);
+      role = await this.roleModel.findById(id).populate([
+        {
+          path: 'modules',
+          populate: {
+            path: 'menus',
+          },
+        },
+      ]);
     } catch (e) {
       throw new Error(`Error en RoleService.findOneRoleById ${e}`);
     }
@@ -134,7 +165,7 @@ export class RoleService {
 
     switch (param) {
       case 'exist':
-        if (role) throw new BadRequestException(`El Rol ${name} ya existe`);
+        if (role) throw new BadRequestException(`El rol ${name} ya existe`);
         break;
 
       case 'noexist':
@@ -142,17 +173,5 @@ export class RoleService {
           throw new NotFoundException(`El rol no se encuentra o no existe`);
         return role;
     }
-  }
-
-  async findIdsByNameModules(modules: any[]): Promise<RoleDocument[]> {
-    const getNameModule = modules.map((module) => module.name);
-
-    const findModulesByName = await this.moduleService.findModulesByNames(
-      getNameModule,
-    );
-
-    const getIdModules = findModulesByName.map((module) => module._id);
-
-    return getIdModules;
   }
 }

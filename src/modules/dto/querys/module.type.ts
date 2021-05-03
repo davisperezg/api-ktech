@@ -1,3 +1,5 @@
+import { MenuType } from './../../../menu/dto/querys/menu.type';
+import { AccessType } from './../../../access/dto/querys/access.type';
 import { Field, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
@@ -8,7 +10,7 @@ export class ModuleType {
   @Field()
   name: string;
 
-  @Field({ nullable: true })
+  @Field()
   description: string;
 
   @Field(() => Date)
@@ -16,4 +18,7 @@ export class ModuleType {
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field(() => [MenuType])
+  menus: MenuType[];
 }

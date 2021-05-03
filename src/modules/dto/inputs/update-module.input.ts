@@ -1,3 +1,4 @@
+import { UpdateNameMenuDTO } from './../../../menu/dto/inputs/update-menu.input';
 import {
   Length,
   IsOptional,
@@ -30,4 +31,21 @@ export class UpdateModuleInput {
   @IsOptional()
   @Length(3, 55)
   description?: string;
+
+  // @Field(() => [UpdateAccessModuleInput], { nullable: true })
+  // access?: UpdateAccessModuleInput[];
+
+  @Field(() => [UpdateNameMenuDTO], { nullable: true })
+  menus: UpdateNameMenuDTO[];
+}
+
+@InputType()
+export class UpdateAccessModuleInput {
+  @Field()
+  @Matches(/^[A-Za-z\s]+$/, {
+    message: 'El nombre del acceso solo puede contener letras',
+  })
+  @IsNotEmpty()
+  @Length(3, 55)
+  name?: string;
 }

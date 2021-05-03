@@ -1,3 +1,4 @@
+import { RoleDocument } from './../../role/schemas/role.schema';
 import {
   BadRequestException,
   Injectable,
@@ -57,7 +58,19 @@ export class UserService {
 
     try {
       //list user with role
-      foundUser = await userSaved.populate([{ path: 'role' }]).execPopulate();
+      foundUser = await userSaved
+        .populate([
+          {
+            path: 'role',
+            populate: {
+              path: 'modules',
+              populate: {
+                path: 'menus',
+              },
+            },
+          },
+        ])
+        .execPopulate();
     } catch (e) {
       throw new Error(`Error en UserService.createUser.list ${e}`);
     }
@@ -71,16 +84,24 @@ export class UserService {
     userInput: UserUpdateInput,
   ): Promise<UserDocument> {
     const { password, confirmPassword, role } = userInput;
-    const { name } = role;
 
-    await this.findOneUserById(id);
+    let findRole: RoleDocument;
+
+    const findUserById = await this.findOneUserById(id);
 
     //must not contain a password or confirm password
     if (password || confirmPassword)
       throw new BadRequestException(`Ingrese su contraseña correctamente`);
 
-    //find role by name
-    const findRole = await this.roleService.findOneRoleByName(name, 'noexist');
+    if (role) {
+      //find role by name
+      findRole = await this.roleService.findOneRoleByName(role.name, 'noexist');
+    } else {
+      findRole = await this.roleService.findOneRoleByName(
+        findUserById.role.name,
+        'noexist',
+      );
+    }
 
     let updateUser: UserDocument;
 
@@ -93,7 +114,17 @@ export class UserService {
             new: true,
           },
         )
-        .populate([{ path: 'role' }]);
+        .populate([
+          {
+            path: 'role',
+            populate: {
+              path: 'modules',
+              populate: {
+                path: 'menus',
+              },
+            },
+          },
+        ]);
     } catch (e) {
       throw new Error(`Error en UserService.updateUser ${e}`);
     }
@@ -116,15 +147,23 @@ export class UserService {
 
   //Get all user
   async findAllUsers(): Promise<UserDocument[]> {
-    try {
-      const findUsers = await this.userModel
-        .find()
-        .populate([{ path: 'role' }]);
+    let findUsers: UserDocument[];
 
-      return findUsers;
+    try {
+      findUsers = await this.userModel.find().populate([
+        {
+          path: 'role',
+          populate: {
+            path: 'modules',
+            populate: { path: 'menus' },
+          },
+        },
+      ]);
     } catch (e) {
       throw new Error(`Error en UserService.findAllUsers ${e}`);
     }
+
+    return findUsers;
   }
 
   //Get one user by id
@@ -132,7 +171,17 @@ export class UserService {
     let user: UserDocument;
 
     try {
-      user = await this.userModel.findById(id).populate([{ path: 'role' }]);
+      user = await this.userModel.findById(id).populate([
+        {
+          path: 'role',
+          populate: {
+            path: 'modules',
+            populate: {
+              path: 'menus',
+            },
+          },
+        },
+      ]);
     } catch (e) {
       throw new Error(`Error en UserService.findOneUserById ${e}`);
     }
