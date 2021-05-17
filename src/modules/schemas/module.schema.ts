@@ -14,8 +14,8 @@ export class Module {
   @Prop({ trim: true })
   description: string;
 
-  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Access' }] })
-  // access?: Access[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Access' }] })
+  access?: Access[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu' }] })
   menus: Menu[];

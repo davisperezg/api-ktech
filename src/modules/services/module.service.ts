@@ -17,13 +17,13 @@ import { AccessService } from 'src/access/services/access.service';
 export class ModuleService {
   constructor(
     @InjectModel('Module') private readonly moduleModel: Model<ModuleDocument>,
-    //private readonly accessService: AccessService,
+    private readonly accessService: AccessService,
     private readonly menuService: MenuService,
   ) {}
 
   //Post module
   async createModule(moduleInput: CreateModuleInput): Promise<ModuleDocument> {
-    const { name, menus } = moduleInput;
+    const { name, menus, access } = moduleInput;
     let module: ModuleDocument;
     let foundModule: ModuleDocument;
 
@@ -31,10 +31,12 @@ export class ModuleService {
     await this.findOneModuleByName(name, 'exist');
 
     const getIdsMenus = await this.menuService.findIdsByNameMenu(menus);
+    const getIdsAccess = await this.accessService.findIdsByNameAccess(access);
 
     const newModule = new this.moduleModel({
       ...moduleInput,
       menus: getIdsMenus,
+      access: getIdsAccess,
     });
 
     try {
@@ -44,7 +46,9 @@ export class ModuleService {
     }
 
     try {
-      foundModule = await module.populate([{ path: 'menus' }]).execPopulate();
+      foundModule = await module
+        .populate([{ path: 'menus' }, { path: 'access' }])
+        .execPopulate();
     } catch (e) {
       throw new Error(`Error en ModuleService.createModule.populate ${e}`);
     }
@@ -54,7 +58,7 @@ export class ModuleService {
 
   //Put module
   async updateModule(moduleInput: UpdateModuleInput): Promise<ModuleDocument> {
-    const { id, menus } = moduleInput;
+    const { id, menus, access } = moduleInput;
     let getIdsAccess: AccessDocument[];
     let getIdsMenus: MenuDocument[];
     let updateModule: ModuleDocument;
@@ -62,8 +66,17 @@ export class ModuleService {
     //find module by id and valid if exist
     const findModuleIfExist = await this.findOneModuleById(id);
 
-    if (menus) {
+    if (access) {
       //get Ids access by names
+      getIdsAccess = await this.accessService.findIdsByNameAccess(access);
+    } else {
+      getIdsAccess = await this.accessService.findIdsByNameAccess(
+        findModuleIfExist.access,
+      );
+    }
+
+    if (menus) {
+      //get Ids menus by names
       getIdsMenus = await this.menuService.findIdsByNameMenu(menus);
     } else {
       getIdsMenus = await this.menuService.findIdsByNameMenu(
@@ -75,12 +88,12 @@ export class ModuleService {
       updateModule = await this.moduleModel
         .findByIdAndUpdate(
           id,
-          { ...moduleInput, menus: getIdsMenus },
+          { ...moduleInput, menus: getIdsMenus, access: getIdsAccess },
           {
             new: true,
           },
         )
-        .populate([{ path: 'menus' }]);
+        .populate([{ path: 'menus' }, { path: 'access' }]);
     } catch (e) {
       throw new Error(`Error en ModuleService.updateModule ${e}`);
     }
@@ -106,8 +119,9 @@ export class ModuleService {
     let findModules: ModuleDocument[];
 
     try {
-      findModules = await this.moduleModel.find().populate([{ path: 'menus' }]);
-      console.log(findModules);
+      findModules = await this.moduleModel
+        .find()
+        .populate([{ path: 'menus' }, { path: 'access' }]);
     } catch (e) {
       throw new Error(`Error en ModuleService.findAllModules ${e}`);
     }
@@ -122,7 +136,7 @@ export class ModuleService {
     try {
       module = await this.moduleModel
         .findById(id)
-        .populate([{ path: 'menus' }]);
+        .populate([{ path: 'menus' }, { path: 'access' }]);
     } catch (e) {
       throw new Error(`Error en ModuleService.findOneModuleById ${e}`);
     }

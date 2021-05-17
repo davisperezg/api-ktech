@@ -1,7 +1,9 @@
+import { UserDocument } from 'src/user/schemas/user.schema';
 import { AccessDocument } from './../schemas/access.schema';
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class AccessService implements OnModuleInit {
@@ -47,6 +49,23 @@ export class AccessService implements OnModuleInit {
     }
 
     return findAccess;
+  }
+
+  //Get one access
+  async findOneAccessById(id: string): Promise<AccessDocument> {
+    let access: AccessDocument;
+
+    try {
+      access = await this.accessModel.findById(id);
+    } catch (e) {
+      throw new Error(`Error en AccessService.findOneAccessById ${e}`);
+    }
+
+    //if does not exist
+    if (!access)
+      throw new NotFoundException(`El access no se encuentra o no existe`);
+
+    return access;
   }
 
   //Get accesses by names

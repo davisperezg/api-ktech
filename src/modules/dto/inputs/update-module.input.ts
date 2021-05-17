@@ -32,8 +32,8 @@ export class UpdateModuleInput {
   @Length(3, 55)
   description?: string;
 
-  // @Field(() => [UpdateAccessModuleInput], { nullable: true })
-  // access?: UpdateAccessModuleInput[];
+  @Field(() => [UpdateAccessModuleInput], { nullable: true })
+  access?: UpdateAccessModuleInput[];
 
   @Field(() => [UpdateNameMenuDTO], { nullable: true })
   menus: UpdateNameMenuDTO[];

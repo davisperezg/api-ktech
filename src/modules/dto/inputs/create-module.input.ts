@@ -24,8 +24,8 @@ export class CreateModuleInput {
   @Length(3, 55)
   description: string;
 
-  // @Field(() => [CreateAccessModuleInput])
-  // access: CreateAccessModuleInput[];
+  @Field(() => [CreateAccessModuleInput])
+  access: CreateAccessModuleInput[];
 
   @Field(() => [CreateNameMenuDTO])
   menus: CreateNameMenuDTO[];

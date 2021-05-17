@@ -19,6 +19,9 @@ export class ModuleType {
   @Field(() => Date)
   updatedAt: Date;
 
+  @Field(() => [AccessType])
+  access: AccessType[];
+
   @Field(() => [MenuType])
   menus: MenuType[];
 }

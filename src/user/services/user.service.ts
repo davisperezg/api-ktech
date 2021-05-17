@@ -64,9 +64,12 @@ export class UserService {
             path: 'role',
             populate: {
               path: 'modules',
-              populate: {
-                path: 'menus',
-              },
+              populate: [
+                {
+                  path: 'menus',
+                },
+                { path: 'access' },
+              ],
             },
           },
         ])
@@ -119,9 +122,12 @@ export class UserService {
             path: 'role',
             populate: {
               path: 'modules',
-              populate: {
-                path: 'menus',
-              },
+              populate: [
+                {
+                  path: 'menus',
+                },
+                { path: 'access' },
+              ],
             },
           },
         ]);
@@ -155,7 +161,7 @@ export class UserService {
           path: 'role',
           populate: {
             path: 'modules',
-            populate: { path: 'menus' },
+            populate: [{ path: 'menus' }, { path: 'access' }],
           },
         },
       ]);
@@ -176,9 +182,12 @@ export class UserService {
           path: 'role',
           populate: {
             path: 'modules',
-            populate: {
-              path: 'menus',
-            },
+            populate: [
+              {
+                path: 'menus',
+              },
+              { path: 'access' },
+            ],
           },
         },
       ]);
