@@ -9,7 +9,7 @@ import { UserDocument } from '../schemas/user.schema';
 import { UserService } from '../services/user.service';
 
 @Resolver()
-//@UseGuards(GqlAuthGuard)
+@UseGuards(GqlAuthGuard)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -52,5 +52,11 @@ export class UserResolver {
   @Query(() => UserType)
   getUser(@Args('id') id: string): Promise<UserDocument> {
     return this.userService.findOneUserById(id);
+  }
+
+  @Query(() => UserType)
+  me(@CtxUser() user: UserDocument): Promise<UserDocument> {
+    console.log(user);
+    return this.userService.findOneUserById(user.id);
   }
 }

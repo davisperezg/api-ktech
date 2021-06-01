@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { UserDocument } from 'src/user/schemas/user.schema';
 import { AuthInput } from '../dto/inputs/auth.input';
 import { UserTokenType } from '../dto/querys/user-token.type';
@@ -38,7 +42,11 @@ export class AuthService {
     );
 
     //if does not exist
-    if (!isMatch) throw new Error(`Contraseña invalida`);
+    if (!isMatch)
+      throw new BadRequestException({
+        path: 'password',
+        message: 'Contraseña inválida',
+      });
 
     //email in refresh token
     refreshTokens[refresh_token] = email;

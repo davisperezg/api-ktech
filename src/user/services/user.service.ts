@@ -206,7 +206,7 @@ export class UserService {
   async findOneUserByEmail(
     email: string,
     param: string,
-  ): Promise<UserDocument> {
+  ): Promise<UserDocument | any> {
     let user: UserDocument;
 
     try {
@@ -223,9 +223,15 @@ export class UserService {
         break;
 
       case 'noexist':
-        if (!user) throw new NotFoundException(`El usuario no existe`);
-        return user;
+        if (!user)
+          throw new BadRequestException({
+            path: 'username',
+            message: 'El usuario no existe',
+          });
+        break;
     }
+
+    return user;
   }
 
   //Get user and update password
