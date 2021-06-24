@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UpdateMenuInput } from '../dto/inputs/update-menu.input';
 
 @Injectable()
 export class MenuService {
@@ -35,6 +36,38 @@ export class MenuService {
     return saveMenu;
   }
 
+  //Update menu
+  async updateMenu(userInput: UpdateMenuInput): Promise<MenuDocument> {
+    await this.findOneMenuById(userInput.id);
+
+    let updateMenu: MenuDocument;
+
+    try {
+      updateMenu = await this.menuModel.findByIdAndUpdate(
+        userInput.id,
+        userInput,
+        { new: true },
+      );
+    } catch (e) {
+      throw new Error(`Error en MenuService.updateMenu ${e}`);
+    }
+
+    return updateMenu;
+  }
+
+  //Get all menu
+  async findAllMenu(): Promise<MenuDocument[]> {
+    let findMenus: MenuDocument[];
+
+    try {
+      findMenus = await this.menuModel.find();
+    } catch (e) {
+      throw new Error(`Error en MenuService.findAllMenu ${e}`);
+    }
+
+    return findMenus;
+  }
+
   //Get one menu by param
   async findOneMenuByName(name: string, param: string): Promise<MenuDocument> {
     let menu: MenuDocument;
@@ -47,12 +80,19 @@ export class MenuService {
 
     switch (param) {
       case 'exist':
-        if (menu) throw new BadRequestException(`El menu ${name} ya existe`);
+        if (menu)
+          throw new BadRequestException({
+            path: 'menu',
+            message: [`El menu ${name} ya existe`],
+          });
         break;
 
       case 'noexist':
         if (!menu)
-          throw new NotFoundException(`El menu no se encuentra o no existe`);
+          throw new NotFoundException({
+            path: 'menu',
+            message: [`El menu no se encuentra o no existe`],
+          });
         return menu;
     }
   }
@@ -78,7 +118,10 @@ export class MenuService {
     }
 
     if (!menus || menus.length === 0)
-      throw new NotFoundException(`El menu no se encuentra o no existe`);
+      throw new NotFoundException({
+        path: 'menu',
+        message: [`El menu no se encuentra o no existe`],
+      });
 
     return menus;
   }
@@ -95,7 +138,10 @@ export class MenuService {
 
     //if does not exist
     if (!menu)
-      throw new NotFoundException(`El menu no se encuentra o no existe`);
+      throw new BadRequestException({
+        path: 'menu',
+        message: [`El menu no se encuentra o no existe`],
+      });
 
     return menu;
   }

@@ -1,3 +1,4 @@
+import { ModuleDocument } from './../../modules/schemas/module.schema';
 import {
   BadRequestException,
   Injectable,
@@ -61,16 +62,19 @@ export class RoleService {
   //Put one role
   async updateRole(roleInput: RoleUpdateInput): Promise<RoleDocument> {
     const { id, modules } = roleInput;
-
-    //find role by id and valid if does not exist
-    await this.findOneRoleById(id);
-
-    //get Ids modules by names
-    const getIdsModules = await this.moduleService.findIdsByNameModules(
-      modules,
-    );
-
+    let getIdsModules: ModuleDocument[];
     let updateRole: RoleDocument;
+    //find role by id and valid if does not exist
+    const findRoleIfExist = await this.findOneRoleById(id);
+
+    if (modules) {
+      //get Ids modules by names
+      getIdsModules = await this.moduleService.findIdsByNameModules(modules);
+    } else {
+      getIdsModules = await this.moduleService.findIdsByNameModules(
+        findRoleIfExist.modules,
+      );
+    }
 
     try {
       updateRole = await this.roleModel
@@ -148,7 +152,10 @@ export class RoleService {
 
     //if does not exist
     if (!role)
-      throw new NotFoundException(`El rol no se encuentra o no existe`);
+      throw new NotFoundException({
+        path: 'role',
+        message: [`El rol no se encuentra o no existe`],
+      });
 
     return role;
   }
@@ -165,12 +172,19 @@ export class RoleService {
 
     switch (param) {
       case 'exist':
-        if (role) throw new BadRequestException(`El rol ${name} ya existe`);
+        if (role)
+          throw new BadRequestException({
+            path: 'role',
+            message: [`El rol ${name} ya existe`],
+          });
         break;
 
       case 'noexist':
         if (!role)
-          throw new NotFoundException(`El rol no se encuentra o no existe`);
+          throw new NotFoundException({
+            path: 'role',
+            message: [`El rol no se encuentra o no existe`],
+          });
         return role;
     }
   }

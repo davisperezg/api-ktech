@@ -26,6 +26,9 @@ export class User {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Role' })
   role: Role;
+
+  @Prop({ trim: true })
+  status: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

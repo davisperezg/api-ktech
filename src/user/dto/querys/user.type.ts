@@ -23,4 +23,7 @@ export class UserType {
 
   @Field(() => RoleType, { nullable: true })
   role: RoleType;
+
+  @Field(() => Number, { nullable: true })
+  status: number;
 }

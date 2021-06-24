@@ -11,8 +11,8 @@ import { Field, InputType, ID } from '@nestjs/graphql';
 @InputType()
 export class UpdateMenuInput {
   @Field(() => ID)
-  @IsMongoId()
-  @IsNotEmpty()
+  @IsMongoId({ message: 'El id recibido es incorrecto, actualizar página' })
+  @IsNotEmpty({ message: 'El id no puede estar vacio, actualizar página' })
   id: string;
 
   @Field({ nullable: true })
@@ -20,7 +20,7 @@ export class UpdateMenuInput {
     message: 'El menu solo puede contener letras',
   })
   @IsOptional()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
 
   @Field({ nullable: true })
@@ -28,7 +28,7 @@ export class UpdateMenuInput {
     message: 'El link del menu solo puede contener letras',
   })
   @IsOptional()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El link debe ser mayor a 2 caracteres' })
   link?: string;
 }
 

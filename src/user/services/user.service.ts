@@ -1,24 +1,34 @@
+import { UserDocument } from './../schemas/user.schema';
 import { RoleDocument } from './../../role/schemas/role.schema';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { AuthHelper } from '../../lib/helpers/auth.helper';
 import { UserInput } from '../dto/inputs/user.input';
 import { RoleService } from 'src/role/services/role.service';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserDocument } from '../schemas/user.schema';
 import { Model } from 'mongoose';
 import { UserUpdateInput } from '../dto/inputs/user-update.input';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnModuleInit {
   constructor(
     @InjectModel('User')
     private readonly userModel: Model<UserDocument>,
     private readonly roleService: RoleService,
   ) {}
+
+  //update all user to status 1 where users is equal null
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.userModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en UserService.onModuleInit ${e}`);
+    }
+  }
 
   //Post a single user
   async createUser(userInput: UserInput): Promise<UserDocument> {
@@ -45,6 +55,7 @@ export class UserService {
       role: findRole._id,
       password,
       confirmPassword,
+      status: 1,
     });
 
     let userSaved: UserDocument;
@@ -81,14 +92,45 @@ export class UserService {
     return foundUser;
   }
 
+  async activarUser(id: string): Promise<UserDocument> {
+    let findUser: UserDocument;
+    await this.findOneUserById(id);
+
+    try {
+      findUser = await this.userModel.findByIdAndUpdate(
+        id,
+        { status: 1 },
+        { new: true },
+      );
+    } catch (e) {
+      throw new Error(`Error en UserService.activarUser ${e}`);
+    }
+
+    return findUser;
+  }
+
+  async desactivateUser(id: string): Promise<UserDocument> {
+    let findUser: UserDocument;
+    await this.findOneUserById(id);
+
+    try {
+      findUser = await this.userModel.findByIdAndUpdate(
+        id,
+        { status: 2 },
+        { new: true },
+      );
+    } catch (e) {
+      throw new Error(`Error en UserService.desactivateUser ${e}`);
+    }
+    return findUser;
+  }
+
   //Put data user
-  async updateUser(
-    id: string,
-    userInput: UserUpdateInput,
-  ): Promise<UserDocument> {
-    const { password, confirmPassword, role } = userInput;
+  async updateUser(userInput: UserUpdateInput): Promise<UserDocument> {
+    const { id, password, confirmPassword, role } = userInput;
 
     let findRole: RoleDocument;
+    let updateUser: UserDocument;
 
     const findUserById = await this.findOneUserById(id);
 
@@ -105,8 +147,6 @@ export class UserService {
         'noexist',
       );
     }
-
-    let updateUser: UserDocument;
 
     try {
       updateUser = await this.userModel
@@ -219,14 +259,18 @@ export class UserService {
 
     switch (param) {
       case 'exist':
-        if (user) throw new BadRequestException(`El Correo ${email} ya existe`);
+        if (user)
+          throw new BadRequestException({
+            path: 'email',
+            message: [`El correo ${email} ya existe`],
+          });
         break;
 
       case 'noexist':
         if (!user)
           throw new BadRequestException({
             path: 'username',
-            message: 'El usuario no existe',
+            message: ['El usuario no existe'],
           });
         break;
     }

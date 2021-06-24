@@ -8,29 +8,33 @@ import { CreateRoleUserInput } from 'src/role/dto/inputs/role.input';
 export class UserInput {
   @Field()
   @Matches(/^[A-Za-z\s]+$/, { message: 'El nombre solo puede contener letras' })
-  @IsNotEmpty()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @IsNotEmpty({ message: 'Debe completar el nombre' })
   name: string;
 
   @Field()
   @Matches(/^[A-Za-z\s]+$/, {
     message: 'El apellido solo puede contener letras',
   })
-  @IsNotEmpty()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El apellido debe ser mayor a 2 caracteres' })
+  @IsNotEmpty({ message: 'Debe completar el apellido' })
   lastName: string;
 
   @Field()
-  @IsEmail()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Debe completar el rol' })
+  role: CreateRoleUserInput;
+
+  @Field()
+  @IsEmail({}, { message: 'El correo debe ser válido' })
+  @IsNotEmpty({ message: 'Debe completar el correo' })
   email: string;
 
   @Field()
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'La contraseña debe contener por lo menos una mayúscula y números',
   })
-  @IsNotEmpty()
-  @Length(6, 55)
+  @Length(6, 55, { message: 'Contraseña debe ser mayor a 5 caracteres' })
+  @IsNotEmpty({ message: 'Debe completar la contraseña' })
   password: string;
 
   @Field()
@@ -38,10 +42,9 @@ export class UserInput {
     message:
       'La confirmación de contraseña no coincide con la contraseña ingresada',
   })
-  @IsNotEmpty()
-  @Length(6, 55)
+  @Length(6, 55, {
+    message: 'Repetir contraseña debe ser mayor a 5 caracteres',
+  })
+  @IsNotEmpty({ message: 'Debe completar la confirmación de contraseña' })
   confirmPassword: string;
-
-  @Field()
-  role: CreateRoleUserInput;
 }

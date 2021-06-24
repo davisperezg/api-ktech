@@ -143,7 +143,10 @@ export class ModuleService {
 
     //if does not exist
     if (!module)
-      throw new NotFoundException(`El modulo no se encuentra o no existe`);
+      throw new NotFoundException({
+        path: 'module',
+        message: [`El modulo no se encuentra o no existe`],
+      });
 
     return module;
   }
@@ -164,12 +167,18 @@ export class ModuleService {
     switch (param) {
       case 'exist':
         if (module)
-          throw new BadRequestException(`El modulo ${name} ya existe`);
+          throw new BadRequestException({
+            path: 'module',
+            message: [`El modulo ${name} ya existe`],
+          });
         break;
 
       case 'noexist':
         if (!module)
-          throw new NotFoundException(`El modulo no se encuentra o no existe`);
+          throw new NotFoundException({
+            path: 'module',
+            message: [`El modulo no se encuentra o no existe`],
+          });
         return module;
     }
   }
@@ -195,7 +204,10 @@ export class ModuleService {
     }
 
     if (!modules || modules.length === 0)
-      throw new NotFoundException(`El modulo no se encuentra o no existe`);
+      throw new NotFoundException({
+        path: 'module',
+        message: [`El modulo no se encuentra o no existe`],
+      });
 
     return modules;
   }

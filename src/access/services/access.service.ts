@@ -78,8 +78,11 @@ export class AccessService implements OnModuleInit {
       throw new Error(`Error en ModuleService.findModulesByNames ${e}`);
     }
 
-    if (!accesses)
-      throw new NotFoundException(`El modulo no se encuentra o no existe`);
+    if (!accesses || accesses.length === 0)
+      throw new NotFoundException({
+        path: 'access',
+        message: [`El tipo de acceso no se encuentra o no existe`],
+      });
 
     return accesses;
   }

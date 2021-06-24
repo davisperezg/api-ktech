@@ -9,16 +9,16 @@ export class RoleInput {
   @Matches(/^[A-Za-z0-9\s]+$/, {
     message: 'El nombre del rol solo puede contener letras y números',
   })
-  @IsNotEmpty()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @IsNotEmpty({ message: 'Debe completar el nombre' })
   name: string;
 
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9\s]+$/, {
     message: 'La descripción del rol solo puede contener letras y números',
   })
+  @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
   @IsOptional()
-  @Length(3, 55)
   description?: string;
 
   @Field(() => [CreateRoleModuleInput])
@@ -31,7 +31,7 @@ export class CreateRoleUserInput {
   @Matches(/^[A-Za-z0-9\s]+$/, {
     message: 'El nombre del rol solo puede contener letras y números',
   })
-  @IsNotEmpty()
   @Length(3, 55)
+  @IsNotEmpty()
   name: string;
 }

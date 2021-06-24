@@ -9,7 +9,7 @@ export class Menu {
   @Prop({ trim: true, unique: true })
   name: string;
 
-  @Prop({ trim: true, unique: true })
+  @Prop({ trim: true, unique: true, lowercase: true })
   link: string;
 }
 

@@ -12,8 +12,8 @@ import { Field, InputType, ID } from '@nestjs/graphql';
 @InputType()
 export class UpdateModuleInput {
   @Field(() => ID)
-  @IsMongoId()
-  @IsNotEmpty()
+  @IsMongoId({ message: 'El id recibido es incorrecto, actualizar página' })
+  @IsNotEmpty({ message: 'El id no puede estar vacio, actualizar página' })
   id: string;
 
   @Field({ nullable: true })
@@ -21,15 +21,15 @@ export class UpdateModuleInput {
     message: 'El nombre del modulo solo puede contener letras y números',
   })
   @IsOptional()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
 
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9\s]+$/, {
-    message: 'La descripción del rol solo puede contener letras y números',
+    message: 'La descripción solo puede contener letras y números',
   })
   @IsOptional()
-  @Length(3, 55)
+  @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
   description?: string;
 
   @Field(() => [UpdateAccessModuleInput], { nullable: true })

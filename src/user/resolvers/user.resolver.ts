@@ -29,10 +29,10 @@ export class UserResolver {
    **/
   @Mutation(() => UserType)
   updateUser(
-    @Args('id') id: string,
-    @Args('userInput') userInput: UserUpdateInput,
+    @Args({ name: 'userInput', type: () => UserUpdateInput })
+    userInput: UserUpdateInput,
   ) {
-    return this.userService.updateUser(id, userInput);
+    return this.userService.updateUser(userInput);
   }
 
   //delete user
@@ -43,8 +43,7 @@ export class UserResolver {
 
   //query get users
   @Query(() => [UserType])
-  getUsers(@CtxUser() user: UserDocument): Promise<UserDocument[]> {
-    console.log(user);
+  getUsers(): Promise<UserDocument[]> {
     return this.userService.findAllUsers();
   }
 
@@ -54,9 +53,19 @@ export class UserResolver {
     return this.userService.findOneUserById(id);
   }
 
+  //query get me
   @Query(() => UserType)
   me(@CtxUser() user: UserDocument): Promise<UserDocument> {
-    console.log(user);
     return this.userService.findOneUserById(user.id);
+  }
+
+  @Mutation(() => UserType)
+  desactivateUser(@Args('id') id: string): Promise<UserDocument> {
+    return this.userService.desactivateUser(id);
+  }
+
+  @Mutation(() => UserType)
+  activateUser(@Args('id') id: string): Promise<UserDocument> {
+    return this.userService.activarUser(id);
   }
 }
