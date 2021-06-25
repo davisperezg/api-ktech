@@ -6,7 +6,7 @@ import { CreateRoleModuleInput } from 'src/modules/dto/inputs/create-module.inpu
 @InputType()
 export class RoleInput {
   @Field()
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ0-9\s]+$/, {
     message: 'El nombre del rol solo puede contener letras y números',
   })
   @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
@@ -14,7 +14,7 @@ export class RoleInput {
   name: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
     message: 'La descripción del rol solo puede contener letras y números',
   })
   @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })

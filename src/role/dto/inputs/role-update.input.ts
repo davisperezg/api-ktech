@@ -16,7 +16,7 @@ export class RoleUpdateInput {
   id: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ0-9\s]+$/, {
     message: 'El nombre solo puede contener letras y números',
   })
   @IsOptional()
@@ -24,7 +24,7 @@ export class RoleUpdateInput {
   name?: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
     message: 'La descripción solo puede contener letras y números',
   })
   @IsOptional()

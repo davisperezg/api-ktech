@@ -4,16 +4,42 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UpdateMenuInput } from '../dto/inputs/update-menu.input';
 
 @Injectable()
-export class MenuService {
+export class MenuService implements OnModuleInit {
   constructor(
     @InjectModel('Menu') private readonly menuModel: Model<MenuDocument>,
   ) {}
+
+  async onModuleInit(): Promise<MenuDocument[] | number> {
+    let countMenus: number;
+    let valuesMenus: MenuDocument[];
+
+    try {
+      countMenus = await this.menuModel.estimatedDocumentCount();
+    } catch (e) {
+      throw new Error(`Error en MenuService.onModuleInit.Count ${e}`);
+    }
+
+    if (countMenus > 0) return;
+
+    try {
+      valuesMenus = await Promise.all([
+        new this.menuModel({ name: 'Roles', link: 'roles' }).save(),
+        new this.menuModel({ name: 'Usuarios', link: 'usuarios' }).save(),
+        new this.menuModel({ name: 'Modulos', link: 'modulos' }).save(),
+      ]);
+    } catch (e) {
+      throw new Error(`Error en MenuService.onModuleInit.All ${e}`);
+    }
+
+    return valuesMenus;
+  }
 
   //Post a single menu
   async createMenu(menuInput: CreateMenuInput): Promise<MenuDocument> {

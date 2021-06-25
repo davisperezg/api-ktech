@@ -5,12 +5,7 @@ import { MenuResolver } from './resolvers/menu.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: 'Menu', schema: MenuSchema },
-      //{ name: 'Access', schema: AccessSchema },
-    ]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: 'Menu', schema: MenuSchema }])],
   providers: [MenuService, MenuResolver],
 })
 export class MenuModule {}

@@ -20,13 +20,15 @@ export class UserUpdateInput {
   id: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z\s]+$/, { message: 'El nombre solo puede contener letras' })
+  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
+    message: 'El nombre solo puede contener letras',
+  })
   @IsOptional()
   @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'El apellido solo puede contener letras',
   })
   @IsOptional()

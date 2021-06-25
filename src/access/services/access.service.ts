@@ -1,9 +1,7 @@
-import { UserDocument } from 'src/user/schemas/user.schema';
 import { AccessDocument } from './../schemas/access.schema';
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class AccessService implements OnModuleInit {

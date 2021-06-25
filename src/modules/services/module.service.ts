@@ -5,6 +5,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ModuleDocument } from '../schemas/module.schema';
 import { Model } from 'mongoose';
@@ -12,14 +13,138 @@ import { CreateModuleInput } from '../dto/inputs/create-module.input';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateModuleInput } from '../dto/inputs/update-module.input';
 import { AccessService } from 'src/access/services/access.service';
+import { RoleDocument } from 'src/role/schemas/role.schema';
+import { UserDocument } from 'src/user/schemas/user.schema';
+import { AuthHelper } from 'src/lib/helpers/auth.helper';
 
 @Injectable()
-export class ModuleService {
+export class ModuleService implements OnApplicationBootstrap {
   constructor(
     @InjectModel('Module') private readonly moduleModel: Model<ModuleDocument>,
+    @InjectModel('Role') private readonly roleModel: Model<RoleDocument>,
+    @InjectModel('User') private readonly userModel: Model<UserDocument>,
     private readonly accessService: AccessService,
     private readonly menuService: MenuService,
   ) {}
+
+  async onApplicationBootstrap(): Promise<ModuleDocument[] | number> {
+    let countModule: number;
+    let valuesModule: ModuleDocument[];
+    let findRole: RoleDocument;
+
+    try {
+      countModule = await this.moduleModel.estimatedDocumentCount();
+    } catch (e) {
+      throw new Error(
+        `Error en ModuleService.onApplicationBootstrap.Count ${e}`,
+      );
+    }
+
+    if (countModule > 0) return;
+
+    const dataModules = [
+      {
+        name: 'Administración de modulos',
+      },
+    ];
+
+    const dataAccess = [
+      {
+        name: 'Crear',
+      },
+      {
+        name: 'Editar',
+      },
+      {
+        name: 'Eliminar',
+      },
+      {
+        name: 'Ver',
+      },
+    ];
+
+    const dataMenus = [
+      { name: 'Roles' },
+      { name: 'Usuarios' },
+      { name: 'Modulos' },
+    ];
+
+    const dataRol = {
+      name: 'SuperAdmin',
+      description: 'El SuperAdmin administra RPUM',
+      modules: dataModules,
+    };
+
+    try {
+      const getIdsMenus = await this.menuService.findIdsByNameMenu(dataMenus);
+      const getIdsAccess = await this.accessService.findIdsByNameAccess(
+        dataAccess,
+      );
+
+      valuesModule = await Promise.all([
+        new this.moduleModel({
+          name: 'Administración de modulos',
+          access: getIdsAccess,
+          menus: getIdsMenus,
+        }).save(),
+      ]);
+
+      //find modules by ids
+      const getIdModules = await this.findIdsByNameModules(dataModules);
+
+      //adding data in role
+      const newRole = new this.roleModel({
+        ...dataRol,
+        modules: getIdModules,
+      });
+
+      try {
+        //new role
+        await newRole.save();
+      } catch (e) {
+        throw new Error(
+          `Error en ModuleService.onApplicationBootstrap.SaveRol ${e}`,
+        );
+      }
+
+      try {
+        findRole = await this.roleModel.findOne({ name: dataRol.name });
+      } catch (e) {
+        throw new Error(
+          `Error en ModuleService.onApplicationBootstrap.findOneRole ${e}`,
+        );
+      }
+
+      //change password pls
+      const password = await AuthHelper.hashPassword('D@peor2021');
+      const confirmPassword = await AuthHelper.hashPassword('D@peor2021');
+
+      //adding data in user
+      const newUser = new this.userModel({
+        name: 'Keiner',
+        lastName: 'Perez Guzman',
+        email: 'davisperezg@gmail.com',
+        password,
+        confirmPassword,
+        role: findRole._id,
+      });
+
+      try {
+        //new User
+        await newUser.save();
+      } catch (e) {
+        throw new Error(
+          `Error en ModuleService.onApplicationBootstrap.SaveUser ${e}`,
+        );
+      }
+    } catch (e) {
+      throw new Error(
+        `Error en ModuleService.onApplicationBootstrap.SaveModule ${e}`,
+      );
+    }
+
+    return valuesModule;
+  }
 
   //Post module
   async createModule(moduleInput: CreateModuleInput): Promise<ModuleDocument> {

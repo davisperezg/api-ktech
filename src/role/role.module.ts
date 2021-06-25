@@ -9,6 +9,8 @@ import { ModuleService } from 'src/modules/services/module.service';
 import { ModuleSchema } from 'src/modules/schemas/module.schema';
 import { AccessService } from 'src/access/services/access.service';
 import { AccessSchema } from 'src/access/schemas/access.schema';
+import { UserService } from 'src/user/services/user.service';
+import { UserSchema } from 'src/user/schemas/user.schema';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { AccessSchema } from 'src/access/schemas/access.schema';
       { name: 'Module', schema: ModuleSchema },
       { name: 'Access', schema: AccessSchema },
       { name: 'Menu', schema: MenuSchema },
+      { name: 'User', schema: UserSchema },
     ]),
   ],
   providers: [
@@ -25,6 +28,7 @@ import { AccessSchema } from 'src/access/schemas/access.schema';
     ModuleService,
     AccessService,
     MenuService,
+    UserService,
   ],
 })
 export class RoleModule {}

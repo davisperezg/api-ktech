@@ -17,7 +17,7 @@ export class UpdateModuleInput {
   id: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ0-9\s]+$/, {
     message: 'El nombre del modulo solo puede contener letras y números',
   })
   @IsOptional()
@@ -25,7 +25,7 @@ export class UpdateModuleInput {
   name?: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9\s]+$/, {
+  @Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
     message: 'La descripción solo puede contener letras y números',
   })
   @IsOptional()
