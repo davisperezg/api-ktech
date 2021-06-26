@@ -12,7 +12,10 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtType } from '../dto/querys/jwt.type';
 import { UserRefreshTokenType } from '../dto/querys/user-refresh-token.type';
 import { AuthRefreshTokenInput } from '../dto/inputs/auth-refresh-token.input';
-import { AuthChangePasswordInput } from '../dto/inputs/auth-change-password.input';
+import {
+  AuthChangePasswordInputToUser,
+  AuthChangePasswordInputToAdmin,
+} from '../dto/inputs/auth-change-password.input';
 import { UserService } from 'src/user/services/user.service';
 
 const refreshTokens = {};
@@ -55,8 +58,10 @@ export class AuthService {
     return { access_token: this.getToken(findUser._id), refresh_token };
   }
 
-  //Change password
-  async changePassword(userPassword: AuthChangePasswordInput): Promise<any> {
+  //Change password to USER
+  async changePasswordToUser(
+    userPassword: AuthChangePasswordInputToUser,
+  ): Promise<boolean> {
     let result = false;
     let isMatch: boolean;
     const {
@@ -90,10 +95,41 @@ export class AuthService {
       });
 
       //if password is true => password changed
-      return (result = true);
+      result = true;
     } catch (e) {
-      throw new Error(`Error en AuthService.changePassword ${e}`);
+      throw new Error(`Error en AuthService.changePasswordToUser ${e}`);
     }
+
+    return result;
+  }
+
+  //Change password to ADMIN
+  async changePasswordToAdmin(
+    userPassword: AuthChangePasswordInputToAdmin,
+  ): Promise<boolean> {
+    let result: boolean;
+
+    const { id, newPassword, confirmNewPassword } = userPassword;
+
+    try {
+      //hash new password
+      const password = await AuthHelper.hashPassword(newPassword);
+
+      //hash confirm new password
+      const confirmPassword = await AuthHelper.hashPassword(confirmNewPassword);
+
+      //update password of user by id
+      await this.userService.findOneUserByIdAndUpdate(id, {
+        password,
+        confirmPassword,
+      });
+
+      result = true;
+    } catch (e) {
+      throw new Error(`Error en AuthService.changePasswordToAdmin ${e}`);
+    }
+
+    return result;
   }
 
   //method to validate token with refresh-token v0.0.1

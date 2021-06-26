@@ -1,5 +1,8 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { AuthChangePasswordInput } from '../dto/inputs/auth-change-password.input';
+import {
+  AuthChangePasswordInputToUser,
+  AuthChangePasswordInputToAdmin,
+} from '../dto/inputs/auth-change-password.input';
 import { AuthRefreshTokenInput } from '../dto/inputs/auth-refresh-token.input';
 import { AuthInput } from '../dto/inputs/auth.input';
 import { UserRefreshTokenType } from '../dto/querys/user-refresh-token.type';
@@ -29,10 +32,18 @@ export class AuthResolver {
 
   //mutation - post change password
   @Mutation(() => Boolean)
-  changePassword(
-    @Args({ name: 'authInput', type: () => AuthChangePasswordInput })
-    authInput: AuthChangePasswordInput,
+  changePasswordToUser(
+    @Args({ name: 'authInput', type: () => AuthChangePasswordInputToUser })
+    authInput: AuthChangePasswordInputToUser,
   ) {
-    return this.authService.changePassword(authInput);
+    return this.authService.changePasswordToUser(authInput);
+  }
+
+  @Mutation(() => Boolean)
+  changePasswordToAdmin(
+    @Args({ name: 'authInput', type: () => AuthChangePasswordInputToAdmin })
+    authInput: AuthChangePasswordInputToAdmin,
+  ) {
+    return this.authService.changePasswordToAdmin(authInput);
   }
 }
