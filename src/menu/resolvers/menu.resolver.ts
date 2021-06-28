@@ -1,3 +1,5 @@
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
 import { MenuService } from './../services/menu.service';
 import { MenuType } from './../dto/querys/menu.type';
 import { Mutation, Query, Args, Resolver } from '@nestjs/graphql';
@@ -6,6 +8,7 @@ import { UpdateMenuInput } from '../dto/inputs/update-menu.input';
 import { MenuDocument } from '../schemas/menu.schema';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class MenuResolver {
   constructor(private readonly menuService: MenuService) {}
 

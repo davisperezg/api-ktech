@@ -1,4 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import {
   AuthChangePasswordInputToUser,
   AuthChangePasswordInputToAdmin,
@@ -8,6 +9,7 @@ import { AuthInput } from '../dto/inputs/auth.input';
 import { UserRefreshTokenType } from '../dto/querys/user-refresh-token.type';
 import { UserTokenType } from '../dto/querys/user-token.type';
 import { AuthService } from '../services/auth.service';
+import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
 
 @Resolver()
 export class AuthResolver {
@@ -32,6 +34,7 @@ export class AuthResolver {
 
   //mutation - post change password
   @Mutation(() => Boolean)
+  @UseGuards(GqlAuthGuard)
   changePasswordToUser(
     @Args({ name: 'authInput', type: () => AuthChangePasswordInputToUser })
     authInput: AuthChangePasswordInputToUser,
@@ -40,6 +43,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseGuards(GqlAuthGuard)
   changePasswordToAdmin(
     @Args({ name: 'authInput', type: () => AuthChangePasswordInputToAdmin })
     authInput: AuthChangePasswordInputToAdmin,

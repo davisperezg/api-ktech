@@ -138,22 +138,23 @@ export class AuthService {
   ): Promise<UserRefreshTokenType> {
     const email = authRefreshTokenInput.email;
     const refreshToken = authRefreshTokenInput.refresh_token;
-
+    //find user by email
+    const findUser = await this.userService.findOneUserByEmail(
+      email,
+      'noexist',
+    );
     //verify if exist refresh token and email in refresh token, is correct  ?
     if (
       refreshToken in refreshTokens &&
       refreshTokens[refreshToken] === email
     ) {
-      //find user by email
-      const findUser = await this.userService.findOneUserByEmail(
-        email,
-        'noexist',
-      );
-
       //return { access_token }
       return { access_token: this.getToken(findUser._id) };
     } else {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException({
+        path: 'token',
+        message: ['El token no funciona, por favor volver a loguearte'],
+      });
     }
   }
 

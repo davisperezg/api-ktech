@@ -1,10 +1,13 @@
+import { UseGuards } from '@nestjs/common';
 import { Mutation, Query, Args, Resolver } from '@nestjs/graphql';
 import { CreateModuleInput } from '../dto/inputs/create-module.input';
 import { UpdateModuleInput } from '../dto/inputs/update-module.input';
 import { ModuleType } from '../dto/querys/module.type';
 import { ModuleService } from '../services/module.service';
+import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class ModuleResolver {
   constructor(private readonly moduleService: ModuleService) {}
 

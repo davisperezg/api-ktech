@@ -7,7 +7,7 @@ import { RoleType } from '../dto/querys/role.type';
 import { RoleService } from '../services/role.service';
 
 @Resolver()
-//@UseGuards(GqlAuthGuard)
+@UseGuards(GqlAuthGuard)
 export class RoleResolver {
   constructor(private readonly roleService: RoleService) {}
 
