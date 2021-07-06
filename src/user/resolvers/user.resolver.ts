@@ -1,5 +1,7 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
+import { hasRoles } from 'src/lib/decorators/roles.decorators';
+import { RolesGuard } from 'src/lib/guards/roles.guard';
 import { CtxUser } from '../../lib/decorators/ctx-user.decorators';
 import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 import { UserUpdateInput } from '../dto/inputs/user-update.input';
@@ -20,8 +22,11 @@ export class UserResolver {
    * @param UserInput -> contiene algunas variables que pueden ser nulos
    */
   @Mutation(() => UserType)
-  registerUser(@Args('userInput') userInput: UserInput) {
-    return this.userService.createUser(userInput);
+  registerUser(
+    @Args('userInput') userInput: UserInput,
+    @CtxUser() user: UserDocument,
+  ) {
+    return this.userService.createUser(userInput, user);
   }
 
   /** put user
@@ -31,8 +36,9 @@ export class UserResolver {
   updateUser(
     @Args({ name: 'userInput', type: () => UserUpdateInput })
     userInput: UserUpdateInput,
+    @CtxUser() user: UserDocument,
   ) {
-    return this.userService.updateUser(userInput);
+    return this.userService.updateUser(userInput, user);
   }
 
   //delete user

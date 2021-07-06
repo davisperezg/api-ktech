@@ -16,12 +16,15 @@ import { ModuleSchema } from 'src/modules/schemas/module.schema';
 import { ModuleService } from 'src/modules/services/module.service';
 import { AccessSchema } from 'src/access/schemas/access.schema';
 import { AccessService } from 'src/access/services/access.service';
+import { RolesGuard } from 'src/lib/guards/roles.guard';
+//import { forwardRef } from '@nestjs/common';
 
 @Module({
   imports: [
+    //forwardRef(() => UserService),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '24h' },
+      signOptions: { expiresIn: '5m' },
     }),
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
@@ -41,6 +44,7 @@ import { AccessService } from 'src/access/services/access.service';
     ModuleService,
     AccessService,
     MenuService,
+    RolesGuard,
   ],
 })
 export class AuthModule {}

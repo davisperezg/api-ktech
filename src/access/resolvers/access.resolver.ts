@@ -3,6 +3,7 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { AccessService } from '../services/access.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
+import { RolesGuard } from 'src/lib/guards/roles.guard';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)

@@ -1,3 +1,4 @@
+import { moduleSA, roleSA } from './../../auth/constants';
 import { ModuleDocument } from './../../modules/schemas/module.schema';
 import {
   BadRequestException,
@@ -8,8 +9,12 @@ import { RoleInput } from '../dto/inputs/role.input';
 import { RoleDocument } from '../schemas/role.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { RoleUpdateInput } from '../dto/inputs/role-update.input';
+import {
+  RoleUpdateInput,
+  UpdateRoleUserInput,
+} from '../dto/inputs/role-update.input';
 import { ModuleService } from 'src/modules/services/module.service';
+import { UserDocument } from 'src/user/schemas/user.schema';
 
 @Injectable()
 export class RoleService {
@@ -19,9 +24,23 @@ export class RoleService {
     private readonly moduleService: ModuleService,
   ) {}
 
+  findModuleSA = (items: any[], value: string): boolean =>
+    items.some((item) => item.name === value);
+
   //Post a single role
-  async createRole(roleInput: RoleInput): Promise<RoleDocument> {
+  async createRole(
+    roleInput: RoleInput,
+    user: UserDocument,
+  ): Promise<RoleDocument> {
     const { name, modules } = roleInput;
+
+    if (this.findModuleSA(modules, moduleSA)) {
+      throw new NotFoundException({
+        path: 'module',
+        message: [`Lo siento, no puedes agregar el modulo "Modulos".`],
+      });
+    }
+
     //find role by name and validate if it exists
     await this.findOneRoleByName(name, 'exist');
 
@@ -61,15 +80,41 @@ export class RoleService {
 
   //Put one role
   async updateRole(roleInput: RoleUpdateInput): Promise<RoleDocument> {
-    const { id, modules } = roleInput;
+    const { id, modules, name } = roleInput;
     let getIdsModules: ModuleDocument[];
     let updateRole: RoleDocument;
+    let newModules: UpdateRoleUserInput[];
+
     //find role by id and valid if does not exist
     const findRoleIfExist = await this.findOneRoleById(id);
 
+    if (name && findRoleIfExist.name === roleSA) {
+      roleInput = {
+        ...roleInput,
+        name: roleSA,
+      };
+    }
+
     if (modules) {
+      if (
+        findRoleIfExist.name === roleSA &&
+        !this.findModuleSA(modules, moduleSA)
+      ) {
+        modules.push({ name: moduleSA });
+      } else {
+        if (
+          findRoleIfExist.name === roleSA &&
+          this.findModuleSA(modules, moduleSA)
+        ) {
+        } else {
+          newModules = modules.filter((module) => module.name !== moduleSA);
+        }
+      }
+
       //get Ids modules by names
-      getIdsModules = await this.moduleService.findIdsByNameModules(modules);
+      getIdsModules = await this.moduleService.findIdsByNameModules(
+        newModules || modules,
+      );
     } else {
       getIdsModules = await this.moduleService.findIdsByNameModules(
         findRoleIfExist.modules,

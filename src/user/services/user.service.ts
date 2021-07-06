@@ -5,6 +5,7 @@ import {
   Injectable,
   NotFoundException,
   OnModuleInit,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthHelper } from '../../lib/helpers/auth.helper';
 import { UserInput } from '../dto/inputs/user.input';
@@ -12,6 +13,7 @@ import { RoleService } from 'src/role/services/role.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserUpdateInput } from '../dto/inputs/user-update.input';
+import { roleSA } from 'src/auth/constants';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -31,8 +33,18 @@ export class UserService implements OnModuleInit {
   }
 
   //Post a single user
-  async createUser(userInput: UserInput): Promise<UserDocument> {
-    const { email } = userInput;
+  async createUser(
+    userInput: UserInput,
+    user: UserDocument,
+  ): Promise<UserDocument> {
+    const { email, role } = userInput;
+
+    if (user.role.name !== roleSA && role.name === roleSA) {
+      throw new UnauthorizedException({
+        path: 'forbidden',
+        message: ['Lo siento, no tiene permiso para hacer esto'],
+      });
+    }
 
     await this.findOneUserByEmail(email, 'exist');
 
@@ -111,7 +123,14 @@ export class UserService implements OnModuleInit {
 
   async desactivateUser(id: string): Promise<UserDocument> {
     let findUser: UserDocument;
-    await this.findOneUserById(id);
+    const foundUser = await this.findOneUserById(id);
+
+    if (foundUser.role.name === roleSA) {
+      throw new UnauthorizedException({
+        path: 'forbidden',
+        message: ['Recurso prohibido.'],
+      });
+    }
 
     try {
       findUser = await this.userModel.findByIdAndUpdate(
@@ -126,13 +145,43 @@ export class UserService implements OnModuleInit {
   }
 
   //Put data user
-  async updateUser(userInput: UserUpdateInput): Promise<UserDocument> {
-    const { id, password, confirmPassword, role } = userInput;
+  async updateUser(
+    userInput: UserUpdateInput,
+    user: UserDocument,
+  ): Promise<UserDocument> {
+    const { id, password, confirmPassword, role, email } = userInput;
+
+    if (user.role.name !== roleSA && role.name === roleSA) {
+      throw new UnauthorizedException({
+        path: 'forbidden',
+        message: ['Lo siento, no tiene permiso para hacer esto.'],
+      });
+    }
 
     let findRole: RoleDocument;
     let updateUser: UserDocument;
 
     const findUserById = await this.findOneUserById(id);
+
+    if (
+      user.role.name === roleSA &&
+      findUserById.role.name === roleSA &&
+      role.name !== roleSA
+    ) {
+      throw new BadRequestException({
+        path: 'role',
+        message: [
+          `Lo siento, pero el rol "${findUserById.role.name}" ya está establecido.`,
+        ],
+      });
+    }
+
+    if (email && email !== findUserById.email) {
+      throw new BadRequestException({
+        path: 'email',
+        message: ['Mala idea, esta opción está deshabilitada.'],
+      });
+    }
 
     //must not contain a password or confirm password
     if (password || confirmPassword)

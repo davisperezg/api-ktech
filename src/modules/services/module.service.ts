@@ -1,3 +1,4 @@
+import { UpdateNameMenuDTO } from './../../menu/dto/inputs/update-menu.input';
 import { MenuDocument } from './../../menu/schemas/menu.schema';
 import { MenuService } from './../../menu/services/menu.service';
 import { AccessDocument } from './../../access/schemas/access.schema';
@@ -11,11 +12,15 @@ import { ModuleDocument } from '../schemas/module.schema';
 import { Model } from 'mongoose';
 import { CreateModuleInput } from '../dto/inputs/create-module.input';
 import { InjectModel } from '@nestjs/mongoose';
-import { UpdateModuleInput } from '../dto/inputs/update-module.input';
+import {
+  UpdateAccessModuleInput,
+  UpdateModuleInput,
+} from '../dto/inputs/update-module.input';
 import { AccessService } from 'src/access/services/access.service';
 import { RoleDocument } from 'src/role/schemas/role.schema';
 import { UserDocument } from 'src/user/schemas/user.schema';
 import { AuthHelper } from 'src/lib/helpers/auth.helper';
+import { moduleSA, menuSA, dataAccess } from 'src/auth/constants';
 
 @Injectable()
 export class ModuleService implements OnApplicationBootstrap {
@@ -26,6 +31,12 @@ export class ModuleService implements OnApplicationBootstrap {
     private readonly accessService: AccessService,
     private readonly menuService: MenuService,
   ) {}
+
+  findMenuSA = (items: any[], value: string): boolean =>
+    items.some((item) => item.name === value);
+
+  findAccessSA = (items: any[], value: any[]): boolean[] =>
+    value.map((val) => !!items.find((item) => item.name === val.name));
 
   async onApplicationBootstrap(): Promise<ModuleDocument[] | number> {
     let countModule: number;
@@ -127,6 +138,7 @@ export class ModuleService implements OnApplicationBootstrap {
         password,
         confirmPassword,
         role: findRole._id,
+        status: 1,
       });
 
       try {
@@ -151,6 +163,13 @@ export class ModuleService implements OnApplicationBootstrap {
     const { name, menus, access } = moduleInput;
     let module: ModuleDocument;
     let foundModule: ModuleDocument;
+
+    if (this.findMenuSA(menus, menuSA)) {
+      throw new NotFoundException({
+        path: 'module',
+        message: [`Lo siento, no puedes agregar el modulo "Modulos".`],
+      });
+    }
 
     //find module by name and validate if it exists
     await this.findOneModuleByName(name, 'exist');
@@ -183,17 +202,49 @@ export class ModuleService implements OnApplicationBootstrap {
 
   //Put module
   async updateModule(moduleInput: UpdateModuleInput): Promise<ModuleDocument> {
-    const { id, menus, access } = moduleInput;
+    const { id, menus, access, name } = moduleInput;
+
     let getIdsAccess: AccessDocument[];
     let getIdsMenus: MenuDocument[];
     let updateModule: ModuleDocument;
+    let newMenus: UpdateNameMenuDTO[];
+    let newAccess: UpdateAccessModuleInput[];
+
+    const findModule = await this.findOneModuleById(id);
+
+    if (access && findModule.name === moduleSA) {
+      this.findAccessSA(access, dataAccess).map((search) => {
+        if (search === false) {
+          moduleInput = {
+            ...moduleInput,
+            access: [],
+          };
+
+          access.push(
+            { name: 'Editar' },
+            { name: 'Eliminar' },
+            { name: 'Crear' },
+            { name: 'Ver' },
+          );
+        }
+      });
+    }
+
+    if (name && findModule.name === moduleSA) {
+      moduleInput = {
+        ...moduleInput,
+        name: moduleSA,
+      };
+    }
 
     //find module by id and valid if exist
     const findModuleIfExist = await this.findOneModuleById(id);
 
     if (access) {
       //get Ids access by names
-      getIdsAccess = await this.accessService.findIdsByNameAccess(access);
+      getIdsAccess = await this.accessService.findIdsByNameAccess(
+        newAccess || access,
+      );
     } else {
       getIdsAccess = await this.accessService.findIdsByNameAccess(
         findModuleIfExist.access,
@@ -201,8 +252,16 @@ export class ModuleService implements OnApplicationBootstrap {
     }
 
     if (menus) {
+      if (findModule.name === moduleSA && !this.findMenuSA(menus, menuSA)) {
+        menus.push({ name: menuSA });
+      } else {
+        if (findModule.name === moduleSA && this.findMenuSA(menus, menuSA)) {
+        } else {
+          newMenus = menus.filter((menu) => menu.name !== menuSA);
+        }
+      }
       //get Ids menus by names
-      getIdsMenus = await this.menuService.findIdsByNameMenu(menus);
+      getIdsMenus = await this.menuService.findIdsByNameMenu(newMenus || menus);
     } else {
       getIdsMenus = await this.menuService.findIdsByNameMenu(
         findModuleIfExist.menus,

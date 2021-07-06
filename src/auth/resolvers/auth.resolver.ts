@@ -10,6 +10,8 @@ import { UserRefreshTokenType } from '../dto/querys/user-refresh-token.type';
 import { UserTokenType } from '../dto/querys/user-token.type';
 import { AuthService } from '../services/auth.service';
 import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
+import { hasRoles } from 'src/lib/decorators/roles.decorators';
+import { RolesGuard } from 'src/lib/guards/roles.guard';
 
 @Resolver()
 export class AuthResolver {
@@ -42,8 +44,9 @@ export class AuthResolver {
     return this.authService.changePasswordToUser(authInput);
   }
 
+  @hasRoles('SuperAdmin')
   @Mutation(() => Boolean)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   changePasswordToAdmin(
     @Args({ name: 'authInput', type: () => AuthChangePasswordInputToAdmin })
     authInput: AuthChangePasswordInputToAdmin,

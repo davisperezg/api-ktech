@@ -51,6 +51,13 @@ export class AuthService {
         message: 'Contraseña inválida',
       });
 
+    if (findUser.status !== 1) {
+      throw new UnauthorizedException({
+        path: 'forbidden',
+        message: ['Acceso denegado.'],
+      });
+    }
+
     //email in refresh token
     refreshTokens[refresh_token] = email;
 
