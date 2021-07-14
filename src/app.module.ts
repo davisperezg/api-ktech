@@ -7,6 +7,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ModulesModule } from './modules/modules.module';
 import { AccessModule } from './access/access.module';
 import { MenuModule } from './menu/menu.module';
+import { CategoryModule } from './category/category.module';
+import { BrandModule } from './brand/brand.module';
+import { ModelModule } from './model/model.module';
+import { ProductModule } from './product/product.module';
+import { ServiceModule } from './service/service.module';
 
 //mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 @Module({
@@ -27,6 +32,11 @@ import { MenuModule } from './menu/menu.module';
     RoleModule,
     UserModule,
     AuthModule,
+    CategoryModule,
+    BrandModule,
+    ModelModule,
+    ProductModule,
+    ServiceModule,
   ],
 })
 export class AppModule {}
