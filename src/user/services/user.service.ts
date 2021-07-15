@@ -311,7 +311,7 @@ export class UserService implements OnModuleInit {
         if (user)
           throw new BadRequestException({
             path: 'email',
-            message: [`El correo ${email} ya existe`],
+            message: [`El correo ${email} ya existe.`],
           });
         break;
 

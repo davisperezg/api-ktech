@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { EXIST, NOEXIST, NULL } from 'src/lib/conts';
 import { CreateCategoryInput } from '../dto/inputs/create-category.input';
 import { UpdateCategoryInput } from '../dto/inputs/update-category.input';
 import { CategoryDocument } from '../schemas/category.schema';
@@ -16,7 +17,7 @@ export class CategoryService {
   ): Promise<CategoryDocument> {
     const { name } = categoryInput;
 
-    await this.findOneCategoryByName(name);
+    await this.findOneCategoryByName(name, EXIST);
 
     const newCategory = new this.categoryModel(categoryInput);
 
@@ -63,17 +64,37 @@ export class CategoryService {
     return findCategorys;
   }
 
-  async findOneCategoryByName(name: string): Promise<CategoryDocument> {
+  async findOneCategoryByName(
+    name: string,
+    param: string,
+  ): Promise<CategoryDocument> {
     let category: CategoryDocument;
 
     try {
       category = await this.categoryModel.findOne({ name });
     } catch (e) {
-      console.log(e);
-      throw new BadRequestException({
-        path: 'category',
-        message: [`La categoria ya existe.`],
-      });
+      throw new Error(`Error en CategoryService.findOneCategoryByName ${e}`);
+    }
+
+    switch (param) {
+      case EXIST:
+        if (category)
+          throw new BadRequestException({
+            path: 'category',
+            message: [`La categoria ${name} ya existe.`],
+          });
+        break;
+
+      case NOEXIST:
+        if (!category)
+          throw new BadRequestException({
+            path: 'category',
+            message: [`La categoria no existe.`],
+          });
+        break;
+
+      case NULL:
+        return category;
     }
 
     return category;
