@@ -161,7 +161,9 @@ export class BrandService {
             path: 'brand',
             message: [`La marca no existe.`],
           });
-        break;
+
+      case NULL:
+        return brand;
     }
 
     return brand;

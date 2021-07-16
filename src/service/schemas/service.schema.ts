@@ -9,6 +9,12 @@ export class Service {
   @Prop({ trim: true, unique: true, uppercase: true })
   name: string;
 
+  @Prop({ trim: true, uppercase: true })
+  description: string;
+
+  @Prop({ trim: true })
+  price: number;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   category: Category;
 }

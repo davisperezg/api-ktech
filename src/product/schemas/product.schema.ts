@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Brand } from 'src/brand/schemas/brand.schema';
+import { Category } from 'src/category/schemas/category.schema';
 import { Model } from 'src/model/schemas/model.schema';
 
 export type ProductDocument = Product & mongoose.Document;
@@ -8,6 +10,18 @@ export type ProductDocument = Product & mongoose.Document;
 export class Product {
   @Prop({ trim: true, unique: true, uppercase: true })
   name: string;
+
+  @Prop({ trim: true, uppercase: true })
+  description: string;
+
+  @Prop({ trim: true })
+  price: number;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
+  category: Category;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' })
+  brand: Brand;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Model' })
   model: Model;
