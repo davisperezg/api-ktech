@@ -16,13 +16,13 @@ export class UpdateBrandInput {
   id: string;
 
   @Field({ nullable: true })
+  category?: string;
+
+  @Field({ nullable: true })
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras',
   })
   @IsOptional()
   @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
-
-  @Field({ nullable: true })
-  category?: string;
 }

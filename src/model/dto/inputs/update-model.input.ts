@@ -16,7 +16,7 @@ export class UpdateModelInput {
   id: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
+  @Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
     message: 'El nombre solo puede contener letras',
   })
   @IsOptional()
