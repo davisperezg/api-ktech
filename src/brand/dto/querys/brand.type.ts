@@ -6,7 +6,7 @@ export class BrandType {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
   @Field(() => Date)

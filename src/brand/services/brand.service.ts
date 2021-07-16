@@ -45,11 +45,9 @@ export class BrandService {
     }
 
     try {
-      foundBrand = await brandSaved.populate([
-        {
-          path: 'category',
-        },
-      ]);
+      foundBrand = await brandSaved
+        .populate([{ path: 'category' }])
+        .execPopulate();
     } catch (e) {
       throw new Error(`Error en BrandService.createBrand.list ${e}`);
     }

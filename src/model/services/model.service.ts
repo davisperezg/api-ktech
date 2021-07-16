@@ -45,11 +45,9 @@ export class ModelService {
     }
 
     try {
-      foundModel = await modelSaved.populate([
-        {
-          path: 'brand',
-        },
-      ]);
+      foundModel = await modelSaved
+        .populate([{ path: 'brand' }])
+        .execPopulate();
     } catch (e) {
       throw new Error(`Error en ModelService.createModel.list ${e}`);
     }
@@ -114,7 +112,7 @@ export class ModelService {
     try {
       model = await this.modelModel.findById(id).populate([
         {
-          path: 'category',
+          path: 'brand',
         },
       ]);
     } catch (e) {
