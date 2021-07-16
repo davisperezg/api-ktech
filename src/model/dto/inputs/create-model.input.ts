@@ -16,6 +16,6 @@ export class CreateModelInput {
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras',
   })
-  @IsNotEmpty({ message: 'Debe completar el modelo' })
+  @IsNotEmpty({ message: 'Debe completar la marca' })
   brand: string;
 }
