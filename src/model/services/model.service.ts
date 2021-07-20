@@ -106,6 +106,25 @@ export class ModelService {
     return findModel;
   }
 
+  async findModelsByBrand(brand: string): Promise<ModelDocument[]> {
+    let models: ModelDocument[];
+
+    try {
+      models = await this.modelModel.find().populate({
+        path: 'brand',
+        match: {
+          name: brand,
+        },
+      });
+
+      models = models.filter((model) => model.brand !== null);
+    } catch (e) {
+      throw new Error(`Error en ModelService.findModelsByBrand ${e}`);
+    }
+
+    return models;
+  }
+
   async findOneModelById(id: string): Promise<ModelDocument> {
     let model: ModelDocument;
 

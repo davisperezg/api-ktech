@@ -6,7 +6,7 @@ import { IsNotEmpty, IsNumber, Length, Matches } from 'class-validator';
 export class CreateServiceInput {
   @Field()
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
-    message: 'El nombre solo puede contener letras',
+    message: 'La categoria solo puede contener letras',
   })
   @IsNotEmpty({ message: 'Debe completar la categoria' })
   category: string;
@@ -21,7 +21,7 @@ export class CreateServiceInput {
 
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
-    message: 'El nombre solo puede contener letras y numeros',
+    message: 'La descripción solo puede contener letras y numeros',
   })
   @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
   @IsNotEmpty({ message: 'Debe completar la descripción del servicio' })

@@ -109,6 +109,25 @@ export class BrandService {
     return findBrand;
   }
 
+  async findBrandsByCategory(category: string): Promise<BrandDocument[]> {
+    let brands: BrandDocument[];
+
+    try {
+      brands = await this.brandModel.find().populate({
+        path: 'category',
+        match: {
+          name: category,
+        },
+      });
+
+      brands = brands.filter((brand) => brand.category !== null);
+    } catch (e) {
+      throw new Error(`Error en BrandService.findBrandsByCategory ${e}`);
+    }
+
+    return brands;
+  }
+
   async findOneBrandById(id: string): Promise<BrandDocument> {
     let brand: BrandDocument;
 

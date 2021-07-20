@@ -29,4 +29,9 @@ export class ModelResolver {
   getModels(): Promise<ModelDocument[]> {
     return this.modelService.findAllModels();
   }
+
+  @Query(() => [ModelType])
+  getModelsByBrand(@Args('brand') brand: string): Promise<ModelDocument[]> {
+    return this.modelService.findModelsByBrand(brand);
+  }
 }

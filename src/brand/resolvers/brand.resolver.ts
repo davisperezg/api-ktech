@@ -29,4 +29,11 @@ export class BrandResolver {
   getBrands(): Promise<BrandDocument[]> {
     return this.brandService.findAllBrands();
   }
+
+  @Query(() => [BrandType])
+  getBrandsByCategory(
+    @Args('category') category: string,
+  ): Promise<BrandDocument[]> {
+    return this.brandService.findBrandsByCategory(category);
+  }
 }
