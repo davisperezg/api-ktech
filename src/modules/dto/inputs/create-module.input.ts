@@ -20,7 +20,9 @@ export class CreateModuleInput {
   @Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
     message: 'La descripción del rol solo puede contener letras y números',
   })
-  @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
+  @Length(3, 150, {
+    message: 'La descripción debe tener entre 3-150 caracteres.',
+  })
   @IsOptional()
   description: string;
 

@@ -15,7 +15,7 @@ export class CreateModelInput {
   @Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
     message: 'El nombre solo puede contener letras, numeros y guiones',
   })
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   @IsNotEmpty({ message: 'Debe completar el modelo' })
   name: string;
 }

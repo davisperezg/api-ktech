@@ -29,7 +29,9 @@ export class UpdateModuleInput {
     message: 'La descripción solo puede contener letras y números',
   })
   @IsOptional()
-  @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
+  @Length(3, 150, {
+    message: 'La descripción debe tener entre 3-150 caracteres.',
+  })
   description?: string;
 
   @Field(() => [UpdateAccessModuleInput], { nullable: true })

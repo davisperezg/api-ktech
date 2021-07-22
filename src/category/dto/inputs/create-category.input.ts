@@ -9,6 +9,6 @@ export class CreateCategoryInput {
     message: 'El nombre de la categoria solo puede contener letras',
   })
   @IsNotEmpty({ message: 'Debe completar el nombre' })
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   name: string;
 }

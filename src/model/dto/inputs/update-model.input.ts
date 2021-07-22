@@ -19,8 +19,8 @@ export class UpdateModelInput {
   @Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
     message: 'El nombre solo puede contener letras',
   })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   @IsOptional()
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
 
   @Field({ nullable: true })

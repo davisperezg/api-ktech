@@ -15,7 +15,7 @@ export class CreateBrandInput {
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras',
   })
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   @IsNotEmpty({ message: 'Debe completar la marca' })
   name: string;
 }

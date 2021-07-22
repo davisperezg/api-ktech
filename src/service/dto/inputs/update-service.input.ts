@@ -23,13 +23,14 @@ export class UpdateServiceInput {
   @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras y numeros',
   })
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   @IsOptional()
   name?: string;
 
   @Field({ nullable: true })
-  @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
-  @IsNotEmpty({ message: 'Debe completar la descripción del servicio' })
+  @Length(3, 500, {
+    message: 'La descripción debe tener entre 3-500 caracteres.',
+  })
   @IsOptional()
   description?: string;
 

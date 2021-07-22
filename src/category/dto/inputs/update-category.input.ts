@@ -19,7 +19,7 @@ export class UpdateCategoryInput {
   @Matches(/^[A-Za-z\s]+$/, {
     message: 'La categoria solo puede contener letras',
   })
+  @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
   @IsOptional()
-  @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
   name?: string;
 }
