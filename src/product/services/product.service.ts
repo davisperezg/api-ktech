@@ -78,7 +78,7 @@ export class ProductService {
   async updateProduct(
     productInput: UpdateProductInput,
   ): Promise<ProductDocument> {
-    const { id, category, brand, model } = productInput;
+    const { id, category, brand, model, price } = productInput;
 
     let findCategory: CategoryDocument;
     let findBrand: BrandDocument;
@@ -123,6 +123,7 @@ export class ProductService {
           id,
           {
             ...productInput,
+            price: Number(price),
             category: findCategory._id,
             brand: findBrand._id,
             model: findModel._id,

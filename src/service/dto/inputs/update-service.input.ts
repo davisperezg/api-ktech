@@ -6,7 +6,7 @@ import {
   IsOptional,
   IsMongoId,
   IsNotEmpty,
-  IsNumber,
+  IsNumberString,
 } from 'class-validator';
 
 @InputType()
@@ -23,17 +23,18 @@ export class UpdateServiceInput {
   @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras y numeros',
   })
-  @IsOptional()
   @Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' })
+  @IsOptional()
   name?: string;
 
   @Field({ nullable: true })
   @Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' })
   @IsNotEmpty({ message: 'Debe completar la descripción del servicio' })
+  @IsOptional()
   description?: string;
 
   @Field({ nullable: true })
-  @IsNumber({}, { message: 'Solo números.' })
-  @IsNotEmpty({ message: 'Debe completar el precio del servicio' })
-  price?: number;
+  @IsNumberString({}, { message: 'El precio solo permite números.' })
+  @IsOptional()
+  price?: string;
 }

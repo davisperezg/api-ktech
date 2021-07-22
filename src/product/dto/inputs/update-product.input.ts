@@ -1,7 +1,7 @@
 import { Field, InputType, ID } from '@nestjs/graphql';
 
 import {
-  IsNumber,
+  IsNumberString,
   IsOptional,
   Length,
   Matches,
@@ -38,7 +38,7 @@ export class UpdateProductInput {
 
   //[-.?_"@%&*()+=:\s]
   @Field({ nullable: true })
-  @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
+  @Matches(/^[^$%&|<>#]*$/, {
     message: 'La descripción permite solo algunos caracteres permitidos',
   })
   @Length(3, 550, { message: 'La descripción debe ser mayor a 2 caracteres' })
@@ -46,7 +46,7 @@ export class UpdateProductInput {
   description?: string;
 
   @Field({ nullable: true })
-  @IsNumber({}, { message: 'Solo números.' })
+  @IsNumberString({}, { message: 'El precio solo permite números.' })
   @IsOptional()
-  price?: number;
+  price?: string;
 }

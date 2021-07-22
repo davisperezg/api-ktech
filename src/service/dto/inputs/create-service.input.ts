@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IsNotEmpty, IsNumber, Length, Matches } from 'class-validator';
+import { IsNotEmpty, IsNumberString, Length, Matches } from 'class-validator';
 
 @InputType()
 export class CreateServiceInput {
@@ -28,7 +28,7 @@ export class CreateServiceInput {
   description?: string;
 
   @Field()
-  @IsNumber({}, { message: 'Solo números.' })
+  @IsNumberString({}, { message: 'El precio solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar el precio del servicio' })
-  price: number;
+  price: string;
 }

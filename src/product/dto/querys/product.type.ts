@@ -14,7 +14,7 @@ export class ProductType {
   @Field()
   description: string;
 
-  @Field()
+  @Field({ nullable: true })
   price: number;
 
   @Field(() => Date)
