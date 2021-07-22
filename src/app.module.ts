@@ -14,14 +14,19 @@ import { ProductModule } from './product/product.module';
 import { ServiceModule } from './service/service.module';
 
 //mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+//mongodb://localhost
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost', {
-      useFindAndModify: false,
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      {
+        useFindAndModify: false,
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    ),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       playground: true,
