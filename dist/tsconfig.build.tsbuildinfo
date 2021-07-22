@@ -4921,12 +4921,12 @@
         "affectsGlobalScope": false
       },
       "../src/modules/dto/inputs/create-module.input.ts": {
-        "version": "f316bf8cb24349b3b5ce90e5d5861f7e9f2e2ef2566bbab2644157b5979cc3b7",
+        "version": "2cf7363995d3c5bf974bd09bddf50601b2e3c7385d09f2b238340f17a380524c",
         "signature": "7945e0521ee0e52bcd4a7496a71c24285f62b186698b6f67c6f1c391f60bed03",
         "affectsGlobalScope": false
       },
       "../src/role/dto/inputs/role.input.ts": {
-        "version": "a558c3a75cbb35786ee6e3fa2fc2552e2cc04374d287c43e8b36790d8c9d6747",
+        "version": "f787bd98a7be5fa2a4ec26e1ccb52f8af346b99ac1a5d181934b6fb20cd133f8",
         "signature": "bea9cacbc51b8ae1a3117f922b1c01bbe2f49a6fdde89475e7b071464b6a3921",
         "affectsGlobalScope": false
       },
@@ -4941,12 +4941,12 @@
         "affectsGlobalScope": false
       },
       "../src/role/dto/inputs/role-update.input.ts": {
-        "version": "034353f5e98cf1567ea94e06b2251170fa0b7b8d104dd0c8e95a3cd4aedb57ad",
+        "version": "d042c3e34dc6bd7a5cc8e065e6cbd466ce81edd46c52f0bccbed26bc4f3729a7",
         "signature": "f7bc94561e2006cbd94d8ef6ec056bd18ccfa3c05622251f81063c814a65b321",
         "affectsGlobalScope": false
       },
       "../src/modules/dto/inputs/update-module.input.ts": {
-        "version": "3d0959080e187a078ab85bd5a6c6c5c31743b3dcb9e12898018b97489577aa49",
+        "version": "cf3e7d4a867c2863cc8def24ed0a2e1ff4ecaf46839edc90916e85eaf9a8dd35",
         "signature": "972e4e0ba4d91e13ee9d4822099554eaf794783a2b0d2eae9d33ac74be88d568",
         "affectsGlobalScope": false
       },

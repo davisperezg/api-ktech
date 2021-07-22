@@ -31,8 +31,8 @@ __decorate([
 ], RoleUpdateInput.prototype, "name", void 0);
 __decorate([
     graphql_1.Field({ nullable: true }),
-    class_validator_1.Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
-        message: 'La descripción solo puede contener letras y números',
+    class_validator_1.Matches(/^[A-Za-záéíóúÑñ,.0-9\s]+$/, {
+        message: 'La descripción solo puede contener letras, números y algunos caracteres permitidos.',
     }),
     class_validator_1.IsOptional(),
     class_validator_1.Length(3, 150, {
