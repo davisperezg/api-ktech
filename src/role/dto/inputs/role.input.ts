@@ -14,8 +14,9 @@ export class RoleInput {
   name: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
-    message: 'La descripción del rol solo puede contener letras y números',
+  @Matches(/^[A-Za-záéíóúÑñ,.0-9\s]+$/, {
+    message:
+      'La descripción solo puede contener letras, números y algunos caracteres permitidos.',
   })
   @Length(3, 150, {
     message: 'La descripción debe tener entre 3-150 caracteres.',
