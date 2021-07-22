@@ -26,7 +26,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost', {
+            mongoose_1.MongooseModule.forRoot('mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority', {
                 useFindAndModify: false,
                 useCreateIndex: true,
                 useNewUrlParser: true,
