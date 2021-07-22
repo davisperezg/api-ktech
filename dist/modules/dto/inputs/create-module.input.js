@@ -29,7 +29,9 @@ __decorate([
     class_validator_1.Matches(/^[A-Za-záéíóúÑñ,0-9\s]+$/, {
         message: 'La descripción del rol solo puede contener letras y números',
     }),
-    class_validator_1.Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' }),
+    class_validator_1.Length(3, 150, {
+        message: 'La descripción debe tener entre 3-150 caracteres.',
+    }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CreateModuleInput.prototype, "description", void 0);

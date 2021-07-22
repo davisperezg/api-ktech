@@ -29,8 +29,8 @@ __decorate([
     class_validator_1.Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
         message: 'El nombre solo puede contener letras',
     }),
+    class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' }),
     __metadata("design:type", String)
 ], UpdateBrandInput.prototype, "name", void 0);
 UpdateBrandInput = __decorate([

@@ -35,7 +35,9 @@ __decorate([
         message: 'La descripción solo puede contener letras y números',
     }),
     class_validator_1.IsOptional(),
-    class_validator_1.Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' }),
+    class_validator_1.Length(3, 150, {
+        message: 'La descripción debe tener entre 3-150 caracteres.',
+    }),
     __metadata("design:type", String)
 ], RoleUpdateInput.prototype, "description", void 0);
 __decorate([

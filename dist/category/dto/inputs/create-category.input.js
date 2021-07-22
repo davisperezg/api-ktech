@@ -20,7 +20,7 @@ __decorate([
         message: 'El nombre de la categoria solo puede contener letras',
     }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el nombre' }),
-    class_validator_1.Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' }),
+    class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
     __metadata("design:type", String)
 ], CreateCategoryInput.prototype, "name", void 0);
 CreateCategoryInput = __decorate([

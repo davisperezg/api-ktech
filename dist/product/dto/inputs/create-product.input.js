@@ -34,7 +34,7 @@ __decorate([
     class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
         message: 'El nombre solo puede contener letras y numeros',
     }),
-    class_validator_1.Length(3, 55, { message: 'El nombre debe ser mayor a 2 caracteres' }),
+    class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el producto' }),
     __metadata("design:type", String)
 ], CreateProductInput.prototype, "name", void 0);
@@ -43,7 +43,9 @@ __decorate([
     class_validator_1.Matches(/^[^$%&|<>#]*$/, {
         message: 'La descripción permite solo algunos caracteres permitidos',
     }),
-    class_validator_1.Length(3, 55, { message: 'La descripción debe ser mayor a 2 caracteres' }),
+    class_validator_1.Length(3, 500, {
+        message: 'La descripción debe tener entre 3-500 caracteres.',
+    }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar la descripción del producto' }),
     __metadata("design:type", String)
 ], CreateProductInput.prototype, "description", void 0);
