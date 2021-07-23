@@ -5335,8 +5335,78 @@
         "signature": "457b9b3e4ccb2a17a99ecabb6ec28ca4e43d4ec63be90099c2d494eb5f410a04",
         "affectsGlobalScope": false
       },
+      "../src/ingress/schemas/ingress.schema.ts": {
+        "version": "a0bbeb063d97b901dcb9a483a7acce6db1fbeb3df2b8b4ca3064a9c7bd824013",
+        "signature": "75841329b1e20161ab7eae814196069a21676cf16496aa74d98184628091bbb4",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/dto/inputs/create-ingress.input.ts": {
+        "version": "ef44497efbe48c21717e5ceabae2ff7539bb9f67f5d5e1b5158c0c37380ea655",
+        "signature": "745dd0c5089bce0bc0fc8078cee22caefcdfafd7417ae3486a9a5b4035cb7162",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/dto/inputs/update-ingress.input.ts": {
+        "version": "b3e6039fd274763c461f97252777d44acf284640cfeca3d7ce9b3d10ce2e0d8f",
+        "signature": "923a173f678677df04837c2f9a7979eab84f19e465a038b8a435842e730b49b0",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/services/ingress.service.ts": {
+        "version": "e2b31dd9f811d8939c3fa55ae28ecb73656267cc8da4bed8618e0c17690ebf39",
+        "signature": "4373cedd585a0284fbc4c488f3e25e9884668661bdfa421ac400f674a01ca024",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/dto/querys/ingress.type.ts": {
+        "version": "70ba86291fcdf9b4c8782e82f8df74f9dccc72385d6739bb0ebd4103e6a1d831",
+        "signature": "5ce1d549bdd349c29dc5668888f1f319ade0535420e826223886d9e556e3566e",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/resolvers/ingress.resolver.ts": {
+        "version": "ef02f177765ad309cecaa093b2570a50d22a41b57b3247492b70318f9f57432b",
+        "signature": "7c9bf56464e5b42487b5ed84f0750f3f49a7997af36c4a3b55971af39d6e444b",
+        "affectsGlobalScope": false
+      },
+      "../src/ingress/ingress.module.ts": {
+        "version": "2f0717a5aa428f0cba22b1733098be35bc6ff3805a863e892e11f1a870f199cf",
+        "signature": "380d73f34454b8dc1da4b40bdd4ca58616ac67bcf763464b8fb77c2a05bdb40f",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/schemas/egress.schema.ts": {
+        "version": "a6d8d0fcc2ba6e937e2b00ccfd82405d6f19bba10d6fb67a8b18ad267ef2d5ef",
+        "signature": "2cb6cf002cd0c86c754bdc194890fe9dba367d6a27dcbafbd4184c526a966ef3",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/dto/inputs/create-egress.input.ts": {
+        "version": "b2f06d649c6b5c1a097e10d7d2d77d167a022c10e92b83c57cfdf8f8d73a9630",
+        "signature": "8d38de1cb0b3a74c7f480c7c266068d6bc1df29ec824e4ab3a279ffa72a02ba1",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/dto/inputs/update-egress.input.ts": {
+        "version": "b56d9b117e7cdd72e83d5420bdbbeaa086b4e289ab4e05271b830fa7070327d1",
+        "signature": "8da956742c73780c3d4006343b8b072edc5221692aca7b50a9d2393ca9547e83",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/services/egress.service.ts": {
+        "version": "0ffc31e6c3b779b89b8710dbd597374771084a763e1b06613d0b6ae62ee7ad83",
+        "signature": "c4674a34f26aa6a05857f2955e8ccf676e79d26591bf273ccb5a8821f5b756a9",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/dto/querys/egress.type.ts": {
+        "version": "9879bcd80bfe48563036be1faf2ec9bd1b3fdc6e848c49415527f3c9dbadd90b",
+        "signature": "f9a78bb006daad268a4236c0a240b04749a349d14ea3cbee4549edff94a73938",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/resolvers/egress.resolver.ts": {
+        "version": "5d6b566df6853c2bf2262c20acab5e46b09c9e96031111ea3227b061322ea982",
+        "signature": "94a72bcf669bde94e2be0f7a93a3c9d10dc4339935fb9c38583454deaea7713e",
+        "affectsGlobalScope": false
+      },
+      "../src/egress/egress.module.ts": {
+        "version": "1481de0ccc74f174bb9afc98593146f957a343c219eee2fb669299e9ce3b6777",
+        "signature": "4db34b654d9f94fbef391930ce2dc1d68a4d0374ffa4ad553120b454c9b16053",
+        "affectsGlobalScope": false
+      },
       "../src/app.module.ts": {
-        "version": "d0e07b53d6496ee25cb07e01e52b667e8f213039571a596f292190c51d1e1396",
+        "version": "4582b866d6e49291821c6ad6e50be61a6c3d29795dcdd790da469d180f1be269",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -9749,6 +9819,8 @@
         "../src/auth/auth.module.ts",
         "../src/brand/brand.module.ts",
         "../src/category/category.module.ts",
+        "../src/egress/egress.module.ts",
+        "../src/ingress/ingress.module.ts",
         "../src/menu/menu.module.ts",
         "../src/model/model.module.ts",
         "../src/modules/modules.module.ts",
@@ -9904,6 +9976,98 @@
         "../src/category/dto/inputs/create-category.input.ts",
         "../src/category/dto/inputs/update-category.input.ts",
         "../src/category/schemas/category.schema.ts",
+        "../src/lib/conts/index.ts"
+      ],
+      "../src/egress/dto/inputs/create-egress.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
+      "../src/egress/dto/inputs/update-egress.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
+      "../src/egress/dto/querys/egress.type.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/category/dto/querys/category.type.ts"
+      ],
+      "../src/egress/egress.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts",
+        "../src/category/services/category.service.ts",
+        "../src/egress/resolvers/egress.resolver.ts",
+        "../src/egress/schemas/egress.schema.ts",
+        "../src/egress/services/egress.service.ts"
+      ],
+      "../src/egress/resolvers/egress.resolver.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/egress/dto/inputs/create-egress.input.ts",
+        "../src/egress/dto/inputs/update-egress.input.ts",
+        "../src/egress/dto/querys/egress.type.ts",
+        "../src/egress/schemas/egress.schema.ts",
+        "../src/egress/services/egress.service.ts"
+      ],
+      "../src/egress/schemas/egress.schema.ts": [
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts"
+      ],
+      "../src/egress/services/egress.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts",
+        "../src/category/services/category.service.ts",
+        "../src/egress/dto/inputs/create-egress.input.ts",
+        "../src/egress/dto/inputs/update-egress.input.ts",
+        "../src/egress/schemas/egress.schema.ts",
+        "../src/lib/conts/index.ts"
+      ],
+      "../src/ingress/dto/inputs/create-ingress.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
+      "../src/ingress/dto/inputs/update-ingress.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts"
+      ],
+      "../src/ingress/dto/querys/ingress.type.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/category/dto/querys/category.type.ts"
+      ],
+      "../src/ingress/ingress.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts",
+        "../src/category/services/category.service.ts",
+        "../src/ingress/resolvers/ingress.resolver.ts",
+        "../src/ingress/schemas/ingress.schema.ts",
+        "../src/ingress/services/ingress.service.ts"
+      ],
+      "../src/ingress/resolvers/ingress.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/ingress/dto/inputs/create-ingress.input.ts",
+        "../src/ingress/dto/inputs/update-ingress.input.ts",
+        "../src/ingress/dto/querys/ingress.type.ts",
+        "../src/ingress/schemas/ingress.schema.ts",
+        "../src/ingress/services/ingress.service.ts",
+        "../src/lib/guards/gql-auth.guard.ts"
+      ],
+      "../src/ingress/schemas/ingress.schema.ts": [
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts"
+      ],
+      "../src/ingress/services/ingress.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts",
+        "../src/category/services/category.service.ts",
+        "../src/ingress/dto/inputs/create-ingress.input.ts",
+        "../src/ingress/dto/inputs/update-ingress.input.ts",
+        "../src/ingress/schemas/ingress.schema.ts",
         "../src/lib/conts/index.ts"
       ],
       "../src/lib/decorators/ctx-user.decorators.ts": [
@@ -14493,6 +14657,46 @@
         "../src/category/dto/inputs/update-category.input.ts",
         "../src/category/schemas/category.schema.ts"
       ],
+      "../src/egress/dto/querys/egress.type.ts": [
+        "../src/category/dto/querys/category.type.ts"
+      ],
+      "../src/egress/resolvers/egress.resolver.ts": [
+        "../src/egress/dto/inputs/create-egress.input.ts",
+        "../src/egress/dto/inputs/update-egress.input.ts",
+        "../src/egress/schemas/egress.schema.ts",
+        "../src/egress/services/egress.service.ts"
+      ],
+      "../src/egress/schemas/egress.schema.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts"
+      ],
+      "../src/egress/services/egress.service.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/services/category.service.ts",
+        "../src/egress/dto/inputs/create-egress.input.ts",
+        "../src/egress/dto/inputs/update-egress.input.ts",
+        "../src/egress/schemas/egress.schema.ts"
+      ],
+      "../src/ingress/dto/querys/ingress.type.ts": [
+        "../src/category/dto/querys/category.type.ts"
+      ],
+      "../src/ingress/resolvers/ingress.resolver.ts": [
+        "../src/ingress/dto/inputs/create-ingress.input.ts",
+        "../src/ingress/dto/inputs/update-ingress.input.ts",
+        "../src/ingress/schemas/ingress.schema.ts",
+        "../src/ingress/services/ingress.service.ts"
+      ],
+      "../src/ingress/schemas/ingress.schema.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/schemas/category.schema.ts"
+      ],
+      "../src/ingress/services/ingress.service.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/category/services/category.service.ts",
+        "../src/ingress/dto/inputs/create-ingress.input.ts",
+        "../src/ingress/dto/inputs/update-ingress.input.ts",
+        "../src/ingress/schemas/ingress.schema.ts"
+      ],
       "../src/lib/decorators/match.decorator.ts": [
         "../node_modules/class-validator/types/index.d.ts"
       ],
@@ -15741,6 +15945,20 @@
       "../src/category/resolvers/category.resolver.ts",
       "../src/category/schemas/category.schema.ts",
       "../src/category/services/category.service.ts",
+      "../src/egress/dto/inputs/create-egress.input.ts",
+      "../src/egress/dto/inputs/update-egress.input.ts",
+      "../src/egress/dto/querys/egress.type.ts",
+      "../src/egress/egress.module.ts",
+      "../src/egress/resolvers/egress.resolver.ts",
+      "../src/egress/schemas/egress.schema.ts",
+      "../src/egress/services/egress.service.ts",
+      "../src/ingress/dto/inputs/create-ingress.input.ts",
+      "../src/ingress/dto/inputs/update-ingress.input.ts",
+      "../src/ingress/dto/querys/ingress.type.ts",
+      "../src/ingress/ingress.module.ts",
+      "../src/ingress/resolvers/ingress.resolver.ts",
+      "../src/ingress/schemas/ingress.schema.ts",
+      "../src/ingress/services/ingress.service.ts",
       "../src/lib/conts/index.ts",
       "../src/lib/decorators/ctx-user.decorators.ts",
       "../src/lib/decorators/match.decorator.ts",

@@ -21,12 +21,14 @@ const brand_module_1 = require("./brand/brand.module");
 const model_module_1 = require("./model/model.module");
 const product_module_1 = require("./product/product.module");
 const service_module_1 = require("./service/service.module");
+const ingress_module_1 = require("./ingress/ingress.module");
+const egress_module_1 = require("./egress/egress.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority', {
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost', {
                 useFindAndModify: false,
                 useCreateIndex: true,
                 useNewUrlParser: true,
@@ -47,6 +49,8 @@ AppModule = __decorate([
             model_module_1.ModelModule,
             product_module_1.ProductModule,
             service_module_1.ServiceModule,
+            ingress_module_1.IngressModule,
+            egress_module_1.EgressModule,
         ],
     })
 ], AppModule);
