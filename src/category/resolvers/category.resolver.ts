@@ -4,8 +4,11 @@ import { Mutation, Query, Args, Resolver } from '@nestjs/graphql';
 import { CreateCategoryInput } from '../dto/inputs/create-category.input';
 import { UpdateCategoryInput } from '../dto/inputs/update-category.input';
 import { CategoryDocument } from '../schemas/category.schema';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
 

@@ -18,6 +18,8 @@ const category_service_1 = require("../services/category.service");
 const graphql_1 = require("@nestjs/graphql");
 const create_category_input_1 = require("../dto/inputs/create-category.input");
 const update_category_input_1 = require("../dto/inputs/update-category.input");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let CategoryResolver = class CategoryResolver {
     constructor(categoryService) {
         this.categoryService = categoryService;
@@ -54,6 +56,7 @@ __decorate([
 ], CategoryResolver.prototype, "getCategorys", null);
 CategoryResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryResolver);
 exports.CategoryResolver = CategoryResolver;

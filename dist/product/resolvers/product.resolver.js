@@ -18,6 +18,8 @@ const graphql_1 = require("@nestjs/graphql");
 const product_type_1 = require("../dto/querys/product.type");
 const create_product_input_1 = require("../dto/inputs/create-product.input");
 const update_product_input_1 = require("../dto/inputs/update-product.input");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let ProductResolver = class ProductResolver {
     constructor(productService) {
         this.productService = productService;
@@ -54,6 +56,7 @@ __decorate([
 ], ProductResolver.prototype, "getProducts", null);
 ProductResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [product_service_1.ProductService])
 ], ProductResolver);
 exports.ProductResolver = ProductResolver;

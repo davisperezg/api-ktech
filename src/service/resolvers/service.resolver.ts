@@ -4,8 +4,11 @@ import { ServiceType } from '../dto/querys/service.type';
 import { CreateServiceInput } from '../dto/inputs/create-service.input';
 import { UpdateServiceInput } from '../dto/inputs/update-service.input';
 import { ServiceDocument } from '../schemas/service.schema';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class ServiceResolver {
   constructor(private readonly serviceService: ServiceService) {}
 

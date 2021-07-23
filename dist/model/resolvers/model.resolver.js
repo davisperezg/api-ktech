@@ -18,6 +18,8 @@ const create_model_input_1 = require("../dto/inputs/create-model.input");
 const model_service_1 = require("../services/model.service");
 const update_model_input_1 = require("../dto/inputs/update-model.input");
 const model_type_1 = require("../dto/querys/model.type");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let ModelResolver = class ModelResolver {
     constructor(modelService) {
         this.modelService = modelService;
@@ -64,6 +66,7 @@ __decorate([
 ], ModelResolver.prototype, "getModelsByBrand", null);
 ModelResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [model_service_1.ModelService])
 ], ModelResolver);
 exports.ModelResolver = ModelResolver;

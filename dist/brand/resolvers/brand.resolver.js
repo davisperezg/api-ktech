@@ -18,6 +18,8 @@ const create_brand_input_1 = require("./../dto/inputs/create-brand.input");
 const brand_type_1 = require("../dto/querys/brand.type");
 const brand_service_1 = require("../services/brand.service");
 const graphql_1 = require("@nestjs/graphql");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let BrandResolver = class BrandResolver {
     constructor(brandService) {
         this.brandService = brandService;
@@ -64,6 +66,7 @@ __decorate([
 ], BrandResolver.prototype, "getBrandsByCategory", null);
 BrandResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [brand_service_1.BrandService])
 ], BrandResolver);
 exports.BrandResolver = BrandResolver;

@@ -18,6 +18,8 @@ const graphql_1 = require("@nestjs/graphql");
 const service_type_1 = require("../dto/querys/service.type");
 const create_service_input_1 = require("../dto/inputs/create-service.input");
 const update_service_input_1 = require("../dto/inputs/update-service.input");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let ServiceResolver = class ServiceResolver {
     constructor(serviceService) {
         this.serviceService = serviceService;
@@ -54,6 +56,7 @@ __decorate([
 ], ServiceResolver.prototype, "getServices", null);
 ServiceResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [service_service_1.ServiceService])
 ], ServiceResolver);
 exports.ServiceResolver = ServiceResolver;

@@ -4,8 +4,11 @@ import { BrandType } from '../dto/querys/brand.type';
 import { BrandService } from '../services/brand.service';
 import { Mutation, Query, Args, Resolver } from '@nestjs/graphql';
 import { BrandDocument } from '../schemas/brand.schema';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class BrandResolver {
   constructor(private readonly brandService: BrandService) {}
 

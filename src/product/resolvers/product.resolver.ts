@@ -4,8 +4,11 @@ import { Mutation, Query, Args, Resolver } from '@nestjs/graphql';
 import { ProductType } from '../dto/querys/product.type';
 import { CreateProductInput } from '../dto/inputs/create-product.input';
 import { UpdateProductInput } from '../dto/inputs/update-product.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class ProductResolver {
   constructor(private readonly productService: ProductService) {}
 

@@ -4,8 +4,11 @@ import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { EgressType } from '../dto/querys/egress.type';
 import { CreateEgressInput } from '../dto/inputs/create-egress.input';
 import { UpdateEgressInput } from '../dto/inputs/update-egress.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class EgressResolver {
   constructor(private readonly egressService: EgressService) {}
 

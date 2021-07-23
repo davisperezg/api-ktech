@@ -4,8 +4,11 @@ import { ModelService } from '../services/model.service';
 import { UpdateModelInput } from '../dto/inputs/update-model.input';
 import { ModelType } from '../dto/querys/model.type';
 import { ModelDocument } from '../schemas/model.schema';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class ModelResolver {
   constructor(private readonly modelService: ModelService) {}
 

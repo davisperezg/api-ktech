@@ -5186,7 +5186,7 @@
         "affectsGlobalScope": false
       },
       "../src/category/resolvers/category.resolver.ts": {
-        "version": "0d2b2a66d82a018b36345cf97247577eb9aaa20919216448ca5270223253371d",
+        "version": "8b48ac8e1ba3fd525c3d4ffb3465e8b9d4bc10bff628f4b0588638350208efe2",
         "signature": "328b38c0bdcccf26a596f6928d1dc8f8a162c9ec41d7e9466f92df333e442a34",
         "affectsGlobalScope": false
       },
@@ -5221,7 +5221,7 @@
         "affectsGlobalScope": false
       },
       "../src/brand/resolvers/brand.resolver.ts": {
-        "version": "1a1f47e0fa8cb5ce22d140ed0c0d1c6fa512887597e84057b6071456b64dba74",
+        "version": "20c19abc25352760d24e86b2c2bb1bc033226f0a98dcf8ca5912e6b8f0b40823",
         "signature": "301702722b2d69a61b43e2416a4d715d991b80ce3753c91fb30c3c3841e343e2",
         "affectsGlobalScope": false
       },
@@ -5256,7 +5256,7 @@
         "affectsGlobalScope": false
       },
       "../src/model/resolvers/model.resolver.ts": {
-        "version": "c8d74a88215fa410bd9935ef03c2319453266082c080361a39ebed27f5c9752d",
+        "version": "98ad598696b7d69516970338afa56d337ae25ad99dd12d4425029eca780ba465",
         "signature": "f0d391e85c00f6c5ca9fb428f4b8395d523f9573eefdcd4d3a711302d7275bf5",
         "affectsGlobalScope": false
       },
@@ -5291,7 +5291,7 @@
         "affectsGlobalScope": false
       },
       "../src/product/resolvers/product.resolver.ts": {
-        "version": "c72dc37253878182da42104b6e56463d3ff31ddcb77692f1cd45c421e08578f0",
+        "version": "8ed93e2ae2002d75f461482a32e14d46e44fca61c6c9f942c260ad91cd89cbf5",
         "signature": "0697cb812f8c9dcdf86cd152abf99f1a980f94641bd5fae3e1c3e9ae8bbf28a3",
         "affectsGlobalScope": false
       },
@@ -5326,7 +5326,7 @@
         "affectsGlobalScope": false
       },
       "../src/service/resolvers/service.resolver.ts": {
-        "version": "0f86f38c9c9c68980cc3f251f5f28b583ebd33d1d5a2bb282b1dcc8a643834c0",
+        "version": "4f7358b740a272917feecd63737c559e9e17fccc224c8c9b81f3fca9b78cf4c5",
         "signature": "0e14ceedf99355955174d3d00480803d2ea41dcc4d7eb0ce5f3197923758d09c",
         "affectsGlobalScope": false
       },
@@ -5396,7 +5396,7 @@
         "affectsGlobalScope": false
       },
       "../src/egress/resolvers/egress.resolver.ts": {
-        "version": "5d6b566df6853c2bf2262c20acab5e46b09c9e96031111ea3227b061322ea982",
+        "version": "d3d14f337a1d531c09d411f24cd6d1bf25fa2a8037746bbc082c248a18ecb498",
         "signature": "94a72bcf669bde94e2be0f7a93a3c9d10dc4339935fb9c38583454deaea7713e",
         "affectsGlobalScope": false
       },
@@ -9916,12 +9916,14 @@
         "../src/category/dto/querys/category.type.ts"
       ],
       "../src/brand/resolvers/brand.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
         "../src/brand/dto/inputs/create-brand.input.ts",
         "../src/brand/dto/inputs/update-brand.input.ts",
         "../src/brand/dto/querys/brand.type.ts",
         "../src/brand/schemas/brand.schema.ts",
-        "../src/brand/services/brand.service.ts"
+        "../src/brand/services/brand.service.ts",
+        "../src/lib/guards/gql-auth.guard.ts"
       ],
       "../src/brand/schemas/brand.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -9958,12 +9960,14 @@
         "../node_modules/@nestjs/graphql/index.d.ts"
       ],
       "../src/category/resolvers/category.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
         "../src/category/dto/inputs/create-category.input.ts",
         "../src/category/dto/inputs/update-category.input.ts",
         "../src/category/dto/querys/category.type.ts",
         "../src/category/schemas/category.schema.ts",
-        "../src/category/services/category.service.ts"
+        "../src/category/services/category.service.ts",
+        "../src/lib/guards/gql-auth.guard.ts"
       ],
       "../src/category/schemas/category.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -10000,12 +10004,14 @@
         "../src/egress/services/egress.service.ts"
       ],
       "../src/egress/resolvers/egress.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
         "../src/egress/dto/inputs/create-egress.input.ts",
         "../src/egress/dto/inputs/update-egress.input.ts",
         "../src/egress/dto/querys/egress.type.ts",
         "../src/egress/schemas/egress.schema.ts",
-        "../src/egress/services/egress.service.ts"
+        "../src/egress/services/egress.service.ts",
+        "../src/lib/guards/gql-auth.guard.ts"
       ],
       "../src/egress/schemas/egress.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -10176,7 +10182,9 @@
         "../src/model/services/model.service.ts"
       ],
       "../src/model/resolvers/model.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/lib/guards/gql-auth.guard.ts",
         "../src/model/dto/inputs/create-model.input.ts",
         "../src/model/dto/inputs/update-model.input.ts",
         "../src/model/dto/querys/model.type.ts",
@@ -10293,7 +10301,9 @@
         "../src/product/services/product.service.ts"
       ],
       "../src/product/resolvers/product.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/lib/guards/gql-auth.guard.ts",
         "../src/product/dto/inputs/create-product.input.ts",
         "../src/product/dto/inputs/update-product.input.ts",
         "../src/product/dto/querys/product.type.ts",
@@ -10393,7 +10403,9 @@
         "../src/category/dto/querys/category.type.ts"
       ],
       "../src/service/resolvers/service.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
+        "../src/lib/guards/gql-auth.guard.ts",
         "../src/service/dto/inputs/create-service.input.ts",
         "../src/service/dto/inputs/update-service.input.ts",
         "../src/service/dto/querys/service.type.ts",

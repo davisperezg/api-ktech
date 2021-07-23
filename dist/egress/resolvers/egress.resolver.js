@@ -18,6 +18,8 @@ const graphql_1 = require("@nestjs/graphql");
 const egress_type_1 = require("../dto/querys/egress.type");
 const create_egress_input_1 = require("../dto/inputs/create-egress.input");
 const update_egress_input_1 = require("../dto/inputs/update-egress.input");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 let EgressResolver = class EgressResolver {
     constructor(egressService) {
         this.egressService = egressService;
@@ -64,6 +66,7 @@ __decorate([
 ], EgressResolver.prototype, "getEgress", null);
 EgressResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [egress_service_1.EgressService])
 ], EgressResolver);
 exports.EgressResolver = EgressResolver;
