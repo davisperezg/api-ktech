@@ -5,6 +5,8 @@ import {
   IsNumberString,
   Matches,
   IsMongoId,
+  IsOptional,
+  IsNumber,
 } from 'class-validator';
 
 @InputType()
@@ -18,7 +20,7 @@ export class UpdateEgressInput {
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'La categoria solo puede contener letras',
   })
-  @IsNotEmpty({ message: 'Debe completar la categoria' })
+  @IsOptional()
   category?: string;
 
   @Field({ nullable: true })
@@ -26,27 +28,27 @@ export class UpdateEgressInput {
     message: 'El nombre solo puede contener letras.',
   })
   @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })
-  @IsNotEmpty({ message: 'Debe completar el detalle del egreso' })
+  @IsOptional()
   detail?: string;
 
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9,.áéíóúÑñ\s]+$/, {
     message:
-      'La observación solo puede contener letras y numeros y algunas caracteristicas.',
+      'La observación solo puede contener letras, numeros y algunos caracteres permitidos.',
   })
   @Length(3, 500, {
     message: 'La observación debe tener entre 3-500 caracteres.',
   })
-  @IsNotEmpty({ message: 'Debe completar la observación del egreso' })
+  @IsOptional()
   observation?: string;
 
   @Field({ nullable: true })
-  @IsNumberString({}, { message: 'La unidad solo permite números.' })
-  @IsNotEmpty({ message: 'Debe completar la unidad o unidades del egreso' })
-  units?: string;
+  @IsNumber({}, { message: 'La unidad solo permite números.' })
+  @IsOptional()
+  units?: number;
 
   @Field({ nullable: true })
-  @IsNumberString({}, { message: 'El monto solo permite números.' })
-  @IsNotEmpty({ message: 'Debe completar el monto del egreso' })
-  amount?: string;
+  @IsNumber({}, { message: 'El monto solo permite números.' })
+  @IsOptional()
+  amount?: number;
 }

@@ -25,7 +25,7 @@ __decorate([
     __metadata("design:type", String)
 ], ProductType.prototype, "name", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], ProductType.prototype, "description", void 0);
 __decorate([

@@ -1,6 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IsNotEmpty, IsNumberString, Length, Matches } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsOptional,
+  Length,
+  Matches,
+} from 'class-validator';
 
 @InputType()
 export class CreateServiceInput {
@@ -26,11 +33,11 @@ export class CreateServiceInput {
   @Length(3, 500, {
     message: 'La descripción debe tener entre 3-500 caracteres.',
   })
-  @IsNotEmpty({ message: 'Debe completar la descripción del servicio' })
+  @IsOptional()
   description?: string;
 
   @Field()
-  @IsNumberString({}, { message: 'El precio solo permite números.' })
+  @IsNumber({}, { message: 'El precio solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar el precio del servicio' })
-  price: string;
+  price: number;
 }

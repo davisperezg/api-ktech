@@ -11,7 +11,7 @@ export class ProductType {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description: string;
 
   @Field({ nullable: true })

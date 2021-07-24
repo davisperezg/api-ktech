@@ -3,6 +3,6 @@ export declare class UpdateEgressInput {
     category?: string;
     detail?: string;
     observation?: string;
-    units?: string;
-    amount?: string;
+    units?: number;
+    amount?: number;
 }

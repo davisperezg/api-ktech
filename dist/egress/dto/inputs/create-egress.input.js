@@ -34,25 +34,25 @@ __decorate([
 __decorate([
     graphql_1.Field({ nullable: true }),
     class_validator_1.Matches(/^[A-Za-z0-9,.áéíóúÑñ\s]+$/, {
-        message: 'La observación solo puede contener letras y numeros y algunas caracteristicas.',
+        message: 'La observación solo puede contener letras, numeros y algunos caracteres permitidos.',
     }),
     class_validator_1.Length(3, 500, {
         message: 'La observación debe tener entre 3-500 caracteres.',
     }),
-    class_validator_1.IsNotEmpty({ message: 'Debe completar la observación del egreso' }),
+    class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CreateEgressInput.prototype, "observation", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.IsNumberString({}, { message: 'La unidad solo permite números.' }),
+    class_validator_1.IsNumber({}, { message: 'La unidad solo permite números.' }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar la unidad o unidades del egreso' }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateEgressInput.prototype, "units", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.IsNumberString({}, { message: 'El monto solo permite números.' }),
+    class_validator_1.IsNumber({}, { message: 'El monto solo permite números.' }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el monto del egreso' }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateEgressInput.prototype, "amount", void 0);
 CreateEgressInput = __decorate([
     graphql_1.InputType()

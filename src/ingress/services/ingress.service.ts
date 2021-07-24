@@ -54,7 +54,7 @@ export class IngressService {
   async updateIngress(
     ingressInput: UpdateIngressInput,
   ): Promise<IngressDocument> {
-    const { id, category, units, amount } = ingressInput;
+    const { id, category } = ingressInput;
 
     let findCategory: CategoryDocument;
     let updateIngress: IngressDocument;
@@ -79,8 +79,6 @@ export class IngressService {
           id,
           {
             ...ingressInput,
-            units: Number(units),
-            amount: Number(amount),
             category: findCategory._id,
           },
           { new: true },

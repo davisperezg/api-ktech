@@ -48,7 +48,7 @@ let ServiceService = class ServiceService {
         return foundService;
     }
     async updateService(serviceInput) {
-        const { id, category, price } = serviceInput;
+        const { id, category } = serviceInput;
         let findCategory;
         let updateService;
         const findServiceById = await this.findOneServicesById(id);
@@ -60,7 +60,7 @@ let ServiceService = class ServiceService {
         }
         try {
             updateService = await this.serviceModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, serviceInput), { price: Number(price), category: findCategory._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, serviceInput), { category: findCategory._id }), { new: true })
                 .populate([
                 {
                     path: 'category',

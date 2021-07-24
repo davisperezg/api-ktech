@@ -56,7 +56,7 @@ let ProductService = class ProductService {
         return foundProduct;
     }
     async updateProduct(productInput) {
-        const { id, category, brand, model, price } = productInput;
+        const { id, category, brand, model } = productInput;
         let findCategory;
         let findBrand;
         let findModel;
@@ -82,7 +82,7 @@ let ProductService = class ProductService {
         }
         try {
             updateProduct = await this.productModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, productInput), { price: Number(price), category: findCategory._id, brand: findBrand._id, model: findModel._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, productInput), { category: findCategory._id, brand: findBrand._id, model: findModel._id }), { new: true })
                 .populate([
                 {
                     path: 'category',

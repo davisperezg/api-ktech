@@ -3,5 +3,5 @@ export declare class UpdateServiceInput {
     category?: string;
     name?: string;
     description?: string;
-    price?: string;
+    price?: number;
 }

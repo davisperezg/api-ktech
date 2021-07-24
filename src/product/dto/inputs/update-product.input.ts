@@ -7,6 +7,7 @@ import {
   Matches,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
 } from 'class-validator';
 
 @InputType()
@@ -48,7 +49,7 @@ export class UpdateProductInput {
   description?: string;
 
   @Field({ nullable: true })
-  @IsNumberString({}, { message: 'El precio solo permite números.' })
+  @IsNumber({}, { message: 'El precio solo permite números.' })
   @IsOptional()
-  price?: string;
+  price?: number;
 }

@@ -1,5 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, Length, IsNumberString, Matches } from 'class-validator';
+import {
+  IsNotEmpty,
+  Length,
+  IsNumberString,
+  Matches,
+  IsOptional,
+  IsNumber,
+} from 'class-validator';
 
 @InputType()
 export class CreateIngressInput {
@@ -21,21 +28,21 @@ export class CreateIngressInput {
   @Field({ nullable: true })
   @Matches(/^[A-Za-z0-9,.áéíóúÑñ\s]+$/, {
     message:
-      'La observación solo puede contener letras y numeros y algunas caracteristicas.',
+      'La observación solo puede contener letras, numeros y algunos caracteres permitidos.',
   })
   @Length(3, 500, {
     message: 'La observación debe tener entre 3-500 caracteres.',
   })
-  @IsNotEmpty({ message: 'Debe completar la observación del egreso' })
+  @IsOptional()
   observation?: string;
 
   @Field()
-  @IsNumberString({}, { message: 'La unidad solo permite números.' })
+  @IsNumber({}, { message: 'La unidad solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar la unidad o unidades del egreso' })
-  units: string;
+  units: number;
 
   @Field()
-  @IsNumberString({}, { message: 'El monto solo permite números.' })
+  @IsNumber({}, { message: 'El monto solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar el monto del egreso' })
-  amount: string;
+  amount: number;
 }

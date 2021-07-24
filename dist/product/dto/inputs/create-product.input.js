@@ -46,14 +46,14 @@ __decorate([
     class_validator_1.Length(3, 500, {
         message: 'La descripción debe tener entre 3-500 caracteres.',
     }),
-    class_validator_1.IsNotEmpty({ message: 'Debe completar la descripción del producto' }),
+    class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CreateProductInput.prototype, "description", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.IsNumberString({}, { message: 'El precio solo permite números.' }),
+    class_validator_1.IsNumber({}, { message: 'El precio solo permite números.' }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el precio del producto' }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateProductInput.prototype, "price", void 0);
 CreateProductInput = __decorate([
     graphql_1.InputType()

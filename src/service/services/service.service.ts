@@ -60,7 +60,7 @@ export class ServiceService {
   async updateService(
     serviceInput: UpdateServiceInput,
   ): Promise<ServiceDocument> {
-    const { id, category, price } = serviceInput;
+    const { id, category } = serviceInput;
 
     let findCategory: CategoryDocument;
     let updateService: ServiceDocument;
@@ -83,7 +83,7 @@ export class ServiceService {
       updateService = await this.serviceModel
         .findByIdAndUpdate(
           id,
-          { ...serviceInput, price: Number(price), category: findCategory._id },
+          { ...serviceInput, category: findCategory._id },
           { new: true },
         )
         .populate([

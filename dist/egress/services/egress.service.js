@@ -47,7 +47,7 @@ let EgressService = class EgressService {
         return foundEgress;
     }
     async updateEgress(egressInput) {
-        const { id, category, units, amount } = egressInput;
+        const { id, category } = egressInput;
         let findCategory;
         let updateEgress;
         const findEgressById = await this.findOneEgressById(id);
@@ -59,7 +59,7 @@ let EgressService = class EgressService {
         }
         try {
             updateEgress = await this.egressModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, egressInput), { units: Number(units), amount: Number(amount), category: findCategory._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, egressInput), { category: findCategory._id }), { new: true })
                 .populate([
                 {
                     path: 'category',

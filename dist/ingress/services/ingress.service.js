@@ -47,7 +47,7 @@ let IngressService = class IngressService {
         return foundIngress;
     }
     async updateIngress(ingressInput) {
-        const { id, category, units, amount } = ingressInput;
+        const { id, category } = ingressInput;
         let findCategory;
         let updateIngress;
         const findIngressById = await this.findOneIngressById(id);
@@ -59,7 +59,7 @@ let IngressService = class IngressService {
         }
         try {
             updateIngress = await this.ingressModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, ingressInput), { units: Number(units), amount: Number(amount), category: findCategory._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, ingressInput), { category: findCategory._id }), { new: true })
                 .populate([
                 {
                     path: 'category',

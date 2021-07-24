@@ -50,7 +50,7 @@ export class EgressService {
   }
 
   async updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument> {
-    const { id, category, units, amount } = egressInput;
+    const { id, category } = egressInput;
 
     let findCategory: CategoryDocument;
     let updateEgress: EgressDocument;
@@ -75,8 +75,6 @@ export class EgressService {
           id,
           {
             ...egressInput,
-            units: Number(units),
-            amount: Number(amount),
             category: findCategory._id,
           },
           { new: true },

@@ -5,5 +5,5 @@ export declare class UpdateProductInput {
     model?: string;
     name?: string;
     description?: string;
-    price?: string;
+    price?: number;
 }

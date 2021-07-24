@@ -57,9 +57,9 @@ __decorate([
 ], UpdateProductInput.prototype, "description", void 0);
 __decorate([
     graphql_1.Field({ nullable: true }),
-    class_validator_1.IsNumberString({}, { message: 'El precio solo permite números.' }),
+    class_validator_1.IsNumber({}, { message: 'El precio solo permite números.' }),
     class_validator_1.IsOptional(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], UpdateProductInput.prototype, "price", void 0);
 UpdateProductInput = __decorate([
     graphql_1.InputType()

@@ -9,10 +9,10 @@ export class ServiceType {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description: string;
 
-  @Field()
+  @Field({ nullable: true })
   price: number;
 
   @Field(() => Date)

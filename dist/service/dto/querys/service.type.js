@@ -23,11 +23,11 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceType.prototype, "name", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], ServiceType.prototype, "description", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", Number)
 ], ServiceType.prototype, "price", void 0);
 __decorate([
