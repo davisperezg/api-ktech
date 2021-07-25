@@ -7,5 +7,6 @@ export declare class Ingress {
     units: number;
     category: Category;
     amount: number;
+    status: number;
 }
 export declare const IngressSchema: mongoose.Schema<mongoose.Document<Ingress, {}>, mongoose.Model<any, any>, undefined>;

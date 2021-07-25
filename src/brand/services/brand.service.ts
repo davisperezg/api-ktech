@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BrandDocument } from '../schemas/brand.schema';
@@ -13,12 +14,20 @@ import { CategoryDocument } from 'src/category/schemas/category.schema';
 import { EXIST, NOEXIST, NULL } from 'src/lib/conts';
 
 @Injectable()
-export class BrandService {
+export class BrandService implements OnModuleInit {
   constructor(
     @InjectModel('Brand')
     private readonly brandModel: Model<BrandDocument>,
     private readonly categoryService: CategoryService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.brandModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en BrandService.onModuleInit ${e}`);
+    }
+  }
 
   async createBrand(brandInput: CreateBrandInput): Promise<BrandDocument> {
     const { name, category } = brandInput;
@@ -97,7 +106,7 @@ export class BrandService {
   async findAllBrands(): Promise<BrandDocument[]> {
     let findBrand: BrandDocument[];
     try {
-      findBrand = await this.brandModel.find().populate([
+      findBrand = await this.brandModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },

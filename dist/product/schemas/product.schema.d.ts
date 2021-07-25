@@ -10,5 +10,6 @@ export declare class Product {
     category: Category;
     brand: Brand;
     model: Model;
+    status: number;
 }
 export declare const ProductSchema: mongoose.Schema<mongoose.Document<Product, {}>, mongoose.Model<any, any>, undefined>;

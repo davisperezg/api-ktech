@@ -17,6 +17,10 @@ __decorate([
     mongoose_1.Prop({ trim: true, unique: true, uppercase: true }),
     __metadata("design:type", String)
 ], Category.prototype, "name", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Category.prototype, "status", void 0);
 Category = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Category);

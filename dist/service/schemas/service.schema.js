@@ -31,6 +31,10 @@ __decorate([
     mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }),
     __metadata("design:type", category_schema_1.Category)
 ], Service.prototype, "category", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Service.prototype, "status", void 0);
 Service = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Service);

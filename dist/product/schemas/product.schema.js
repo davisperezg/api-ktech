@@ -41,6 +41,10 @@ __decorate([
     mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Model' }),
     __metadata("design:type", model_schema_1.Model)
 ], Product.prototype, "model", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Product.prototype, "status", void 0);
 Product = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Product);

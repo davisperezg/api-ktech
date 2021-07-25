@@ -28,6 +28,11 @@ export class ProductResolver {
     return this.productService.updateProduct(productInput);
   }
 
+  @Mutation(() => Boolean)
+  deleteProduct(@Args('id') id: string) {
+    return this.productService.deleteProductById(id);
+  }
+
   @Query(() => [ProductType])
   getProducts(): Promise<ProductDocument[]> {
     return this.productService.findAllProducts();

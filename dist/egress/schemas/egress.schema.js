@@ -35,6 +35,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Egress.prototype, "amount", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Egress.prototype, "status", void 0);
 Egress = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Egress);

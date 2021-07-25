@@ -7,5 +7,6 @@ export declare class Egress {
     units: number;
     category: Category;
     amount: number;
+    status: number;
 }
 export declare const EgressSchema: mongoose.Schema<mongoose.Document<Egress, {}>, mongoose.Model<any, any>, undefined>;

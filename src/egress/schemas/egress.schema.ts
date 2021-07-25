@@ -21,6 +21,9 @@ export class Egress {
 
   @Prop({ trim: true })
   amount: number;
+
+  @Prop({ trim: true })
+  status: number;
 }
 
 export const EgressSchema = SchemaFactory.createForClass(Egress);

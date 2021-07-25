@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { IngressDocument } from '../schemas/ingress.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -9,12 +9,20 @@ import { UpdateIngressInput } from '../dto/inputs/update-ingress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
 
 @Injectable()
-export class IngressService {
+export class IngressService implements OnModuleInit {
   constructor(
     @InjectModel('Ingress')
     private readonly ingressModel: Model<IngressDocument>,
     private readonly categoryService: CategoryService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.ingressModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en IngressService.onModuleInit ${e}`);
+    }
+  }
 
   async createIngress(
     ingressInput: CreateIngressInput,
@@ -100,7 +108,7 @@ export class IngressService {
     await this.findOneIngressById(id);
 
     try {
-      await this.ingressModel.findByIdAndDelete(id);
+      await this.ingressModel.findByIdAndUpdate(id, { status: 2 });
       result = true;
     } catch (e) {
       throw new Error(`Error en IngressService.deleteIngressById ${e}`);
@@ -113,7 +121,7 @@ export class IngressService {
     let findIngress: IngressDocument[];
 
     try {
-      findIngress = await this.ingressModel.find().populate([
+      findIngress = await this.ingressModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },

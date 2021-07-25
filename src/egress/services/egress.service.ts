@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { EgressDocument } from '../schemas/egress.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -15,6 +15,14 @@ export class EgressService {
     private readonly egressModel: Model<EgressDocument>,
     private readonly categoryService: CategoryService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.egressModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en EgressService.onModuleInit ${e}`);
+    }
+  }
 
   async createEgress(egressInput: CreateEgressInput): Promise<EgressDocument> {
     const { category } = egressInput;
@@ -96,7 +104,7 @@ export class EgressService {
     await this.findOneEgressById(id);
 
     try {
-      await this.egressModel.findByIdAndDelete(id);
+      await this.egressModel.findByIdAndUpdate(id, { status: 2 });
       result = true;
     } catch (e) {
       throw new Error(`Error en EgressService.deleteEgressById ${e}`);
@@ -109,7 +117,7 @@ export class EgressService {
     let findEgress: EgressDocument[];
 
     try {
-      findEgress = await this.egressModel.find().populate([
+      findEgress = await this.egressModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },

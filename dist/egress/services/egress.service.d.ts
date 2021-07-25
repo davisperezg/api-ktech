@@ -7,6 +7,7 @@ export declare class EgressService {
     private readonly egressModel;
     private readonly categoryService;
     constructor(egressModel: Model<EgressDocument>, categoryService: CategoryService);
+    onModuleInit(): Promise<void>;
     createEgress(egressInput: CreateEgressInput): Promise<EgressDocument>;
     updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument>;
     deleteEgressById(id: string): Promise<boolean>;

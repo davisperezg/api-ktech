@@ -30,6 +30,9 @@ let ProductResolver = class ProductResolver {
     updateProduct(productInput) {
         return this.productService.updateProduct(productInput);
     }
+    deleteProduct(id) {
+        return this.productService.deleteProductById(id);
+    }
     getProducts() {
         return this.productService.findAllProducts();
     }
@@ -48,6 +51,13 @@ __decorate([
     __metadata("design:paramtypes", [update_product_input_1.UpdateProductInput]),
     __metadata("design:returntype", void 0)
 ], ProductResolver.prototype, "updateProduct", null);
+__decorate([
+    graphql_1.Mutation(() => Boolean),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ProductResolver.prototype, "deleteProduct", null);
 __decorate([
     graphql_1.Query(() => [product_type_1.ProductType]),
     __metadata("design:type", Function),

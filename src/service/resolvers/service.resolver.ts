@@ -28,6 +28,11 @@ export class ServiceResolver {
     return this.serviceService.updateService(serviceInput);
   }
 
+  @Mutation(() => Boolean)
+  deleteService(@Args('id') id: string) {
+    return this.serviceService.deleteServiceById(id);
+  }
+
   @Query(() => [ServiceType])
   getServices(): Promise<ServiceDocument[]> {
     return this.serviceService.findAllServices();

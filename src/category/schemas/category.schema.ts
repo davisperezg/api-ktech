@@ -7,6 +7,9 @@ export type CategoryDocument = Category & mongoose.Document;
 export class Category {
   @Prop({ trim: true, unique: true, uppercase: true })
   name: string;
+
+  @Prop({ trim: true })
+  status: number;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

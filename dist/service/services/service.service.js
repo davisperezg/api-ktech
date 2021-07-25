@@ -24,6 +24,14 @@ let ServiceService = class ServiceService {
         this.serviceModel = serviceModel;
         this.categoryService = categoryService;
     }
+    async onModuleInit() {
+        try {
+            await this.serviceModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en ServiceService.onModuleInit ${e}`);
+        }
+    }
     async createService(serviceInput) {
         const { name, category } = serviceInput;
         await this.findOneServiceByName(name, conts_1.EXIST);
@@ -72,10 +80,22 @@ let ServiceService = class ServiceService {
         }
         return updateService;
     }
+    async deleteServiceById(id) {
+        let result = false;
+        await this.findOneServicesById(id);
+        try {
+            await this.serviceModel.findByIdAndUpdate(id, { status: 2 });
+            result = true;
+        }
+        catch (e) {
+            throw new Error(`Error en ServiceService.deleteServiceById ${e}`);
+        }
+        return result;
+    }
     async findAllServices() {
         let findService;
         try {
-            findService = await this.serviceModel.find().populate([
+            findService = await this.serviceModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },

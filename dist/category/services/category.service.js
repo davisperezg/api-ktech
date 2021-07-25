@@ -21,6 +21,14 @@ let CategoryService = class CategoryService {
     constructor(categoryModel) {
         this.categoryModel = categoryModel;
     }
+    async onModuleInit() {
+        try {
+            await this.categoryModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en CategoryService.onModuleInit ${e}`);
+        }
+    }
     async createCategory(categoryInput) {
         const { name } = categoryInput;
         await this.findOneCategoryByName(name, conts_1.EXIST);
@@ -48,7 +56,7 @@ let CategoryService = class CategoryService {
     async findAllCategory() {
         let findCategorys;
         try {
-            findCategorys = await this.categoryModel.find();
+            findCategorys = await this.categoryModel.find({ status: 1 });
         }
         catch (e) {
             throw new Error(`Error en CategoryService.findAllCategory ${e}`);

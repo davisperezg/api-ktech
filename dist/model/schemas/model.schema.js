@@ -23,6 +23,10 @@ __decorate([
     mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }),
     __metadata("design:type", brand_schema_1.Brand)
 ], Model.prototype, "brand", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Model.prototype, "status", void 0);
 Model = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Model);

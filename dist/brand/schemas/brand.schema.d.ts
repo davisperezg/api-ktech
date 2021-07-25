@@ -4,5 +4,6 @@ export declare type BrandDocument = Brand & mongoose.Document;
 export declare class Brand {
     name: string;
     category: Category;
+    status: number;
 }
 export declare const BrandSchema: mongoose.Schema<mongoose.Document<Brand, {}>, mongoose.Model<any, any>, undefined>;

@@ -7,5 +7,6 @@ export declare class ProductResolver {
     constructor(productService: ProductService);
     registerProduct(productInput: CreateProductInput): Promise<ProductDocument>;
     updateProduct(productInput: UpdateProductInput): Promise<ProductDocument>;
+    deleteProduct(id: string): Promise<boolean>;
     getProducts(): Promise<ProductDocument[]>;
 }

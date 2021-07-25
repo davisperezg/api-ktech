@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -13,12 +14,20 @@ import { UpdateServiceInput } from '../dto/inputs/update-service.input';
 import { ServiceDocument } from '../schemas/service.schema';
 
 @Injectable()
-export class ServiceService {
+export class ServiceService implements OnModuleInit {
   constructor(
     @InjectModel('Service')
     private readonly serviceModel: Model<ServiceDocument>,
     private readonly categoryService: CategoryService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.serviceModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en ServiceService.onModuleInit ${e}`);
+    }
+  }
 
   async createService(
     serviceInput: CreateServiceInput,
@@ -98,10 +107,24 @@ export class ServiceService {
     return updateService;
   }
 
+  async deleteServiceById(id: string): Promise<boolean> {
+    let result = false;
+    await this.findOneServicesById(id);
+
+    try {
+      await this.serviceModel.findByIdAndUpdate(id, { status: 2 });
+      result = true;
+    } catch (e) {
+      throw new Error(`Error en ServiceService.deleteServiceById ${e}`);
+    }
+
+    return result;
+  }
+
   async findAllServices(): Promise<ServiceDocument[]> {
     let findService: ServiceDocument[];
     try {
-      findService = await this.serviceModel.find().populate([
+      findService = await this.serviceModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },

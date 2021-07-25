@@ -30,6 +30,14 @@ let ProductService = class ProductService {
         this.brandService = brandService;
         this.modelService = modelService;
     }
+    async onModuleInit() {
+        try {
+            await this.productModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en ProductService.onModuleInit ${e}`);
+        }
+    }
     async createProduct(productInput) {
         const { name, category, brand, model } = productInput;
         await this.findOneProductByName(name, conts_1.EXIST);
@@ -100,10 +108,22 @@ let ProductService = class ProductService {
         }
         return updateProduct;
     }
+    async deleteProductById(id) {
+        let result = false;
+        await this.findOneProductById(id);
+        try {
+            await this.productModel.findByIdAndUpdate(id, { status: 2 });
+            result = true;
+        }
+        catch (e) {
+            throw new Error(`Error en ProductService.deleteProductById ${e}`);
+        }
+        return result;
+    }
     async findAllProducts() {
         let findProduct;
         try {
-            findProduct = await this.productModel.find().populate([
+            findProduct = await this.productModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },

@@ -24,6 +24,14 @@ let BrandService = class BrandService {
         this.brandModel = brandModel;
         this.categoryService = categoryService;
     }
+    async onModuleInit() {
+        try {
+            await this.brandModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en BrandService.onModuleInit ${e}`);
+        }
+    }
     async createBrand(brandInput) {
         const { name, category } = brandInput;
         await this.findOneBrandByName(name, conts_1.EXIST);
@@ -75,7 +83,7 @@ let BrandService = class BrandService {
     async findAllBrands() {
         let findBrand;
         try {
-            findBrand = await this.brandModel.find().populate([
+            findBrand = await this.brandModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },

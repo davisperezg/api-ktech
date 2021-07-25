@@ -35,6 +35,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Ingress.prototype, "amount", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Ingress.prototype, "status", void 0);
 Ingress = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Ingress);

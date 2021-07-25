@@ -11,6 +11,9 @@ export class Brand {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   category: Category;
+
+  @Prop({ trim: true })
+  status: number;
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);

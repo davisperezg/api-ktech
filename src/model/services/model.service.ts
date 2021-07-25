@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -13,12 +14,20 @@ import { UpdateModelInput } from '../dto/inputs/update-model.input';
 import { ModelDocument } from '../schemas/model.schema';
 
 @Injectable()
-export class ModelService {
+export class ModelService implements OnModuleInit {
   constructor(
     @InjectModel('Model')
     private readonly modelModel: Model<ModelDocument>,
     private readonly brandService: BrandService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.modelModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en ModelService.onModuleInit ${e}`);
+    }
+  }
 
   async createModel(modelInput: CreateModelInput): Promise<ModelDocument> {
     const { name, brand } = modelInput;
@@ -94,7 +103,7 @@ export class ModelService {
   async findAllModels(): Promise<ModelDocument[]> {
     let findModel: ModelDocument[];
     try {
-      findModel = await this.modelModel.find().populate([
+      findModel = await this.modelModel.find({ status: 1 }).populate([
         {
           path: 'brand',
         },

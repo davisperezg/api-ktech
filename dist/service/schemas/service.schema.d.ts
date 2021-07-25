@@ -6,5 +6,6 @@ export declare class Service {
     description: string;
     price: number;
     category: Category;
+    status: number;
 }
 export declare const ServiceSchema: mongoose.Schema<mongoose.Document<Service, {}>, mongoose.Model<any, any>, undefined>;

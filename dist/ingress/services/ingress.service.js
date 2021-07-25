@@ -24,6 +24,14 @@ let IngressService = class IngressService {
         this.ingressModel = ingressModel;
         this.categoryService = categoryService;
     }
+    async onModuleInit() {
+        try {
+            await this.ingressModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en IngressService.onModuleInit ${e}`);
+        }
+    }
     async createIngress(ingressInput) {
         const { category } = ingressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
@@ -75,7 +83,7 @@ let IngressService = class IngressService {
         let result = false;
         await this.findOneIngressById(id);
         try {
-            await this.ingressModel.findByIdAndDelete(id);
+            await this.ingressModel.findByIdAndUpdate(id, { status: 2 });
             result = true;
         }
         catch (e) {
@@ -86,7 +94,7 @@ let IngressService = class IngressService {
     async findAllIngress() {
         let findIngress;
         try {
-            findIngress = await this.ingressModel.find().populate([
+            findIngress = await this.ingressModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },

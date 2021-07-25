@@ -21,6 +21,9 @@ export class Ingress {
 
   @Prop({ trim: true })
   amount: number;
+
+  @Prop({ trim: true })
+  status: number;
 }
 
 export const IngressSchema = SchemaFactory.createForClass(Ingress);

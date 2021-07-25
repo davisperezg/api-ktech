@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { EXIST, NOEXIST, NULL } from 'src/lib/conts';
@@ -6,11 +6,19 @@ import { CreateCategoryInput } from '../dto/inputs/create-category.input';
 import { UpdateCategoryInput } from '../dto/inputs/update-category.input';
 import { CategoryDocument } from '../schemas/category.schema';
 @Injectable()
-export class CategoryService {
+export class CategoryService implements OnModuleInit {
   constructor(
     @InjectModel('Category')
     private readonly categoryModel: Model<CategoryDocument>,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.categoryModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en CategoryService.onModuleInit ${e}`);
+    }
+  }
 
   async createCategory(
     categoryInput: CreateCategoryInput,
@@ -56,7 +64,7 @@ export class CategoryService {
     let findCategorys: CategoryDocument[];
 
     try {
-      findCategorys = await this.categoryModel.find();
+      findCategorys = await this.categoryModel.find({ status: 1 });
     } catch (e) {
       throw new Error(`Error en CategoryService.findAllCategory ${e}`);
     }

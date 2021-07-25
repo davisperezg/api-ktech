@@ -24,6 +24,14 @@ let EgressService = class EgressService {
         this.egressModel = egressModel;
         this.categoryService = categoryService;
     }
+    async onModuleInit() {
+        try {
+            await this.egressModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en EgressService.onModuleInit ${e}`);
+        }
+    }
     async createEgress(egressInput) {
         const { category } = egressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
@@ -75,7 +83,7 @@ let EgressService = class EgressService {
         let result = false;
         await this.findOneEgressById(id);
         try {
-            await this.egressModel.findByIdAndDelete(id);
+            await this.egressModel.findByIdAndUpdate(id, { status: 2 });
             result = true;
         }
         catch (e) {
@@ -86,7 +94,7 @@ let EgressService = class EgressService {
     async findAllEgress() {
         let findEgress;
         try {
-            findEgress = await this.egressModel.find().populate([
+            findEgress = await this.egressModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },

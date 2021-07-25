@@ -5176,13 +5176,13 @@
         "affectsGlobalScope": false
       },
       "../src/category/schemas/category.schema.ts": {
-        "version": "fc5c88fdb4f266935058966a259efd9b184999c4110798123c342ced52e9dda6",
-        "signature": "dfaadb227cfc38732b8cbe2e0c7e5e340a0480320e2572b806e963e2f65b1e7c",
+        "version": "12b39f312db1a83b770df6a840693e3b899153804f80441709d74d9662777be9",
+        "signature": "5c2ee1127cb68e3031faa9710e2e2259ac85eea7a8e7bda779dc97696d4a74c3",
         "affectsGlobalScope": false
       },
       "../src/category/services/category.service.ts": {
-        "version": "e981f0273f11950c3a6748e4eb2c3690d4f6f6fcd67f2def9def837d09b21216",
-        "signature": "212676ff8090ea19ba25e9efd370d06a2ce171e6d9cac7bd9ab3154d9a9ecbf7",
+        "version": "42806a7b282907578674874f4731bdd00ee93c4e19e0adb812183c9ba9f1ec86",
+        "signature": "570cda16840898276b926ea7053eedf36c74170206acc8803d5979e6cb3ca8f3",
         "affectsGlobalScope": false
       },
       "../src/category/resolvers/category.resolver.ts": {
@@ -5211,13 +5211,13 @@
         "affectsGlobalScope": false
       },
       "../src/brand/schemas/brand.schema.ts": {
-        "version": "a39dd9d7a740669c79dc6eea7cb5a116e4107cd27c62a2e8fe9cea3f3b694e0f",
-        "signature": "0a3cbadd2ba1c9c95beb7373362e834bd5fd9fa20430daa13d32ff253b1e51d1",
+        "version": "0bef1160c8223960b2658af6e286a51f03b5a661a04aa0d584deff7d3df249ef",
+        "signature": "9558228806237a70c2f49b51f81dde22dde9991bd01d883da9489563035dd107",
         "affectsGlobalScope": false
       },
       "../src/brand/services/brand.service.ts": {
-        "version": "ab987b0dafe56a47afcc44f585f94773e3899b2167a33117bef4a810e8642936",
-        "signature": "67fd12e1805752a50e6f78d29fca5d0eff19e0373f878d48fd92d3f976e32568",
+        "version": "7d8edfc6bdf26d462ea7f34d1d764bda1978483bcb822582fc594d6ce2097230",
+        "signature": "20f496ff97a10f84440592db92845635ecf1e1a0d5a2346a824581958cbad708",
         "affectsGlobalScope": false
       },
       "../src/brand/resolvers/brand.resolver.ts": {
@@ -5241,13 +5241,13 @@
         "affectsGlobalScope": false
       },
       "../src/model/schemas/model.schema.ts": {
-        "version": "05980efe15d546edd3cb179e33f8e27d9995360587099117b5b363a5ca291d0e",
-        "signature": "1bafc110cb7cedbfa959260792cadfc3f4a816eb36799e6e0f1bc20b053ed251",
+        "version": "13f4eb5d8c0550262ff8538e0b7bcf957e35df47741e617cf6fde7b15f973b77",
+        "signature": "1b55d39220787fc13090ac67d06e03ce2175ca1e01443e9091a0fbbc4e0a909f",
         "affectsGlobalScope": false
       },
       "../src/model/services/model.service.ts": {
-        "version": "b947d4f38ecdfbc556e8268477188000d2325dd4a4bfadc179dd0f05a6c0e800",
-        "signature": "3860a4078e77364d5d4c395cb2bd1f3596f12bf7b4ee536c6d45e88b55365823",
+        "version": "2e719e6360ee06b44500561cf7cf00ad8c262b733ce0b4b164365086b5440573",
+        "signature": "e059db1141df526e9453109fc01fbe4dc66afb3972120a21950f35f0b32c2427",
         "affectsGlobalScope": false
       },
       "../src/model/dto/querys/model.type.ts": {
@@ -5266,8 +5266,8 @@
         "affectsGlobalScope": false
       },
       "../src/product/schemas/product.schema.ts": {
-        "version": "56fd4aa0d44d8028c98c852118cee48db7862b11e049372bb859b34166cc1d74",
-        "signature": "aad88f54f7e395d5eb1b63f9cc41a75f4e33389b7e06c4f4457d48d6b0987881",
+        "version": "7dabb2f41139009bdd389353def85872f08da470b61e0c4532d1d0a6c30499d2",
+        "signature": "6dd9e6855c8768eabb90422cf973badef4fa7fa117d18509ad68d1b61d07b218",
         "affectsGlobalScope": false
       },
       "../src/product/dto/inputs/create-product.input.ts": {
@@ -5281,8 +5281,8 @@
         "affectsGlobalScope": false
       },
       "../src/product/services/product.service.ts": {
-        "version": "7975a6df51c631be9efed5ca07dfeafcd267ca562178a282addd82a52f7af2ee",
-        "signature": "178b3affb0bca3ff82eb3068d7d83e726da4d5f9d4c92ec34fe2f8e6f4203158",
+        "version": "d68edbd2b09704594a9202d49cdca1c02164f729ef020eff6141774b50c31f67",
+        "signature": "790b982c482fb4183ec9878555285d124b27a0b324bf9d2629aebbc3618193f8",
         "affectsGlobalScope": false
       },
       "../src/product/dto/querys/product.type.ts": {
@@ -5291,8 +5291,8 @@
         "affectsGlobalScope": false
       },
       "../src/product/resolvers/product.resolver.ts": {
-        "version": "8ed93e2ae2002d75f461482a32e14d46e44fca61c6c9f942c260ad91cd89cbf5",
-        "signature": "0697cb812f8c9dcdf86cd152abf99f1a980f94641bd5fae3e1c3e9ae8bbf28a3",
+        "version": "a026c6ff06824d7c361fa526a25b9f954dbf5e9e6b74e3871b7dfddc51bfe34e",
+        "signature": "b840ee6d30a00df1dc3605c2d739775413a3e8c7c1dce5ac78c175a2fa7d7dad",
         "affectsGlobalScope": false
       },
       "../src/product/product.module.ts": {
@@ -5311,13 +5311,13 @@
         "affectsGlobalScope": false
       },
       "../src/service/schemas/service.schema.ts": {
-        "version": "f773c68d4f23a2f4efdef55fb12a7d6705e59522f397a820b59d2e1180144260",
-        "signature": "74e01b6e8062fd9808b486ddb819e2e17447812f70213748951126709e153641",
+        "version": "35e4a1caf2d51ac069cb2b6c51b37fd3fb2b5f5bbcc1b2b4c8cdb8c9f7b28ec5",
+        "signature": "ce377312f898104cfb496916286b50541dd19e9bde111de6300a885c0e2d074c",
         "affectsGlobalScope": false
       },
       "../src/service/services/service.service.ts": {
-        "version": "4c35ea2a3e91cd02482fbe89ac74ee2b856915076a2361877a7538ef94b601f8",
-        "signature": "c156b0b5c0b88652fed4112bddbe0dd69ffd288fd02b49576199c34c779201c5",
+        "version": "67e4a56ac6b18fd42ae695bc9c72fd890a60ad22e2111d76a8ed1da4dfe0cbdc",
+        "signature": "60e9b62f371b6a5c39d14b722ba9ee8d34e49d700a47c8fdf9b687d2ff192804",
         "affectsGlobalScope": false
       },
       "../src/service/dto/querys/service.type.ts": {
@@ -5326,8 +5326,8 @@
         "affectsGlobalScope": false
       },
       "../src/service/resolvers/service.resolver.ts": {
-        "version": "4f7358b740a272917feecd63737c559e9e17fccc224c8c9b81f3fca9b78cf4c5",
-        "signature": "0e14ceedf99355955174d3d00480803d2ea41dcc4d7eb0ce5f3197923758d09c",
+        "version": "fab0e4c0d8a5217a5ce53ceb807323c2bce89ed1bea0f7ec2076827d9a0cee46",
+        "signature": "64c686533c49ce3434cfdc2c31d3173abaa27d90ec23fcd08b1a4ae445934ced",
         "affectsGlobalScope": false
       },
       "../src/service/service.module.ts": {
@@ -5336,8 +5336,8 @@
         "affectsGlobalScope": false
       },
       "../src/ingress/schemas/ingress.schema.ts": {
-        "version": "a0bbeb063d97b901dcb9a483a7acce6db1fbeb3df2b8b4ca3064a9c7bd824013",
-        "signature": "75841329b1e20161ab7eae814196069a21676cf16496aa74d98184628091bbb4",
+        "version": "9a9b92bc942fe246d7254e85745035bdb13f17ab42aab87a7fb9553447e19915",
+        "signature": "ed2628d19bf4bc9e1036907a5930ea0fedb9fb084df9be625c77c445dc989438",
         "affectsGlobalScope": false
       },
       "../src/ingress/dto/inputs/create-ingress.input.ts": {
@@ -5351,8 +5351,8 @@
         "affectsGlobalScope": false
       },
       "../src/ingress/services/ingress.service.ts": {
-        "version": "2a8dba345b87588b2b3cd01ad113ae28a178383ce973fff29280b1a2b708d2f8",
-        "signature": "4373cedd585a0284fbc4c488f3e25e9884668661bdfa421ac400f674a01ca024",
+        "version": "4d861ce6fb3435376ecc3991d4b85a3b8ac901676bd2586396d48238076d1b8c",
+        "signature": "f668c91414e0579e5128efbade1f4a9da36d3285e6959543a06b457e2fb64654",
         "affectsGlobalScope": false
       },
       "../src/ingress/dto/querys/ingress.type.ts": {
@@ -5371,8 +5371,8 @@
         "affectsGlobalScope": false
       },
       "../src/egress/schemas/egress.schema.ts": {
-        "version": "a6d8d0fcc2ba6e937e2b00ccfd82405d6f19bba10d6fb67a8b18ad267ef2d5ef",
-        "signature": "2cb6cf002cd0c86c754bdc194890fe9dba367d6a27dcbafbd4184c526a966ef3",
+        "version": "9366859541d95dc07471d25f4d318c57261d1f2c3b4980b71ea98216722baeaf",
+        "signature": "6894c56318825cded7395134044d2c999814005ffa7b07b2f55ec05ff2bec233",
         "affectsGlobalScope": false
       },
       "../src/egress/dto/inputs/create-egress.input.ts": {
@@ -5386,8 +5386,8 @@
         "affectsGlobalScope": false
       },
       "../src/egress/services/egress.service.ts": {
-        "version": "2c659e6695d07bb0d36e5fc9ed9c3b3b9edaa7fd1777b014ee49c2f96de981f6",
-        "signature": "c4674a34f26aa6a05857f2955e8ccf676e79d26591bf273ccb5a8821f5b756a9",
+        "version": "e0d930b87e41ea2f4e51e9dd281c7f1459c7cbf105604e9a0919152b5b0c20f3",
+        "signature": "c29e6544ef48c668d90ab8ce0ee1c15b93afc4f752a0f5c5bb9d0a4a90d4f5ee",
         "affectsGlobalScope": false
       },
       "../src/egress/dto/querys/egress.type.ts": {
@@ -14648,6 +14648,7 @@
         "../src/category/schemas/category.schema.ts"
       ],
       "../src/brand/services/brand.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/brand/dto/inputs/create-brand.input.ts",
         "../src/brand/dto/inputs/update-brand.input.ts",
@@ -14664,6 +14665,7 @@
         "../node_modules/mongoose/index.d.ts"
       ],
       "../src/category/services/category.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/category/dto/inputs/create-category.input.ts",
         "../src/category/dto/inputs/update-category.input.ts",
@@ -14703,6 +14705,7 @@
         "../src/category/schemas/category.schema.ts"
       ],
       "../src/ingress/services/ingress.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/category/services/category.service.ts",
         "../src/ingress/dto/inputs/create-ingress.input.ts",
@@ -14759,6 +14762,7 @@
         "../src/brand/schemas/brand.schema.ts"
       ],
       "../src/model/services/model.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/brand/services/brand.service.ts",
         "../src/model/dto/inputs/create-model.input.ts",
@@ -14815,6 +14819,7 @@
         "../src/model/schemas/model.schema.ts"
       ],
       "../src/product/services/product.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/brand/services/brand.service.ts",
         "../src/category/services/category.service.ts",
@@ -14862,6 +14867,7 @@
         "../src/category/schemas/category.schema.ts"
       ],
       "../src/service/services/service.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/mongoose/index.d.ts",
         "../src/category/services/category.service.ts",
         "../src/service/dto/inputs/create-service.input.ts",

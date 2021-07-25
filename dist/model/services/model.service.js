@@ -24,6 +24,14 @@ let ModelService = class ModelService {
         this.modelModel = modelModel;
         this.brandService = brandService;
     }
+    async onModuleInit() {
+        try {
+            await this.modelModel.updateMany({ status: null }, { status: 1 });
+        }
+        catch (e) {
+            throw new Error(`Error en ModelService.onModuleInit ${e}`);
+        }
+    }
     async createModel(modelInput) {
         const { name, brand } = modelInput;
         await this.findOneModelByName(name, conts_1.EXIST);
@@ -75,7 +83,7 @@ let ModelService = class ModelService {
     async findAllModels() {
         let findModel;
         try {
-            findModel = await this.modelModel.find().populate([
+            findModel = await this.modelModel.find({ status: 1 }).populate([
                 {
                     path: 'brand',
                 },

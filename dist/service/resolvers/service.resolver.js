@@ -30,6 +30,9 @@ let ServiceResolver = class ServiceResolver {
     updateService(serviceInput) {
         return this.serviceService.updateService(serviceInput);
     }
+    deleteService(id) {
+        return this.serviceService.deleteServiceById(id);
+    }
     getServices() {
         return this.serviceService.findAllServices();
     }
@@ -48,6 +51,13 @@ __decorate([
     __metadata("design:paramtypes", [update_service_input_1.UpdateServiceInput]),
     __metadata("design:returntype", void 0)
 ], ServiceResolver.prototype, "updateService", null);
+__decorate([
+    graphql_1.Mutation(() => Boolean),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ServiceResolver.prototype, "deleteService", null);
 __decorate([
     graphql_1.Query(() => [service_type_1.ServiceType]),
     __metadata("design:type", Function),

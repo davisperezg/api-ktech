@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -17,7 +18,7 @@ import { UpdateProductInput } from '../dto/inputs/update-product.input';
 import { ProductDocument } from '../schemas/product.schema';
 
 @Injectable()
-export class ProductService {
+export class ProductService implements OnModuleInit {
   constructor(
     @InjectModel('Product')
     private readonly productModel: Model<ProductDocument>,
@@ -25,6 +26,14 @@ export class ProductService {
     private readonly brandService: BrandService,
     private readonly modelService: ModelService,
   ) {}
+
+  async onModuleInit(): Promise<void> {
+    try {
+      await this.productModel.updateMany({ status: null }, { status: 1 });
+    } catch (e) {
+      throw new Error(`Error en ProductService.onModuleInit ${e}`);
+    }
+  }
 
   async createProduct(
     productInput: CreateProductInput,
@@ -147,10 +156,24 @@ export class ProductService {
     return updateProduct;
   }
 
+  async deleteProductById(id: string): Promise<boolean> {
+    let result = false;
+    await this.findOneProductById(id);
+
+    try {
+      await this.productModel.findByIdAndUpdate(id, { status: 2 });
+      result = true;
+    } catch (e) {
+      throw new Error(`Error en ProductService.deleteProductById ${e}`);
+    }
+
+    return result;
+  }
+
   async findAllProducts(): Promise<ProductDocument[]> {
     let findProduct: ProductDocument[];
     try {
-      findProduct = await this.productModel.find().populate([
+      findProduct = await this.productModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },

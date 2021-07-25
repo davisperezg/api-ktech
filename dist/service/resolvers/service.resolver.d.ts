@@ -7,5 +7,6 @@ export declare class ServiceResolver {
     constructor(serviceService: ServiceService);
     registerService(serviceInput: CreateServiceInput): Promise<ServiceDocument>;
     updateService(serviceInput: UpdateServiceInput): Promise<ServiceDocument>;
+    deleteService(id: string): Promise<boolean>;
     getServices(): Promise<ServiceDocument[]>;
 }
