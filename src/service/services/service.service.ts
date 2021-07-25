@@ -44,6 +44,7 @@ export class ServiceService implements OnModuleInit {
     const newService = new this.serviceModel({
       ...serviceInput,
       category: findCategory._id,
+      status: 1,
     });
 
     let serviceSaved: ServiceDocument;

@@ -12,6 +12,6 @@ export declare class IngressService implements OnModuleInit {
     createIngress(ingressInput: CreateIngressInput): Promise<IngressDocument>;
     updateIngress(ingressInput: UpdateIngressInput): Promise<IngressDocument>;
     deleteIngressById(id: string): Promise<boolean>;
-    findAllIngress(): Promise<IngressDocument[]>;
+    findAllIngressToDay(): Promise<IngressDocument[]>;
     findOneIngressById(id: string): Promise<IngressDocument>;
 }

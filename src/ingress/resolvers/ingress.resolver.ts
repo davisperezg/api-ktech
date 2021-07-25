@@ -35,6 +35,6 @@ export class IngressResolver {
 
   @Query(() => [IngressType])
   getIngress(): Promise<IngressDocument[]> {
-    return this.ingressService.findAllIngress();
+    return this.ingressService.findAllIngressToDay();
   }
 }

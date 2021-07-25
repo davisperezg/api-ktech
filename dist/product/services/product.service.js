@@ -44,7 +44,7 @@ let ProductService = class ProductService {
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
         const findBrand = await this.brandService.findOneBrandByName(brand, conts_1.NOEXIST);
         const findModel = await this.modelService.findOneModelByName(model, conts_1.NOEXIST);
-        const newProduct = new this.productModel(Object.assign(Object.assign({}, productInput), { category: findCategory._id, brand: findBrand._id, model: findModel._id }));
+        const newProduct = new this.productModel(Object.assign(Object.assign({}, productInput), { category: findCategory._id, brand: findBrand._id, model: findModel._id, status: 1 }));
         let productSaved;
         let foundProduct;
         try {

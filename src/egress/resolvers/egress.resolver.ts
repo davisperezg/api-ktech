@@ -35,6 +35,6 @@ export class EgressResolver {
 
   @Query(() => [EgressType])
   getEgress(): Promise<EgressDocument[]> {
-    return this.egressService.findAllEgress();
+    return this.egressService.findAllEgressToDay();
   }
 }

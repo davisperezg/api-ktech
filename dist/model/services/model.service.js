@@ -36,7 +36,7 @@ let ModelService = class ModelService {
         const { name, brand } = modelInput;
         await this.findOneModelByName(name, conts_1.EXIST);
         const findBrand = await this.brandService.findOneBrandByName(brand, conts_1.NOEXIST);
-        const newModel = new this.modelModel(Object.assign(Object.assign({}, modelInput), { brand: findBrand._id }));
+        const newModel = new this.modelModel(Object.assign(Object.assign({}, modelInput), { brand: findBrand._id, status: 1 }));
         let modelSaved;
         let foundModel;
         try {

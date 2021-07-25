@@ -34,7 +34,7 @@ let IngressResolver = class IngressResolver {
         return this.ingressService.deleteIngressById(id);
     }
     getIngress() {
-        return this.ingressService.findAllIngress();
+        return this.ingressService.findAllIngressToDay();
     }
 };
 __decorate([

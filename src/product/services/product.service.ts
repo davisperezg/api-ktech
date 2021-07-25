@@ -62,6 +62,7 @@ export class ProductService implements OnModuleInit {
       category: findCategory._id,
       brand: findBrand._id,
       model: findModel._id,
+      status: 1,
     });
 
     let productSaved: ProductDocument;

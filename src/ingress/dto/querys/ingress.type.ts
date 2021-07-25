@@ -24,9 +24,9 @@ export class IngressType {
   @Field(() => Int)
   total: number;
 
-  @Field(() => Date)
+  @Field(() => String)
   createdAt: Date;
 
-  @Field(() => Date)
+  @Field(() => String)
   updatedAt: Date;
 }

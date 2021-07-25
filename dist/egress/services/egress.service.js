@@ -19,6 +19,7 @@ const mongoose_2 = require("mongoose");
 const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
+const moment = require("moment");
 let EgressService = class EgressService {
     constructor(egressModel, categoryService) {
         this.egressModel = egressModel;
@@ -35,7 +36,7 @@ let EgressService = class EgressService {
     async createEgress(egressInput) {
         const { category } = egressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { category: findCategory._id }));
+        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { category: findCategory._id, status: 1 }));
         let egressSaved;
         let foundEgress;
         try {
@@ -90,6 +91,37 @@ let EgressService = class EgressService {
             throw new Error(`Error en EgressService.deleteEgressById ${e}`);
         }
         return result;
+    }
+    async findAllEgressToDay() {
+        let findEgress;
+        const now = moment.utc().format();
+        try {
+            findEgress = await this.egressModel.find({ status: 1 }).populate([
+                {
+                    path: 'category',
+                },
+            ]);
+            findEgress = findEgress
+                .map((res) => {
+                return {
+                    id: res._id,
+                    detail: res.detail,
+                    observation: res.observation,
+                    units: res.units,
+                    amount: res.amount,
+                    createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
+                    updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
+                    category: {
+                        name: res.category.name,
+                    },
+                };
+            })
+                .filter((fil) => fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'));
+        }
+        catch (e) {
+            throw new Error(`Error en EgressService.findAllEgress ${e}`);
+        }
+        return findEgress;
     }
     async findAllEgress() {
         let findEgress;

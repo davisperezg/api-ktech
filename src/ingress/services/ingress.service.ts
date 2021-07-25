@@ -7,6 +7,7 @@ import { CreateIngressInput } from '../dto/inputs/create-ingress.input';
 import { NOEXIST, NULL } from 'src/lib/conts';
 import { UpdateIngressInput } from '../dto/inputs/update-ingress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
+import * as moment from 'moment';
 
 @Injectable()
 export class IngressService implements OnModuleInit {
@@ -37,6 +38,7 @@ export class IngressService implements OnModuleInit {
     const newIngress = new this.ingressModel({
       ...ingressInput,
       category: findCategory._id,
+      status: 1,
     });
 
     let ingressSaved: IngressDocument;
@@ -117,15 +119,36 @@ export class IngressService implements OnModuleInit {
     return result;
   }
 
-  async findAllIngress(): Promise<IngressDocument[]> {
-    let findIngress: IngressDocument[];
+  async findAllIngressToDay(): Promise<IngressDocument[]> {
+    let findIngress: IngressDocument[] | any;
 
+    const now = moment.utc().format();
     try {
       findIngress = await this.ingressModel.find({ status: 1 }).populate([
         {
           path: 'category',
         },
       ]);
+      //filter with today's date
+      findIngress = findIngress
+        .map((res: any) => {
+          return {
+            id: res._id,
+            detail: res.detail,
+            observation: res.observation,
+            units: res.units,
+            amount: res.amount,
+            createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
+            updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
+            category: {
+              name: res.category.name,
+            },
+          };
+        })
+        .filter(
+          (fil) =>
+            fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'),
+        );
     } catch (e) {
       throw new Error(`Error en IngressService.findAllIngress ${e}`);
     }

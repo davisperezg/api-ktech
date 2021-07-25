@@ -42,6 +42,7 @@ export class ModelService implements OnModuleInit {
     const newModel = new this.modelModel({
       ...modelInput,
       brand: findBrand._id,
+      status: 1,
     });
 
     let modelSaved: ModelDocument;

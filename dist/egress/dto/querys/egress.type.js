@@ -43,11 +43,11 @@ __decorate([
     __metadata("design:type", Number)
 ], EgressType.prototype, "total", void 0);
 __decorate([
-    graphql_1.Field(() => Date),
+    graphql_1.Field(() => String),
     __metadata("design:type", Date)
 ], EgressType.prototype, "createdAt", void 0);
 __decorate([
-    graphql_1.Field(() => Date),
+    graphql_1.Field(() => String),
     __metadata("design:type", Date)
 ], EgressType.prototype, "updatedAt", void 0);
 EgressType = __decorate([

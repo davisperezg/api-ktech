@@ -42,6 +42,7 @@ export class BrandService implements OnModuleInit {
     const newBrand = new this.brandModel({
       ...brandInput,
       category: findCategory._id,
+      status: 1,
     });
 
     let brandSaved: BrandDocument;

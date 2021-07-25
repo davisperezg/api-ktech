@@ -32,7 +32,7 @@ let CategoryService = class CategoryService {
     async createCategory(categoryInput) {
         const { name } = categoryInput;
         await this.findOneCategoryByName(name, conts_1.EXIST);
-        const newCategory = new this.categoryModel(categoryInput);
+        const newCategory = new this.categoryModel(Object.assign(Object.assign({}, categoryInput), { status: 1 }));
         let saveCategory;
         try {
             saveCategory = await newCategory.save();

@@ -36,7 +36,7 @@ let BrandService = class BrandService {
         const { name, category } = brandInput;
         await this.findOneBrandByName(name, conts_1.EXIST);
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newBrand = new this.brandModel(Object.assign(Object.assign({}, brandInput), { category: findCategory._id }));
+        const newBrand = new this.brandModel(Object.assign(Object.assign({}, brandInput), { category: findCategory._id, status: 1 }));
         let brandSaved;
         let foundBrand;
         try {

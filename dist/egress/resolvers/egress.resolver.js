@@ -34,7 +34,7 @@ let EgressResolver = class EgressResolver {
         return this.egressService.deleteEgressById(id);
     }
     getEgress() {
-        return this.egressService.findAllEgress();
+        return this.egressService.findAllEgressToDay();
     }
 };
 __decorate([

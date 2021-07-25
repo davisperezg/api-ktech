@@ -27,7 +27,7 @@ export class CategoryService implements OnModuleInit {
 
     await this.findOneCategoryByName(name, EXIST);
 
-    const newCategory = new this.categoryModel(categoryInput);
+    const newCategory = new this.categoryModel({ ...categoryInput, status: 1 });
 
     let saveCategory: CategoryDocument;
 

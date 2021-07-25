@@ -7,9 +7,10 @@ import { CategoryService } from 'src/category/services/category.service';
 import { NOEXIST, NULL } from 'src/lib/conts';
 import { UpdateEgressInput } from '../dto/inputs/update-egress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
+import * as moment from 'moment';
 
 @Injectable()
-export class EgressService {
+export class EgressService implements OnModuleInit {
   constructor(
     @InjectModel('Egress')
     private readonly egressModel: Model<EgressDocument>,
@@ -35,6 +36,7 @@ export class EgressService {
     const newEgress = new this.egressModel({
       ...egressInput,
       category: findCategory._id,
+      status: 1,
     });
 
     let egressSaved: EgressDocument;
@@ -111,6 +113,45 @@ export class EgressService {
     }
 
     return result;
+  }
+
+  async findAllEgressToDay(): Promise<EgressDocument[]> {
+    let findEgress: EgressDocument[] | any;
+
+    const now = moment.utc().format();
+    try {
+      findEgress = await this.egressModel.find({ status: 1 }).populate([
+        {
+          path: 'category',
+        },
+      ]);
+      //filter with today's date
+      findEgress = findEgress
+        .map((res: any) => {
+          //moment.utc().format();
+          //moment.utc(date).local().format('DD/MM/YYYY');
+          return {
+            id: res._id,
+            detail: res.detail,
+            observation: res.observation,
+            units: res.units,
+            amount: res.amount,
+            createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
+            updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
+            category: {
+              name: res.category.name,
+            },
+          };
+        })
+        .filter(
+          (fil) =>
+            fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'),
+        );
+    } catch (e) {
+      throw new Error(`Error en EgressService.findAllEgress ${e}`);
+    }
+
+    return findEgress;
   }
 
   async findAllEgress(): Promise<EgressDocument[]> {

@@ -19,6 +19,7 @@ const mongoose_2 = require("mongoose");
 const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
+const moment = require("moment");
 let IngressService = class IngressService {
     constructor(ingressModel, categoryService) {
         this.ingressModel = ingressModel;
@@ -35,7 +36,7 @@ let IngressService = class IngressService {
     async createIngress(ingressInput) {
         const { category } = ingressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { category: findCategory._id }));
+        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { category: findCategory._id, status: 1 }));
         let ingressSaved;
         let foundIngress;
         try {
@@ -91,14 +92,31 @@ let IngressService = class IngressService {
         }
         return result;
     }
-    async findAllIngress() {
+    async findAllIngressToDay() {
         let findIngress;
+        const now = moment.utc().format();
         try {
             findIngress = await this.ingressModel.find({ status: 1 }).populate([
                 {
                     path: 'category',
                 },
             ]);
+            findIngress = findIngress
+                .map((res) => {
+                return {
+                    id: res._id,
+                    detail: res.detail,
+                    observation: res.observation,
+                    units: res.units,
+                    amount: res.amount,
+                    createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
+                    updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
+                    category: {
+                        name: res.category.name,
+                    },
+                };
+            })
+                .filter((fil) => fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'));
         }
         catch (e) {
             throw new Error(`Error en IngressService.findAllIngress ${e}`);

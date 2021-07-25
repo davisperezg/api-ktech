@@ -36,7 +36,7 @@ let ServiceService = class ServiceService {
         const { name, category } = serviceInput;
         await this.findOneServiceByName(name, conts_1.EXIST);
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newService = new this.serviceModel(Object.assign(Object.assign({}, serviceInput), { category: findCategory._id }));
+        const newService = new this.serviceModel(Object.assign(Object.assign({}, serviceInput), { category: findCategory._id, status: 1 }));
         let serviceSaved;
         let foundService;
         try {
