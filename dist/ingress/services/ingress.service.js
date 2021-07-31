@@ -19,7 +19,7 @@ const mongoose_2 = require("mongoose");
 const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
-const moment = require("moment");
+const date_fns_1 = require("date-fns");
 let IngressService = class IngressService {
     constructor(ingressModel, categoryService) {
         this.ingressModel = ingressModel;
@@ -94,32 +94,45 @@ let IngressService = class IngressService {
     }
     async findAllIngressToDay() {
         let findIngress;
-        const now = moment.utc().format();
+        const todayStart = date_fns_1.startOfDay(new Date());
+        const todayEnd = date_fns_1.endOfDay(new Date());
         try {
-            findIngress = await this.ingressModel.find({ status: 1 }).populate([
+            findIngress = await this.ingressModel
+                .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
+                .populate([
                 {
                     path: 'category',
                 },
             ]);
-            findIngress = findIngress
-                .map((res) => {
-                return {
-                    id: res._id,
-                    detail: res.detail,
-                    observation: res.observation,
-                    units: res.units,
-                    amount: res.amount,
-                    createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
-                    updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
-                    category: {
-                        name: res.category.name,
-                    },
-                };
-            })
-                .filter((fil) => fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'));
         }
         catch (e) {
             throw new Error(`Error en IngressService.findAllIngress ${e}`);
+        }
+        return findIngress;
+    }
+    async findIngressByDates(start, end) {
+        let findIngress;
+        const todayStart = date_fns_1.startOfDay(new Date(start));
+        const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
+        const todayEnd = date_fns_1.endOfDay(new Date(end));
+        const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
+        try {
+            findIngress = await this.ingressModel
+                .find({
+                status: 1,
+                createdAt: {
+                    $gte: addDaytoStart,
+                    $lt: addDaytoEnd,
+                },
+            })
+                .populate([
+                {
+                    path: 'category',
+                },
+            ]);
+        }
+        catch (e) {
+            throw new Error(`Error en IngressService.findIngressByDates ${e}`);
         }
         return findIngress;
     }

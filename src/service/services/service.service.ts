@@ -137,6 +137,24 @@ export class ServiceService implements OnModuleInit {
     return findService;
   }
 
+  async findServicesByCategory(category: string): Promise<ServiceDocument[]> {
+    let services: ServiceDocument[];
+
+    try {
+      services = await this.serviceModel.find({ status: 1 }).populate({
+        path: 'category',
+        match: {
+          name: category,
+        },
+      });
+      services = services.filter((service) => service.category !== null);
+    } catch (e) {
+      throw new Error(`Error en ServiceService.findServicesByCategory ${e}`);
+    }
+
+    return services;
+  }
+
   async findOneServicesById(id: string): Promise<ServiceDocument> {
     let service: ServiceDocument;
 

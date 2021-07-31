@@ -9,4 +9,6 @@ export declare class ProductResolver {
     updateProduct(productInput: UpdateProductInput): Promise<ProductDocument>;
     deleteProduct(id: string): Promise<boolean>;
     getProducts(): Promise<ProductDocument[]>;
+    getProductsByCategoryBrandModel(category: string, brand: string, model: string): Promise<ProductDocument[]>;
+    getProductByName(product: string): Promise<ProductDocument>;
 }

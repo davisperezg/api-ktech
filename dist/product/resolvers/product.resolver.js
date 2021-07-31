@@ -20,6 +20,7 @@ const create_product_input_1 = require("../dto/inputs/create-product.input");
 const update_product_input_1 = require("../dto/inputs/update-product.input");
 const common_1 = require("@nestjs/common");
 const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
+const conts_1 = require("../../lib/conts");
 let ProductResolver = class ProductResolver {
     constructor(productService) {
         this.productService = productService;
@@ -35,6 +36,12 @@ let ProductResolver = class ProductResolver {
     }
     getProducts() {
         return this.productService.findAllProducts();
+    }
+    getProductsByCategoryBrandModel(category, brand, model) {
+        return this.productService.findProductsByCategoryBrandModel(category, brand, model);
+    }
+    getProductByName(product) {
+        return this.productService.findOneProductByName(product, conts_1.NOEXIST);
     }
 };
 __decorate([
@@ -64,6 +71,22 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProductResolver.prototype, "getProducts", null);
+__decorate([
+    graphql_1.Query(() => [product_type_1.ProductType]),
+    __param(0, graphql_1.Args('category')),
+    __param(1, graphql_1.Args('brand')),
+    __param(2, graphql_1.Args('model')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", Promise)
+], ProductResolver.prototype, "getProductsByCategoryBrandModel", null);
+__decorate([
+    graphql_1.Query(() => product_type_1.ProductType),
+    __param(0, graphql_1.Args('product')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductResolver.prototype, "getProductByName", null);
 ProductResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

@@ -9,4 +9,6 @@ export declare class ServiceResolver {
     updateService(serviceInput: UpdateServiceInput): Promise<ServiceDocument>;
     deleteService(id: string): Promise<boolean>;
     getServices(): Promise<ServiceDocument[]>;
+    getServicesByCategory(category: string): Promise<ServiceDocument[]>;
+    getServiceByName(service: string): Promise<ServiceDocument>;
 }

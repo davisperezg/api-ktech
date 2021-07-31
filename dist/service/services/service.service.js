@@ -106,6 +106,22 @@ let ServiceService = class ServiceService {
         }
         return findService;
     }
+    async findServicesByCategory(category) {
+        let services;
+        try {
+            services = await this.serviceModel.find({ status: 1 }).populate({
+                path: 'category',
+                match: {
+                    name: category,
+                },
+            });
+            services = services.filter((service) => service.category !== null);
+        }
+        catch (e) {
+            throw new Error(`Error en ServiceService.findServicesByCategory ${e}`);
+        }
+        return services;
+    }
     async findOneServicesById(id) {
         let service;
         try {

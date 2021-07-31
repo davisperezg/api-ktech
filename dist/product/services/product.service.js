@@ -140,6 +140,36 @@ let ProductService = class ProductService {
         }
         return findProduct;
     }
+    async findProductsByCategoryBrandModel(category, brand, model) {
+        let products;
+        try {
+            products = await this.productModel.find({ status: 1 }).populate([
+                {
+                    path: 'category',
+                    match: {
+                        name: category,
+                    },
+                },
+                {
+                    path: 'brand',
+                    match: {
+                        name: brand,
+                    },
+                },
+                {
+                    path: 'model',
+                    match: {
+                        name: model,
+                    },
+                },
+            ]);
+            products = products.filter((product) => product.model !== null);
+        }
+        catch (e) {
+            throw new Error(`Error en ProductService.findProductsByCategoryBrandModel ${e}`);
+        }
+        return products;
+    }
     async findOneProductById(id) {
         let product;
         try {

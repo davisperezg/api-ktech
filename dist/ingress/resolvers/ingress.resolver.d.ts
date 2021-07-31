@@ -9,4 +9,5 @@ export declare class IngressResolver {
     updateIngress(ingressInput: UpdateIngressInput): Promise<IngressDocument>;
     deleteIngress(id: string): Promise<boolean>;
     getIngress(): Promise<IngressDocument[]>;
+    getIngressByDates(start: string, end: string): Promise<IngressDocument[]>;
 }

@@ -17,6 +17,7 @@ export declare class ProductService implements OnModuleInit {
     updateProduct(productInput: UpdateProductInput): Promise<ProductDocument>;
     deleteProductById(id: string): Promise<boolean>;
     findAllProducts(): Promise<ProductDocument[]>;
+    findProductsByCategoryBrandModel(category: string, brand: string, model: string): Promise<ProductDocument[]>;
     findOneProductById(id: string): Promise<ProductDocument>;
     findOneProductByName(name: string, param: string): Promise<ProductDocument>;
 }

@@ -36,6 +36,9 @@ let IngressResolver = class IngressResolver {
     getIngress() {
         return this.ingressService.findAllIngressToDay();
     }
+    getIngressByDates(start, end) {
+        return this.ingressService.findIngressByDates(start, end);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => ingress_type_1.IngressType),
@@ -64,6 +67,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], IngressResolver.prototype, "getIngress", null);
+__decorate([
+    graphql_1.Query(() => [ingress_type_1.IngressType]),
+    __param(0, graphql_1.Args('start')),
+    __param(1, graphql_1.Args('end')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], IngressResolver.prototype, "getIngressByDates", null);
 IngressResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

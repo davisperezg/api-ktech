@@ -13,6 +13,7 @@ export declare class EgressService implements OnModuleInit {
     updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument>;
     deleteEgressById(id: string): Promise<boolean>;
     findAllEgressToDay(): Promise<EgressDocument[]>;
+    findEgressByDates(start: string, end: string): Promise<EgressDocument[]>;
     findAllEgress(): Promise<EgressDocument[]>;
     findOneEgressById(id: string): Promise<EgressDocument>;
 }

@@ -6,6 +6,7 @@ import { CreateProductInput } from '../dto/inputs/create-product.input';
 import { UpdateProductInput } from '../dto/inputs/update-product.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
+import { NOEXIST } from 'src/lib/conts';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -36,5 +37,23 @@ export class ProductResolver {
   @Query(() => [ProductType])
   getProducts(): Promise<ProductDocument[]> {
     return this.productService.findAllProducts();
+  }
+
+  @Query(() => [ProductType])
+  getProductsByCategoryBrandModel(
+    @Args('category') category: string,
+    @Args('brand') brand: string,
+    @Args('model') model: string,
+  ): Promise<ProductDocument[]> {
+    return this.productService.findProductsByCategoryBrandModel(
+      category,
+      brand,
+      model,
+    );
+  }
+
+  @Query(() => ProductType)
+  getProductByName(@Args('product') product: string): Promise<ProductDocument> {
+    return this.productService.findOneProductByName(product, NOEXIST);
   }
 }

@@ -20,6 +20,7 @@ const create_service_input_1 = require("../dto/inputs/create-service.input");
 const update_service_input_1 = require("../dto/inputs/update-service.input");
 const common_1 = require("@nestjs/common");
 const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
+const conts_1 = require("../../lib/conts");
 let ServiceResolver = class ServiceResolver {
     constructor(serviceService) {
         this.serviceService = serviceService;
@@ -35,6 +36,12 @@ let ServiceResolver = class ServiceResolver {
     }
     getServices() {
         return this.serviceService.findAllServices();
+    }
+    getServicesByCategory(category) {
+        return this.serviceService.findServicesByCategory(category);
+    }
+    getServiceByName(service) {
+        return this.serviceService.findOneServiceByName(service, conts_1.NOEXIST);
     }
 };
 __decorate([
@@ -64,6 +71,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ServiceResolver.prototype, "getServices", null);
+__decorate([
+    graphql_1.Query(() => [service_type_1.ServiceType]),
+    __param(0, graphql_1.Args('category')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ServiceResolver.prototype, "getServicesByCategory", null);
+__decorate([
+    graphql_1.Query(() => service_type_1.ServiceType),
+    __param(0, graphql_1.Args('service')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ServiceResolver.prototype, "getServiceByName", null);
 ServiceResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

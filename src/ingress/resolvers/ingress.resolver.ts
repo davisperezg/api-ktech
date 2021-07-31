@@ -37,4 +37,12 @@ export class IngressResolver {
   getIngress(): Promise<IngressDocument[]> {
     return this.ingressService.findAllIngressToDay();
   }
+
+  @Query(() => [IngressType])
+  getIngressByDates(
+    @Args('start') start: string,
+    @Args('end') end: string,
+  ): Promise<IngressDocument[]> {
+    return this.ingressService.findIngressByDates(start, end);
+  }
 }

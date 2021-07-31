@@ -6,6 +6,7 @@ import { UpdateServiceInput } from '../dto/inputs/update-service.input';
 import { ServiceDocument } from '../schemas/service.schema';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
+import { NOEXIST } from 'src/lib/conts';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -36,5 +37,17 @@ export class ServiceResolver {
   @Query(() => [ServiceType])
   getServices(): Promise<ServiceDocument[]> {
     return this.serviceService.findAllServices();
+  }
+
+  @Query(() => [ServiceType])
+  getServicesByCategory(
+    @Args('category') category: string,
+  ): Promise<ServiceDocument[]> {
+    return this.serviceService.findServicesByCategory(category);
+  }
+
+  @Query(() => ServiceType)
+  getServiceByName(@Args('service') service: string): Promise<ServiceDocument> {
+    return this.serviceService.findOneServiceByName(service, NOEXIST);
   }
 }

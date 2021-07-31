@@ -129,7 +129,6 @@ export class BrandService implements OnModuleInit {
           name: category,
         },
       });
-
       brands = brands.filter((brand) => brand.category !== null);
     } catch (e) {
       throw new Error(`Error en BrandService.findBrandsByCategory ${e}`);

@@ -37,4 +37,12 @@ export class EgressResolver {
   getEgress(): Promise<EgressDocument[]> {
     return this.egressService.findAllEgressToDay();
   }
+
+  @Query(() => [EgressType])
+  getEgressByDates(
+    @Args('start') start: string,
+    @Args('end') end: string,
+  ): Promise<EgressDocument[]> {
+    return this.egressService.findEgressByDates(start, end);
+  }
 }

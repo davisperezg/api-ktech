@@ -24,9 +24,9 @@ export class EgressType {
   @Field(() => Int)
   total: number;
 
-  @Field(() => String)
+  @Field(() => Date, { nullable: true })
   createdAt: Date;
 
-  @Field(() => String)
+  @Field(() => Date, { nullable: true })
   updatedAt: Date;
 }

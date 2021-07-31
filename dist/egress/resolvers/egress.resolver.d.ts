@@ -9,4 +9,5 @@ export declare class EgressResolver {
     updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument>;
     deleteEgress(id: string): Promise<boolean>;
     getEgress(): Promise<EgressDocument[]>;
+    getEgressByDates(start: string, end: string): Promise<EgressDocument[]>;
 }

@@ -19,7 +19,7 @@ const mongoose_2 = require("mongoose");
 const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
-const moment = require("moment");
+const date_fns_1 = require("date-fns");
 let EgressService = class EgressService {
     constructor(egressModel, categoryService) {
         this.egressModel = egressModel;
@@ -94,32 +94,48 @@ let EgressService = class EgressService {
     }
     async findAllEgressToDay() {
         let findEgress;
-        const now = moment.utc().format();
+        const todayStart = date_fns_1.startOfDay(new Date());
+        const todayEnd = date_fns_1.endOfDay(new Date());
         try {
-            findEgress = await this.egressModel.find({ status: 1 }).populate([
+            findEgress = await this.egressModel
+                .find({
+                status: 1,
+                createdAt: { $gte: todayStart, $lte: todayEnd },
+            })
+                .populate([
                 {
                     path: 'category',
                 },
             ]);
-            findEgress = findEgress
-                .map((res) => {
-                return {
-                    id: res._id,
-                    detail: res.detail,
-                    observation: res.observation,
-                    units: res.units,
-                    amount: res.amount,
-                    createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
-                    updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
-                    category: {
-                        name: res.category.name,
-                    },
-                };
-            })
-                .filter((fil) => fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'));
         }
         catch (e) {
             throw new Error(`Error en EgressService.findAllEgress ${e}`);
+        }
+        return findEgress;
+    }
+    async findEgressByDates(start, end) {
+        let findEgress;
+        const todayStart = date_fns_1.startOfDay(new Date(start));
+        const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
+        const todayEnd = date_fns_1.endOfDay(new Date(end));
+        const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
+        try {
+            findEgress = await this.egressModel
+                .find({
+                status: 1,
+                createdAt: {
+                    $gte: addDaytoStart,
+                    $lt: addDaytoEnd,
+                },
+            })
+                .populate([
+                {
+                    path: 'category',
+                },
+            ]);
+        }
+        catch (e) {
+            throw new Error(`Error en EgressService.findEgressByDates ${e}`);
         }
         return findEgress;
     }

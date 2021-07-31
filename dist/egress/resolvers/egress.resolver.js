@@ -36,6 +36,9 @@ let EgressResolver = class EgressResolver {
     getEgress() {
         return this.egressService.findAllEgressToDay();
     }
+    getEgressByDates(start, end) {
+        return this.egressService.findEgressByDates(start, end);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => egress_type_1.EgressType),
@@ -64,6 +67,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], EgressResolver.prototype, "getEgress", null);
+__decorate([
+    graphql_1.Query(() => [egress_type_1.EgressType]),
+    __param(0, graphql_1.Args('start')),
+    __param(1, graphql_1.Args('end')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], EgressResolver.prototype, "getEgressByDates", null);
 EgressResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

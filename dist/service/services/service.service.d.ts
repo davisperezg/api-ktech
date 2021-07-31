@@ -13,6 +13,7 @@ export declare class ServiceService implements OnModuleInit {
     updateService(serviceInput: UpdateServiceInput): Promise<ServiceDocument>;
     deleteServiceById(id: string): Promise<boolean>;
     findAllServices(): Promise<ServiceDocument[]>;
+    findServicesByCategory(category: string): Promise<ServiceDocument[]>;
     findOneServicesById(id: string): Promise<ServiceDocument>;
     findOneServiceByName(name: string, param: string): Promise<ServiceDocument>;
 }

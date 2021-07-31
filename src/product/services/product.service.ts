@@ -192,6 +192,45 @@ export class ProductService implements OnModuleInit {
     return findProduct;
   }
 
+  async findProductsByCategoryBrandModel(
+    category: string,
+    brand: string,
+    model: string,
+  ): Promise<ProductDocument[]> {
+    let products: ProductDocument[];
+
+    try {
+      products = await this.productModel.find({ status: 1 }).populate([
+        {
+          path: 'category',
+          match: {
+            name: category,
+          },
+        },
+        {
+          path: 'brand',
+          match: {
+            name: brand,
+          },
+        },
+        {
+          path: 'model',
+          match: {
+            name: model,
+          },
+        },
+      ]);
+
+      products = products.filter((product) => product.model !== null);
+    } catch (e) {
+      throw new Error(
+        `Error en ProductService.findProductsByCategoryBrandModel ${e}`,
+      );
+    }
+
+    return products;
+  }
+
   async findOneProductById(id: string): Promise<ProductDocument> {
     let product: ProductDocument;
 

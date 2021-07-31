@@ -8,6 +8,7 @@ import { NOEXIST, NULL } from 'src/lib/conts';
 import { UpdateEgressInput } from '../dto/inputs/update-egress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
 import * as moment from 'moment';
+import { startOfDay, endOfDay, add } from 'date-fns';
 
 @Injectable()
 export class EgressService implements OnModuleInit {
@@ -118,37 +119,57 @@ export class EgressService implements OnModuleInit {
   async findAllEgressToDay(): Promise<EgressDocument[]> {
     let findEgress: EgressDocument[] | any;
 
-    const now = moment.utc().format();
+    //const today = moment().startOf('day');
+    //const tomorrow = moment(today).endOf('day');
+    const todayStart = startOfDay(new Date());
+    const todayEnd = endOfDay(new Date());
+
     try {
-      findEgress = await this.egressModel.find({ status: 1 }).populate([
-        {
-          path: 'category',
-        },
-      ]);
-      //filter with today's date
-      findEgress = findEgress
-        .map((res: any) => {
-          //moment.utc().format();
-          //moment.utc(date).local().format('DD/MM/YYYY');
-          return {
-            id: res._id,
-            detail: res.detail,
-            observation: res.observation,
-            units: res.units,
-            amount: res.amount,
-            createdAt: moment.utc(res.createdAt).local().format('DD/MM/YYYY'),
-            updatedAt: moment.utc(res.updatedAt).local().format('DD/MM/YYYY'),
-            category: {
-              name: res.category.name,
-            },
-          };
+      findEgress = await this.egressModel
+        .find({
+          status: 1,
+          createdAt: { $gte: todayStart, $lte: todayEnd },
         })
-        .filter(
-          (fil) =>
-            fil.createdAt === moment.utc(now).local().format('DD/MM/YYYY'),
-        );
+        .populate([
+          {
+            path: 'category',
+          },
+        ]);
     } catch (e) {
       throw new Error(`Error en EgressService.findAllEgress ${e}`);
+    }
+
+    return findEgress;
+  }
+
+  async findEgressByDates(
+    start: string,
+    end: string,
+  ): Promise<EgressDocument[]> {
+    let findEgress: EgressDocument[] | any;
+
+    const todayStart = startOfDay(new Date(start));
+    const addDaytoStart = add(todayStart, { days: 1 });
+
+    const todayEnd = endOfDay(new Date(end));
+    const addDaytoEnd = add(todayEnd, { days: 1 });
+
+    try {
+      findEgress = await this.egressModel
+        .find({
+          status: 1,
+          createdAt: {
+            $gte: addDaytoStart,
+            $lt: addDaytoEnd,
+          },
+        })
+        .populate([
+          {
+            path: 'category',
+          },
+        ]);
+    } catch (e) {
+      throw new Error(`Error en EgressService.findEgressByDates ${e}`);
     }
 
     return findEgress;

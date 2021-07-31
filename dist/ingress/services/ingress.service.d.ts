@@ -13,5 +13,6 @@ export declare class IngressService implements OnModuleInit {
     updateIngress(ingressInput: UpdateIngressInput): Promise<IngressDocument>;
     deleteIngressById(id: string): Promise<boolean>;
     findAllIngressToDay(): Promise<IngressDocument[]>;
+    findIngressByDates(start: string, end: string): Promise<IngressDocument[]>;
     findOneIngressById(id: string): Promise<IngressDocument>;
 }
