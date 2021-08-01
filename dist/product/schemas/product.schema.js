@@ -30,6 +30,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Number)
+], Product.prototype, "cant", void 0);
+__decorate([
     mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }),
     __metadata("design:type", category_schema_1.Category)
 ], Product.prototype, "category", void 0);

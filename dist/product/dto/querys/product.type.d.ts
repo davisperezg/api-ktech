@@ -6,6 +6,7 @@ export declare class ProductType {
     name: string;
     description: string;
     price: number;
+    cant: number;
     createdAt: Date;
     updatedAt: Date;
     category: CategoryType;

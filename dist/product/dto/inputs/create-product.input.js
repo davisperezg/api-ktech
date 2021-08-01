@@ -55,6 +55,12 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe completar el precio del producto' }),
     __metadata("design:type", Number)
 ], CreateProductInput.prototype, "price", void 0);
+__decorate([
+    graphql_1.Field(),
+    class_validator_1.IsNumber({}, { message: 'La cantidad solo permite números.' }),
+    class_validator_1.IsNotEmpty({ message: 'Debe completar la cantidad producto' }),
+    __metadata("design:type", Number)
+], CreateProductInput.prototype, "cant", void 0);
 CreateProductInput = __decorate([
     graphql_1.InputType()
 ], CreateProductInput);

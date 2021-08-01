@@ -17,6 +17,9 @@ export class Product {
   @Prop({ trim: true })
   price: number;
 
+  @Prop({ trim: true })
+  cant: number;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category' })
   category: Category;
 

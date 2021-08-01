@@ -5266,28 +5266,28 @@
         "affectsGlobalScope": false
       },
       "../src/product/schemas/product.schema.ts": {
-        "version": "7dabb2f41139009bdd389353def85872f08da470b61e0c4532d1d0a6c30499d2",
-        "signature": "6dd9e6855c8768eabb90422cf973badef4fa7fa117d18509ad68d1b61d07b218",
+        "version": "b33ae7bc97f5457c940c8addbcfbb82ccb87414ac5a7157b0a74b1477bf9b2c5",
+        "signature": "f0807d42802a35f73d32db70286203fcbdecaf02a31b6f598b26deb03e3b2db0",
         "affectsGlobalScope": false
       },
       "../src/product/dto/inputs/create-product.input.ts": {
-        "version": "a34cbbee787276adcd45c15c260b27d00f5d7fe7bed5608e240dd91d0db5103f",
-        "signature": "e7c7c91ec202e60eed1516fcf3d20499ca0a08b184cecad9e1b126ee836c88ec",
+        "version": "cd4be29c7e6de8e7e8266b301e3cc4f0460f6f2767c3f69f9a31fe429b748b67",
+        "signature": "4866be82b80da6fb7ace01e94edba75d229d9579c002a329ebc7a3baed82c1f3",
         "affectsGlobalScope": false
       },
       "../src/product/dto/inputs/update-product.input.ts": {
-        "version": "d4659190883d942c890bea22628f7e4d432db02a55c3b5d177062572fb67103c",
-        "signature": "a518a8c46f6368a1de21d4080a8acfccc65c74e2e1ffc421f64dc42069c45453",
+        "version": "7f329e9dba64b8a9ad2d1e9af081320148e9f15ebf5ba2394a6e250d15d3d04f",
+        "signature": "344da00996a3cadbf0ab794c02b445bb6662566f59033ba98ac927ff9b725656",
         "affectsGlobalScope": false
       },
       "../src/product/services/product.service.ts": {
-        "version": "3f516c45051384aadd33fdcf180b03a0dfcde2950fa73a47217758061e7ddbb3",
+        "version": "53886ef0321775b3c17fc2d3cf420d72f9e2d9702265aea12cd56246b62b563a",
         "signature": "30d82ad51490b3646291a6b767739b733b7ccec1e0d0442772740404f2dfd8c1",
         "affectsGlobalScope": false
       },
       "../src/product/dto/querys/product.type.ts": {
-        "version": "b0ca68f6b6f84e7b2b4e1d3b665dd4d914986b5ee948208e989dade89f3d0c26",
-        "signature": "fff813c1dda3b3453dba0a2cd0abaa33654c7dead7675cacb5145155b0278895",
+        "version": "dac7c04a9eb6248ff4a1e0ae1aa8848b2ba258fecb9857e6de936650f7b8a900",
+        "signature": "9e99b76c6809f3cd638a3c17d96107e7a05332f01127144f4c20bbb265ae6ab4",
         "affectsGlobalScope": false
       },
       "../src/product/resolvers/product.resolver.ts": {

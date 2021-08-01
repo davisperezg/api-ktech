@@ -52,4 +52,9 @@ export class UpdateProductInput {
   @IsNumber({}, { message: 'El precio solo permite números.' })
   @IsOptional()
   price?: number;
+
+  @Field({ nullable: true })
+  @IsNumber({}, { message: 'La cantidad solo permite números.' })
+  @IsOptional()
+  cant?: number;
 }

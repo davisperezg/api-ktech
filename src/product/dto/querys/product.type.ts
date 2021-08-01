@@ -17,6 +17,9 @@ export class ProductType {
   @Field({ nullable: true })
   price: number;
 
+  @Field({ nullable: true })
+  cant: number;
+
   @Field(() => Date)
   createdAt: Date;
 

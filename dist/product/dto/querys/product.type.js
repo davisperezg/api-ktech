@@ -33,6 +33,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ProductType.prototype, "price", void 0);
 __decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", Number)
+], ProductType.prototype, "cant", void 0);
+__decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], ProductType.prototype, "createdAt", void 0);

@@ -33,6 +33,7 @@ let ProductService = class ProductService {
     async onModuleInit() {
         try {
             await this.productModel.updateMany({ status: null }, { status: 1 });
+            await this.productModel.updateMany({ cant: null }, { cant: 0 });
         }
         catch (e) {
             throw new Error(`Error en ProductService.onModuleInit ${e}`);

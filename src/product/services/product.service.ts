@@ -30,6 +30,7 @@ export class ProductService implements OnModuleInit {
   async onModuleInit(): Promise<void> {
     try {
       await this.productModel.updateMany({ status: null }, { status: 1 });
+      await this.productModel.updateMany({ cant: null }, { cant: 0 });
     } catch (e) {
       throw new Error(`Error en ProductService.onModuleInit ${e}`);
     }

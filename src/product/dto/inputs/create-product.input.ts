@@ -45,4 +45,9 @@ export class CreateProductInput {
   @IsNumber({}, { message: 'El precio solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar el precio del producto' })
   price: number;
+
+  @Field()
+  @IsNumber({}, { message: 'La cantidad solo permite números.' })
+  @IsNotEmpty({ message: 'Debe completar la cantidad producto' })
+  cant: number;
 }
