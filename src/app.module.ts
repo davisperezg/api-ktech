@@ -19,15 +19,12 @@ import { EgressModule } from './egress/egress.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority',
-      {
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-    ),
+    MongooseModule.forRoot('mongodb://localhost', {
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       playground: true,

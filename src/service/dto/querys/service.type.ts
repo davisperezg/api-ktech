@@ -1,5 +1,5 @@
 import { CategoryType } from './../../../category/dto/querys/category.type';
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class ServiceType {
@@ -12,7 +12,7 @@ export class ServiceType {
   @Field({ nullable: true })
   description: string;
 
-  @Field({ nullable: true })
+  @Field(() => Float, { nullable: true })
   price: number;
 
   @Field(() => Date)

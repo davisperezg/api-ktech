@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID, Int } from '@nestjs/graphql';
+import { Field, ObjectType, ID, Int, Float } from '@nestjs/graphql';
 import { CategoryType } from 'src/category/dto/querys/category.type';
 import { UserType } from 'src/user/dto/querys/user.type';
 
@@ -19,10 +19,10 @@ export class EgressType {
   @Field(() => CategoryType, { nullable: true })
   category: CategoryType;
 
-  @Field(() => Int)
+  @Field(() => Float)
   amount: number;
 
-  @Field(() => Int)
+  @Field(() => Float)
   total: number;
 
   @Field(() => Date, { nullable: true })

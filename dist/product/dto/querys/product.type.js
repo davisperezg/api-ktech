@@ -29,11 +29,11 @@ __decorate([
     __metadata("design:type", String)
 ], ProductType.prototype, "description", void 0);
 __decorate([
-    graphql_1.Field({ nullable: true }),
+    graphql_1.Field(() => graphql_1.Float, { nullable: true }),
     __metadata("design:type", Number)
 ], ProductType.prototype, "price", void 0);
 __decorate([
-    graphql_1.Field({ nullable: true }),
+    graphql_1.Field(() => graphql_1.Int, { nullable: true }),
     __metadata("design:type", Number)
 ], ProductType.prototype, "cant", void 0);
 __decorate([

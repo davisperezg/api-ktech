@@ -1,5 +1,5 @@
 import { CategoryType } from './../../../category/dto/querys/category.type';
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, Float, Int } from '@nestjs/graphql';
 import { ModelType } from 'src/model/dto/querys/model.type';
 import { BrandType } from 'src/brand/dto/querys/brand.type';
 
@@ -14,10 +14,10 @@ export class ProductType {
   @Field({ nullable: true })
   description: string;
 
-  @Field({ nullable: true })
+  @Field(() => Float, { nullable: true })
   price: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   cant: number;
 
   @Field(() => Date)

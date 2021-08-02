@@ -36,11 +36,11 @@ __decorate([
     __metadata("design:type", category_type_1.CategoryType)
 ], EgressType.prototype, "category", void 0);
 __decorate([
-    graphql_1.Field(() => graphql_1.Int),
+    graphql_1.Field(() => graphql_1.Float),
     __metadata("design:type", Number)
 ], EgressType.prototype, "amount", void 0);
 __decorate([
-    graphql_1.Field(() => graphql_1.Int),
+    graphql_1.Field(() => graphql_1.Float),
     __metadata("design:type", Number)
 ], EgressType.prototype, "total", void 0);
 __decorate([
