@@ -132,6 +132,7 @@ let EgressService = class EgressService {
         const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
         const todayEnd = date_fns_1.endOfDay(new Date(end));
         const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
+        console.log(`Egreso`, addDaytoStart, addDaytoEnd);
         try {
             findEgress = await this.egressModel
                 .find({

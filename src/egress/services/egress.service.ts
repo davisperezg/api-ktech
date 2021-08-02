@@ -172,7 +172,7 @@ export class EgressService implements OnModuleInit {
 
     const todayEnd = endOfDay(new Date(end));
     const addDaytoEnd = add(todayEnd, { days: 1 });
-
+    console.log(`Egreso`, addDaytoStart, addDaytoEnd);
     try {
       findEgress = await this.egressModel
         .find({

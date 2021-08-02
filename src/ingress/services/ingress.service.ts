@@ -175,6 +175,7 @@ export class IngressService implements OnModuleInit {
 
     const todayEnd = endOfDay(new Date(end));
     const addDaytoEnd = add(todayEnd, { days: 1 });
+    console.log(`Ingreso`, addDaytoStart, addDaytoEnd);
 
     try {
       findIngress = await this.ingressModel
