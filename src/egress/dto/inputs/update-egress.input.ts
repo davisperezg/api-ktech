@@ -51,4 +51,7 @@ export class UpdateEgressInput {
   @IsNumber({}, { message: 'El monto solo permite números.' })
   @IsOptional()
   amount?: number;
+
+  @Field({ nullable: true })
+  user: string;
 }

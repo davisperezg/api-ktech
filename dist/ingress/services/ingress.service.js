@@ -20,10 +20,13 @@ const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
 const date_fns_1 = require("date-fns");
+const user_schema_1 = require("../../user/schemas/user.schema");
+const user_service_1 = require("../../user/services/user.service");
 let IngressService = class IngressService {
-    constructor(ingressModel, categoryService) {
+    constructor(ingressModel, categoryService, userService) {
         this.ingressModel = ingressModel;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
     async onModuleInit() {
         try {
@@ -34,9 +37,10 @@ let IngressService = class IngressService {
         }
     }
     async createIngress(ingressInput) {
-        const { category } = ingressInput;
+        const { category, user } = ingressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { category: findCategory._id, status: 1 }));
+        const findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
+        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { category: findCategory._id, user: findUser._id, status: 1 }));
         let ingressSaved;
         let foundIngress;
         try {
@@ -47,7 +51,7 @@ let IngressService = class IngressService {
         }
         try {
             foundIngress = await ingressSaved
-                .populate([{ path: 'category' }])
+                .populate([{ path: 'category' }, { path: 'user' }])
                 .execPopulate();
         }
         catch (e) {
@@ -56,8 +60,9 @@ let IngressService = class IngressService {
         return foundIngress;
     }
     async updateIngress(ingressInput) {
-        const { id, category } = ingressInput;
+        const { id, category, user } = ingressInput;
         let findCategory;
+        let findUser;
         let updateIngress;
         const findIngressById = await this.findOneIngressById(id);
         if (category) {
@@ -66,12 +71,21 @@ let IngressService = class IngressService {
         else {
             findCategory = await this.categoryService.findOneCategoryByName(findIngressById.category.name, conts_1.NULL);
         }
+        if (user) {
+            findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
+        }
+        else {
+            findUser = await this.userService.findOneUserByName(findIngressById.user.name, conts_1.NULL);
+        }
         try {
             updateIngress = await this.ingressModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, ingressInput), { category: findCategory._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, ingressInput), { category: findCategory._id, user: findUser._id }), { new: true })
                 .populate([
                 {
                     path: 'category',
+                },
+                {
+                    path: 'user',
                 },
             ]);
         }
@@ -103,6 +117,9 @@ let IngressService = class IngressService {
                 {
                     path: 'category',
                 },
+                {
+                    path: 'user',
+                },
             ]);
         }
         catch (e) {
@@ -129,6 +146,9 @@ let IngressService = class IngressService {
                 {
                     path: 'category',
                 },
+                {
+                    path: 'user',
+                },
             ]);
         }
         catch (e) {
@@ -142,6 +162,9 @@ let IngressService = class IngressService {
             ingress = await this.ingressModel.findById(id).populate([
                 {
                     path: 'category',
+                },
+                {
+                    path: 'user',
                 },
             ]);
         }
@@ -160,7 +183,8 @@ IngressService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('Ingress')),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        category_service_1.CategoryService])
+        category_service_1.CategoryService,
+        user_service_1.UserService])
 ], IngressService);
 exports.IngressService = IngressService;
 //# sourceMappingURL=ingress.service.js.map

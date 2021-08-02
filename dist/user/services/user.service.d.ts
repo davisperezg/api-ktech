@@ -18,4 +18,5 @@ export declare class UserService implements OnModuleInit {
     findOneUserById(id: string): Promise<UserDocument>;
     findOneUserByEmail(email: string, param: string): Promise<UserDocument | any>;
     findOneUserByIdAndUpdate(id: string, model: any): Promise<void>;
+    findOneUserByName(name: string, param: string): Promise<UserDocument>;
 }

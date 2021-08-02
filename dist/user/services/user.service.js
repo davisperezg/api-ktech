@@ -19,6 +19,7 @@ const role_service_1 = require("../../role/services/role.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const constants_1 = require("../../auth/constants");
+const conts_1 = require("../../lib/conts");
 let UserService = class UserService {
     constructor(userModel, roleService) {
         this.userModel = userModel;
@@ -253,6 +254,34 @@ let UserService = class UserService {
         catch (e) {
             throw new Error(`Error en UserService.findOneUserByIdAndUpdate`);
         }
+    }
+    async findOneUserByName(name, param) {
+        let user;
+        try {
+            user = await this.userModel.findOne({ name });
+        }
+        catch (e) {
+            throw new Error(`Error en UserService.findOneCategoryByName ${e}`);
+        }
+        switch (param) {
+            case conts_1.EXIST:
+                if (user)
+                    throw new common_1.BadRequestException({
+                        path: 'user',
+                        message: [`El usuario ${name} ya existe.`],
+                    });
+                break;
+            case conts_1.NOEXIST:
+                if (!user)
+                    throw new common_1.BadRequestException({
+                        path: 'user',
+                        message: [`El usaurio no existe.`],
+                    });
+                break;
+            case conts_1.NULL:
+                return user;
+        }
+        return user;
     }
 };
 UserService = __decorate([

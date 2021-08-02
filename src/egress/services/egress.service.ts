@@ -9,6 +9,8 @@ import { UpdateEgressInput } from '../dto/inputs/update-egress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
 import * as moment from 'moment';
 import { startOfDay, endOfDay, add } from 'date-fns';
+import { UserDocument } from 'src/user/schemas/user.schema';
+import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class EgressService implements OnModuleInit {
@@ -16,6 +18,7 @@ export class EgressService implements OnModuleInit {
     @InjectModel('Egress')
     private readonly egressModel: Model<EgressDocument>,
     private readonly categoryService: CategoryService,
+    private readonly userService: UserService,
   ) {}
 
   async onModuleInit(): Promise<void> {
@@ -27,16 +30,19 @@ export class EgressService implements OnModuleInit {
   }
 
   async createEgress(egressInput: CreateEgressInput): Promise<EgressDocument> {
-    const { category } = egressInput;
+    const { category, user } = egressInput;
 
     const findCategory = await this.categoryService.findOneCategoryByName(
       category,
       NOEXIST,
     );
 
+    const findUser = await this.userService.findOneUserByName(user, NOEXIST);
+
     const newEgress = new this.egressModel({
       ...egressInput,
       category: findCategory._id,
+      user: findUser._id,
       status: 1,
     });
 
@@ -51,7 +57,7 @@ export class EgressService implements OnModuleInit {
 
     try {
       foundEgress = await egressSaved
-        .populate([{ path: 'category' }])
+        .populate([{ path: 'category' }, { path: 'user' }])
         .execPopulate();
     } catch (e) {
       throw new Error(`Error en EgressService.createEgress.list ${e}`);
@@ -61,9 +67,10 @@ export class EgressService implements OnModuleInit {
   }
 
   async updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument> {
-    const { id, category } = egressInput;
+    const { id, category, user } = egressInput;
 
     let findCategory: CategoryDocument;
+    let findUser: UserDocument;
     let updateEgress: EgressDocument;
 
     const findEgressById = await this.findOneEgressById(id);
@@ -80,6 +87,15 @@ export class EgressService implements OnModuleInit {
       );
     }
 
+    if (user) {
+      findUser = await this.userService.findOneUserByName(user, NOEXIST);
+    } else {
+      findUser = await this.userService.findOneUserByName(
+        findEgressById.category.name,
+        NULL,
+      );
+    }
+
     try {
       updateEgress = await this.egressModel
         .findByIdAndUpdate(
@@ -87,6 +103,7 @@ export class EgressService implements OnModuleInit {
           {
             ...egressInput,
             category: findCategory._id,
+            user: findUser._id,
           },
           { new: true },
         )
@@ -94,6 +111,7 @@ export class EgressService implements OnModuleInit {
           {
             path: 'category',
           },
+          { path: 'user' },
         ]);
     } catch (e) {
       throw new Error(`Error en EgressService.updateEgress ${e}`);
@@ -134,6 +152,7 @@ export class EgressService implements OnModuleInit {
           {
             path: 'category',
           },
+          { path: 'user' },
         ]);
     } catch (e) {
       throw new Error(`Error en EgressService.findAllEgress ${e}`);
@@ -167,6 +186,7 @@ export class EgressService implements OnModuleInit {
           {
             path: 'category',
           },
+          { path: 'user' },
         ]);
     } catch (e) {
       throw new Error(`Error en EgressService.findEgressByDates ${e}`);
@@ -183,6 +203,7 @@ export class EgressService implements OnModuleInit {
         {
           path: 'category',
         },
+        { path: 'user' },
       ]);
     } catch (e) {
       throw new Error(`Error en EgressService.findAllEgress ${e}`);
@@ -199,6 +220,7 @@ export class EgressService implements OnModuleInit {
         {
           path: 'category',
         },
+        { path: 'user' },
       ]);
     } catch (e) {
       throw new Error(`Error en EgressService.findOneEgressById ${e}`);

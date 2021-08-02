@@ -45,4 +45,7 @@ export class CreateIngressInput {
   @IsNumber({}, { message: 'El monto solo permite números.' })
   @IsNotEmpty({ message: 'Debe completar el monto del egreso' })
   amount: number;
+
+  @Field()
+  user: string;
 }

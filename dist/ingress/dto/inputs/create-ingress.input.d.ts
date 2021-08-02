@@ -4,4 +4,5 @@ export declare class CreateIngressInput {
     observation?: string;
     units: number;
     amount: number;
+    user: string;
 }

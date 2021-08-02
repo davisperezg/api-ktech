@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EgressType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const category_type_1 = require("../../../category/dto/querys/category.type");
+const user_type_1 = require("../../../user/dto/querys/user.type");
 let EgressType = class EgressType {
 };
 __decorate([
@@ -50,6 +51,10 @@ __decorate([
     graphql_1.Field(() => Date, { nullable: true }),
     __metadata("design:type", Date)
 ], EgressType.prototype, "updatedAt", void 0);
+__decorate([
+    graphql_1.Field(() => user_type_1.UserType, { nullable: true }),
+    __metadata("design:type", user_type_1.UserType)
+], EgressType.prototype, "user", void 0);
 EgressType = __decorate([
     graphql_1.ObjectType()
 ], EgressType);

@@ -4,4 +4,5 @@ export declare class CreateEgressInput {
     observation?: string;
     units: number;
     amount: number;
+    user: string;
 }

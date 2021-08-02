@@ -4,10 +4,12 @@ import { Model } from 'mongoose';
 import { CategoryService } from 'src/category/services/category.service';
 import { CreateIngressInput } from '../dto/inputs/create-ingress.input';
 import { UpdateIngressInput } from '../dto/inputs/update-ingress.input';
+import { UserService } from 'src/user/services/user.service';
 export declare class IngressService implements OnModuleInit {
     private readonly ingressModel;
     private readonly categoryService;
-    constructor(ingressModel: Model<IngressDocument>, categoryService: CategoryService);
+    private readonly userService;
+    constructor(ingressModel: Model<IngressDocument>, categoryService: CategoryService, userService: UserService);
     onModuleInit(): Promise<void>;
     createIngress(ingressInput: CreateIngressInput): Promise<IngressDocument>;
     updateIngress(ingressInput: UpdateIngressInput): Promise<IngressDocument>;

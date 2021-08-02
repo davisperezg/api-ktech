@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import * as mongoose from 'mongoose';
 import { Category } from 'src/category/schemas/category.schema';
+import { User } from 'src/user/schemas/user.schema';
 
 export type IngressDocument = Ingress & mongoose.Document;
 
@@ -24,6 +25,9 @@ export class Ingress {
 
   @Prop({ trim: true })
   status: number;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: User;
 }
 
 export const IngressSchema = SchemaFactory.createForClass(Ingress);

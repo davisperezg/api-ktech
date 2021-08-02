@@ -54,6 +54,10 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe completar el monto del egreso' }),
     __metadata("design:type", Number)
 ], CreateEgressInput.prototype, "amount", void 0);
+__decorate([
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], CreateEgressInput.prototype, "user", void 0);
 CreateEgressInput = __decorate([
     graphql_1.InputType()
 ], CreateEgressInput);

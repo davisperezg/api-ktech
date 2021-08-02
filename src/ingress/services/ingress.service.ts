@@ -9,6 +9,8 @@ import { UpdateIngressInput } from '../dto/inputs/update-ingress.input';
 import { CategoryDocument } from 'src/category/schemas/category.schema';
 import * as moment from 'moment';
 import { startOfDay, endOfDay, add } from 'date-fns';
+import { UserDocument } from 'src/user/schemas/user.schema';
+import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
 export class IngressService implements OnModuleInit {
@@ -16,6 +18,7 @@ export class IngressService implements OnModuleInit {
     @InjectModel('Ingress')
     private readonly ingressModel: Model<IngressDocument>,
     private readonly categoryService: CategoryService,
+    private readonly userService: UserService,
   ) {}
 
   async onModuleInit(): Promise<void> {
@@ -29,16 +32,19 @@ export class IngressService implements OnModuleInit {
   async createIngress(
     ingressInput: CreateIngressInput,
   ): Promise<IngressDocument> {
-    const { category } = ingressInput;
+    const { category, user } = ingressInput;
 
     const findCategory = await this.categoryService.findOneCategoryByName(
       category,
       NOEXIST,
     );
 
+    const findUser = await this.userService.findOneUserByName(user, NOEXIST);
+
     const newIngress = new this.ingressModel({
       ...ingressInput,
       category: findCategory._id,
+      user: findUser._id,
       status: 1,
     });
 
@@ -53,7 +59,7 @@ export class IngressService implements OnModuleInit {
 
     try {
       foundIngress = await ingressSaved
-        .populate([{ path: 'category' }])
+        .populate([{ path: 'category' }, { path: 'user' }])
         .execPopulate();
     } catch (e) {
       throw new Error(`Error en IngressService.createIngress.list ${e}`);
@@ -65,9 +71,10 @@ export class IngressService implements OnModuleInit {
   async updateIngress(
     ingressInput: UpdateIngressInput,
   ): Promise<IngressDocument> {
-    const { id, category } = ingressInput;
+    const { id, category, user } = ingressInput;
 
     let findCategory: CategoryDocument;
+    let findUser: UserDocument;
     let updateIngress: IngressDocument;
 
     const findIngressById = await this.findOneIngressById(id);
@@ -84,6 +91,15 @@ export class IngressService implements OnModuleInit {
       );
     }
 
+    if (user) {
+      findUser = await this.userService.findOneUserByName(user, NOEXIST);
+    } else {
+      findUser = await this.userService.findOneUserByName(
+        findIngressById.user.name,
+        NULL,
+      );
+    }
+
     try {
       updateIngress = await this.ingressModel
         .findByIdAndUpdate(
@@ -91,12 +107,16 @@ export class IngressService implements OnModuleInit {
           {
             ...ingressInput,
             category: findCategory._id,
+            user: findUser._id,
           },
           { new: true },
         )
         .populate([
           {
             path: 'category',
+          },
+          {
+            path: 'user',
           },
         ]);
     } catch (e) {
@@ -133,6 +153,9 @@ export class IngressService implements OnModuleInit {
           {
             path: 'category',
           },
+          {
+            path: 'user',
+          },
         ]);
     } catch (e) {
       throw new Error(`Error en IngressService.findAllIngress ${e}`);
@@ -166,6 +189,9 @@ export class IngressService implements OnModuleInit {
           {
             path: 'category',
           },
+          {
+            path: 'user',
+          },
         ]);
     } catch (e) {
       throw new Error(`Error en IngressService.findIngressByDates ${e}`);
@@ -181,6 +207,9 @@ export class IngressService implements OnModuleInit {
       ingress = await this.ingressModel.findById(id).populate([
         {
           path: 'category',
+        },
+        {
+          path: 'user',
         },
       ]);
     } catch (e) {

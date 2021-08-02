@@ -14,6 +14,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserUpdateInput } from '../dto/inputs/user-update.input';
 import { roleSA } from 'src/auth/constants';
+import { EXIST, NOEXIST, NULL } from 'src/lib/conts';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -334,5 +335,38 @@ export class UserService implements OnModuleInit {
     } catch (e) {
       throw new Error(`Error en UserService.findOneUserByIdAndUpdate`);
     }
+  }
+
+  async findOneUserByName(name: string, param: string): Promise<UserDocument> {
+    let user: UserDocument;
+
+    try {
+      user = await this.userModel.findOne({ name });
+    } catch (e) {
+      throw new Error(`Error en UserService.findOneCategoryByName ${e}`);
+    }
+
+    switch (param) {
+      case EXIST:
+        if (user)
+          throw new BadRequestException({
+            path: 'user',
+            message: [`El usuario ${name} ya existe.`],
+          });
+        break;
+
+      case NOEXIST:
+        if (!user)
+          throw new BadRequestException({
+            path: 'user',
+            message: [`El usaurio no existe.`],
+          });
+        break;
+
+      case NULL:
+        return user;
+    }
+
+    return user;
   }
 }

@@ -1,4 +1,5 @@
 import { CategoryType } from 'src/category/dto/querys/category.type';
+import { UserType } from 'src/user/dto/querys/user.type';
 export declare class IngressType {
     id: string;
     detail: string;
@@ -9,4 +10,5 @@ export declare class IngressType {
     total: number;
     createdAt: Date;
     updatedAt: Date;
+    user: UserType;
 }

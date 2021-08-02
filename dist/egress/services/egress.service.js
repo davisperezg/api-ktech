@@ -20,10 +20,13 @@ const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
 const date_fns_1 = require("date-fns");
+const user_schema_1 = require("../../user/schemas/user.schema");
+const user_service_1 = require("../../user/services/user.service");
 let EgressService = class EgressService {
-    constructor(egressModel, categoryService) {
+    constructor(egressModel, categoryService, userService) {
         this.egressModel = egressModel;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
     async onModuleInit() {
         try {
@@ -34,9 +37,10 @@ let EgressService = class EgressService {
         }
     }
     async createEgress(egressInput) {
-        const { category } = egressInput;
+        const { category, user } = egressInput;
         const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { category: findCategory._id, status: 1 }));
+        const findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
+        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { category: findCategory._id, user: findUser._id, status: 1 }));
         let egressSaved;
         let foundEgress;
         try {
@@ -47,7 +51,7 @@ let EgressService = class EgressService {
         }
         try {
             foundEgress = await egressSaved
-                .populate([{ path: 'category' }])
+                .populate([{ path: 'category' }, { path: 'user' }])
                 .execPopulate();
         }
         catch (e) {
@@ -56,8 +60,9 @@ let EgressService = class EgressService {
         return foundEgress;
     }
     async updateEgress(egressInput) {
-        const { id, category } = egressInput;
+        const { id, category, user } = egressInput;
         let findCategory;
+        let findUser;
         let updateEgress;
         const findEgressById = await this.findOneEgressById(id);
         if (category) {
@@ -66,13 +71,20 @@ let EgressService = class EgressService {
         else {
             findCategory = await this.categoryService.findOneCategoryByName(findEgressById.category.name, conts_1.NULL);
         }
+        if (user) {
+            findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
+        }
+        else {
+            findUser = await this.userService.findOneUserByName(findEgressById.category.name, conts_1.NULL);
+        }
         try {
             updateEgress = await this.egressModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, egressInput), { category: findCategory._id }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, egressInput), { category: findCategory._id, user: findUser._id }), { new: true })
                 .populate([
                 {
                     path: 'category',
                 },
+                { path: 'user' },
             ]);
         }
         catch (e) {
@@ -106,6 +118,7 @@ let EgressService = class EgressService {
                 {
                     path: 'category',
                 },
+                { path: 'user' },
             ]);
         }
         catch (e) {
@@ -132,6 +145,7 @@ let EgressService = class EgressService {
                 {
                     path: 'category',
                 },
+                { path: 'user' },
             ]);
         }
         catch (e) {
@@ -146,6 +160,7 @@ let EgressService = class EgressService {
                 {
                     path: 'category',
                 },
+                { path: 'user' },
             ]);
         }
         catch (e) {
@@ -160,6 +175,7 @@ let EgressService = class EgressService {
                 {
                     path: 'category',
                 },
+                { path: 'user' },
             ]);
         }
         catch (e) {
@@ -177,7 +193,8 @@ EgressService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('Egress')),
     __metadata("design:paramtypes", [mongoose_2.Model,
-        category_service_1.CategoryService])
+        category_service_1.CategoryService,
+        user_service_1.UserService])
 ], EgressService);
 exports.EgressService = EgressService;
 //# sourceMappingURL=egress.service.js.map

@@ -13,6 +13,7 @@ exports.IngressSchema = exports.Ingress = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const category_schema_1 = require("../../category/schemas/category.schema");
+const user_schema_1 = require("../../user/schemas/user.schema");
 let Ingress = class Ingress {
 };
 __decorate([
@@ -39,6 +40,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Ingress.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", user_schema_1.User)
+], Ingress.prototype, "user", void 0);
 Ingress = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Ingress);

@@ -5,4 +5,5 @@ export declare class UpdateEgressInput {
     observation?: string;
     units?: number;
     amount?: number;
+    user: string;
 }

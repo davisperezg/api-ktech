@@ -15,20 +15,18 @@ import { ServiceModule } from './service/service.module';
 import { IngressModule } from './ingress/ingress.module';
 import { EgressModule } from './egress/egress.module';
 
-//mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+//mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority
+
 //mongodb://localhost
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority',
-      {
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-    ),
+    MongooseModule.forRoot('mongodb://localhost', {
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       playground: true,

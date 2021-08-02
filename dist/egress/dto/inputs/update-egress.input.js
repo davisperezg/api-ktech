@@ -60,6 +60,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", Number)
 ], UpdateEgressInput.prototype, "amount", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateEgressInput.prototype, "user", void 0);
 UpdateEgressInput = __decorate([
     graphql_1.InputType()
 ], UpdateEgressInput);

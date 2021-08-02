@@ -13,6 +13,7 @@ exports.EgressSchema = exports.Egress = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose = require("mongoose");
 const category_schema_1 = require("../../category/schemas/category.schema");
+const user_schema_1 = require("../../user/schemas/user.schema");
 let Egress = class Egress {
 };
 __decorate([
@@ -39,6 +40,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Egress.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", user_schema_1.User)
+], Egress.prototype, "user", void 0);
 Egress = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Egress);
