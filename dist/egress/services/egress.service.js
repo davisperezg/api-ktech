@@ -108,13 +108,11 @@ let EgressService = class EgressService {
         let findEgress;
         const todayStart = date_fns_1.startOfDay(new Date());
         const todayEnd = date_fns_1.endOfDay(new Date());
-        const toDay = date_fns_1.add(todayStart, { days: -1 });
-        const toDayEnd = date_fns_1.add(todayEnd, { days: -1 });
         try {
             findEgress = await this.egressModel
                 .find({
                 status: 1,
-                createdAt: { $gte: toDay, $lte: toDayEnd },
+                createdAt: { $gte: todayStart, $lte: todayEnd },
             })
                 .populate([
                 {
@@ -131,9 +129,10 @@ let EgressService = class EgressService {
     async findEgressByDates(start, end) {
         let findEgress;
         const todayStart = date_fns_1.startOfDay(new Date(start));
-        const addDaytoStart = date_fns_1.add(todayStart, { days: -1 });
+        const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
         const todayEnd = date_fns_1.endOfDay(new Date(end));
-        const addDaytoEnd = date_fns_1.add(todayEnd, { days: -1 });
+        const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
+        console.log(`Egreso`, addDaytoStart, addDaytoEnd);
         try {
             findEgress = await this.egressModel
                 .find({

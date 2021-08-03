@@ -145,12 +145,6 @@ export class IngressService implements OnModuleInit {
 
     const todayStart = startOfDay(new Date());
     const todayEnd = endOfDay(new Date());
-    //server
-    const toDay = add(todayStart, { days: -1 });
-    const toDayEnd = add(todayEnd, { days: -1 });
-
-    console.log(todayStart, todayEnd);
-    console.log(toDay, toDayEnd);
 
     try {
       findIngress = await this.ingressModel
@@ -177,10 +171,10 @@ export class IngressService implements OnModuleInit {
     let findIngress: IngressDocument[] | any;
 
     const todayStart = startOfDay(new Date(start));
-    const addDaytoStart = add(todayStart, { days: -1 });
+    const addDaytoStart = add(todayStart, { days: 1 });
 
     const todayEnd = endOfDay(new Date(end));
-    const addDaytoEnd = add(todayEnd, { days: -1 });
+    const addDaytoEnd = add(todayEnd, { days: 1 });
     console.log(`Ingreso`, addDaytoStart, addDaytoEnd);
 
     try {

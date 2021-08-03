@@ -110,10 +110,6 @@ let IngressService = class IngressService {
         let findIngress;
         const todayStart = date_fns_1.startOfDay(new Date());
         const todayEnd = date_fns_1.endOfDay(new Date());
-        const toDay = date_fns_1.add(todayStart, { days: -1 });
-        const toDayEnd = date_fns_1.add(todayEnd, { days: -1 });
-        console.log(todayStart, todayEnd);
-        console.log(toDay, toDayEnd);
         try {
             findIngress = await this.ingressModel
                 .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
@@ -134,9 +130,9 @@ let IngressService = class IngressService {
     async findIngressByDates(start, end) {
         let findIngress;
         const todayStart = date_fns_1.startOfDay(new Date(start));
-        const addDaytoStart = date_fns_1.add(todayStart, { days: -1 });
+        const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
         const todayEnd = date_fns_1.endOfDay(new Date(end));
-        const addDaytoEnd = date_fns_1.add(todayEnd, { days: -1 });
+        const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
         console.log(`Ingreso`, addDaytoStart, addDaytoEnd);
         try {
             findIngress = await this.ingressModel
