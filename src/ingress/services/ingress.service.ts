@@ -147,10 +147,11 @@ export class IngressService implements OnModuleInit {
     const todayEnd = endOfDay(new Date());
     //server
     const toDay = add(todayStart, { days: -1 });
-    console.log(`DIA`, todayStart, todayEnd, toDay);
+    const toDayEnd = add(todayEnd, { days: -1 });
+
     try {
       findIngress = await this.ingressModel
-        .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
+        .find({ status: 1, createdAt: { $gte: toDay, $lte: toDayEnd } })
         .populate([
           {
             path: 'category',
@@ -173,10 +174,10 @@ export class IngressService implements OnModuleInit {
     let findIngress: IngressDocument[] | any;
 
     const todayStart = startOfDay(new Date(start));
-    const addDaytoStart = add(todayStart, { days: 1 });
+    const addDaytoStart = add(todayStart, { days: -1 });
 
     const todayEnd = endOfDay(new Date(end));
-    const addDaytoEnd = add(todayEnd, { days: 1 });
+    const addDaytoEnd = add(todayEnd, { days: -1 });
     console.log(`Ingreso`, addDaytoStart, addDaytoEnd);
 
     try {

@@ -142,11 +142,15 @@ export class EgressService implements OnModuleInit {
     const todayStart = startOfDay(new Date());
     const todayEnd = endOfDay(new Date());
 
+    //server
+    const toDay = add(todayStart, { days: -1 });
+    const toDayEnd = add(todayEnd, { days: -1 });
+
     try {
       findEgress = await this.egressModel
         .find({
           status: 1,
-          createdAt: { $gte: todayStart, $lte: todayEnd },
+          createdAt: { $gte: toDay, $lte: toDayEnd },
         })
         .populate([
           {
@@ -168,11 +172,11 @@ export class EgressService implements OnModuleInit {
     let findEgress: EgressDocument[] | any;
 
     const todayStart = startOfDay(new Date(start));
-    const addDaytoStart = add(todayStart, { days: 1 });
+    const addDaytoStart = add(todayStart, { days: -1 });
 
     const todayEnd = endOfDay(new Date(end));
-    const addDaytoEnd = add(todayEnd, { days: 1 });
-    console.log(`Egreso`, addDaytoStart, addDaytoEnd);
+    const addDaytoEnd = add(todayEnd, { days: -1 });
+    //console.log(`Egreso`, addDaytoStart, addDaytoEnd);
     try {
       findEgress = await this.egressModel
         .find({
