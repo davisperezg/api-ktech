@@ -149,9 +149,12 @@ export class IngressService implements OnModuleInit {
     const toDay = add(todayStart, { days: -1 });
     const toDayEnd = add(todayEnd, { days: -1 });
 
+    console.log(todayStart, todayEnd);
+    console.log(toDay, toDayEnd);
+
     try {
       findIngress = await this.ingressModel
-        .find({ status: 1, createdAt: { $gte: toDay, $lte: toDayEnd } })
+        .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
         .populate([
           {
             path: 'category',
