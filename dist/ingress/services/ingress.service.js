@@ -110,6 +110,7 @@ let IngressService = class IngressService {
         let findIngress;
         const todayStart = date_fns_1.startOfDay(new Date());
         const todayEnd = date_fns_1.endOfDay(new Date());
+        console.log(`DIA`, todayStart, todayEnd);
         try {
             findIngress = await this.ingressModel
                 .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
