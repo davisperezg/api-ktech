@@ -75,7 +75,7 @@ let EgressService = class EgressService {
             findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
         }
         else {
-            findUser = await this.userService.findOneUserByName(findEgressById.category.name, conts_1.NULL);
+            findUser = await this.userService.findOneUserByName(findEgressById.user.name, conts_1.NULL);
         }
         try {
             updateEgress = await this.egressModel
@@ -132,7 +132,6 @@ let EgressService = class EgressService {
         const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
         const todayEnd = date_fns_1.endOfDay(new Date(end));
         const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
-        console.log(`Egreso`, addDaytoStart, addDaytoEnd);
         try {
             findEgress = await this.egressModel
                 .find({

@@ -5361,7 +5361,7 @@
         "affectsGlobalScope": true
       },
       "../src/ingress/services/ingress.service.ts": {
-        "version": "2e12982106c863cff6259cee7dc74945f0da6e1f17e677b78d794e74d50e69b8",
+        "version": "26cc3860b67dbc9c9a7fd7ad7f20736323b79a370d1f6ad6feba64b9331cd6cd",
         "signature": "c834dc252b386023beb44471db83d1516facb8e573648126a410684b067608ee",
         "affectsGlobalScope": false
       },
@@ -5396,7 +5396,7 @@
         "affectsGlobalScope": false
       },
       "../src/egress/services/egress.service.ts": {
-        "version": "22e2e6173fab78d2e6a76937bacd2c0733fca441a577160a92c39b76b2b08fcc",
+        "version": "ac2fde36196dda96e18becd9a415ebfff5629c7784c5f7c0988c40b9151c848e",
         "signature": "8b7313b01217a30abe36fcf1006db1dd2924f7578b7c04df7e6bc7cf36c546dc",
         "affectsGlobalScope": false
       },

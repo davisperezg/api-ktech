@@ -133,7 +133,6 @@ let IngressService = class IngressService {
         const addDaytoStart = date_fns_1.add(todayStart, { days: 1 });
         const todayEnd = date_fns_1.endOfDay(new Date(end));
         const addDaytoEnd = date_fns_1.add(todayEnd, { days: 1 });
-        console.log(`Ingreso`, addDaytoStart, addDaytoEnd);
         try {
             findIngress = await this.ingressModel
                 .find({
