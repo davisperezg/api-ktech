@@ -19,6 +19,7 @@ const mongoose_2 = require("mongoose");
 const category_service_1 = require("../../category/services/category.service");
 const conts_1 = require("../../lib/conts");
 const category_schema_1 = require("../../category/schemas/category.schema");
+const moment = require("moment");
 const date_fns_1 = require("date-fns");
 const user_schema_1 = require("../../user/schemas/user.schema");
 const user_service_1 = require("../../user/services/user.service");
@@ -108,6 +109,7 @@ let IngressService = class IngressService {
     }
     async findAllIngressToDay() {
         let findIngress;
+        console.log(moment.utc());
         const todayStart = date_fns_1.startOfDay(new Date());
         const todayEnd = date_fns_1.endOfDay(new Date());
         const toDay = date_fns_1.add(todayStart, { days: -1 });

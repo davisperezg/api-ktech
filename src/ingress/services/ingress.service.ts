@@ -143,6 +143,8 @@ export class IngressService implements OnModuleInit {
   async findAllIngressToDay(): Promise<IngressDocument[]> {
     let findIngress: IngressDocument[] | any;
 
+    //test does
+    console.log(moment.utc());
     const todayStart = startOfDay(new Date());
     const todayEnd = endOfDay(new Date());
     //server
