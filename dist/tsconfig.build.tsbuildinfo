@@ -5361,7 +5361,7 @@
         "affectsGlobalScope": true
       },
       "../src/ingress/services/ingress.service.ts": {
-        "version": "d7491868ef8471a5c435b25a6aebab7cee9079380f8ded39f30d7961b59f2527",
+        "version": "6adbbc5ac58af5d435cd33ae0b018646baf766d1f2d5a4da509104b065fd9381",
         "signature": "c834dc252b386023beb44471db83d1516facb8e573648126a410684b067608ee",
         "affectsGlobalScope": false
       },

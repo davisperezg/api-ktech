@@ -145,7 +145,9 @@ export class IngressService implements OnModuleInit {
 
     const todayStart = startOfDay(new Date());
     const todayEnd = endOfDay(new Date());
-    console.log(`DIA`, todayStart, todayEnd);
+    //server
+    const toDay = add(todayStart, { days: -1 });
+    console.log(`DIA`, todayStart, todayEnd, toDay);
     try {
       findIngress = await this.ingressModel
         .find({ status: 1, createdAt: { $gte: todayStart, $lte: todayEnd } })
