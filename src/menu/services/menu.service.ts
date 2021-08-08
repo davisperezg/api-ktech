@@ -20,6 +20,14 @@ export class MenuService implements OnModuleInit {
     let countMenus: number;
     let valuesMenus: MenuDocument[];
 
+    // valuesMenus = await Promise.all([
+    //   new this.menuModel({ name: 'Dispositivos', link: 'dispositivos' }).save(),
+    //   new this.menuModel({
+    //     name: 'Plan de facturación',
+    //     link: 'plan-de-facturacion',
+    //   }).save(),
+    // ]);
+
     try {
       countMenus = await this.menuModel.estimatedDocumentCount();
     } catch (e) {

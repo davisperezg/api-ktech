@@ -14,20 +14,22 @@ import { ProductModule } from './product/product.module';
 import { ServiceModule } from './service/service.module';
 import { IngressModule } from './ingress/ingress.module';
 import { EgressModule } from './egress/egress.module';
+import { url_mongo } from './config/config';
+import { CustomerModule } from './customer/customer.module';
+import { VehicleModule } from './vehicle/vehicle.module';
+import { DeviceModule } from './device/device.module';
+import { BillingModule } from './billing/billing.module';
 
 //mongodb://localhost
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority',
-      {
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-    ),
+    MongooseModule.forRoot(url_mongo, {
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       playground: true,
@@ -45,6 +47,10 @@ import { EgressModule } from './egress/egress.module';
     ServiceModule,
     IngressModule,
     EgressModule,
+    CustomerModule,
+    VehicleModule,
+    DeviceModule,
+    BillingModule,
   ],
 })
 export class AppModule {}

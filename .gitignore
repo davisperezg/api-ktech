@@ -1,5 +1,7 @@
 # compiled output
 # /dist
+
+/src/config/*.env
 /node_modules
 /.vscode
 # Logs

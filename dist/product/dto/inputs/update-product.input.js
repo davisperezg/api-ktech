@@ -16,8 +16,8 @@ let UpdateProductInput = class UpdateProductInput {
 };
 __decorate([
     graphql_1.Field(() => graphql_1.ID),
-    class_validator_1.IsMongoId({ message: 'El ID del usuario no es válido' }),
-    class_validator_1.IsNotEmpty({ message: 'El ID del usuario no existe' }),
+    class_validator_1.IsMongoId({ message: 'El ID del producto no es válido' }),
+    class_validator_1.IsNotEmpty({ message: 'El ID del producto no existe' }),
     __metadata("design:type", String)
 ], UpdateProductInput.prototype, "id", void 0);
 __decorate([

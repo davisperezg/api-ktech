@@ -1,3 +1,5 @@
-export const EXIST = 'EXIST';
-export const NOEXIST = 'NOEXIST';
-export const NULL = 'NULL';
+import { exist, no_exist, nul } from 'src/config/config';
+
+export const EXIST = exist;
+export const NOEXIST = no_exist;
+export const NULL = nul;

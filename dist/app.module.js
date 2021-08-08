@@ -23,12 +23,17 @@ const product_module_1 = require("./product/product.module");
 const service_module_1 = require("./service/service.module");
 const ingress_module_1 = require("./ingress/ingress.module");
 const egress_module_1 = require("./egress/egress.module");
+const config_1 = require("./config/config");
+const customer_module_1 = require("./customer/customer.module");
+const vehicle_module_1 = require("./vehicle/vehicle.module");
+const device_module_1 = require("./device/device.module");
+const billing_module_1 = require("./billing/billing.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://dperez:dapeor@cluster0.xe1tm.mongodb.net/KTECH?retryWrites=true&w=majority', {
+            mongoose_1.MongooseModule.forRoot(config_1.url_mongo, {
                 useFindAndModify: false,
                 useCreateIndex: true,
                 useNewUrlParser: true,
@@ -51,6 +56,10 @@ AppModule = __decorate([
             service_module_1.ServiceModule,
             ingress_module_1.IngressModule,
             egress_module_1.EgressModule,
+            customer_module_1.CustomerModule,
+            vehicle_module_1.VehicleModule,
+            device_module_1.DeviceModule,
+            billing_module_1.BillingModule,
         ],
     })
 ], AppModule);

@@ -1,0 +1,9 @@
+export declare const url_mongo: string;
+export declare const token: string;
+export declare const exist: string;
+export declare const no_exist: string;
+export declare const nul: string;
+export declare const access1: string;
+export declare const access2: string;
+export declare const access3: string;
+export declare const access4: string;

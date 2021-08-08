@@ -1,7 +1,6 @@
 import { Field, InputType, ID } from '@nestjs/graphql';
 
 import {
-  IsNumberString,
   IsOptional,
   Length,
   Matches,
@@ -13,8 +12,8 @@ import {
 @InputType()
 export class UpdateProductInput {
   @Field(() => ID)
-  @IsMongoId({ message: 'El ID del usuario no es válido' })
-  @IsNotEmpty({ message: 'El ID del usuario no existe' })
+  @IsMongoId({ message: 'El ID del producto no es válido' })
+  @IsNotEmpty({ message: 'El ID del producto no existe' })
   id: string;
 
   @Field({ nullable: true })

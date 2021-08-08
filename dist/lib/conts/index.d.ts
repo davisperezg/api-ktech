@@ -1,3 +1,3 @@
-export declare const EXIST = "EXIST";
-export declare const NOEXIST = "NOEXIST";
-export declare const NULL = "NULL";
+export declare const EXIST: string;
+export declare const NOEXIST: string;
+export declare const NULL: string;
