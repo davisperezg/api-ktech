@@ -91,9 +91,17 @@ export class VehicleService {
   }
 
   async updateVehicle(
-    vehicleInput: UpdateVehicleInput,
+    vehicleInput: UpdateVehicleInput | any,
   ): Promise<VehicleDocument> {
-    const { id, customer, device, billing, billigStart } = vehicleInput;
+    const {
+      id,
+      customer,
+      device,
+      billing,
+      billigStart,
+      renew,
+      billigEnd,
+    } = vehicleInput;
 
     let findCustomer: CustomerDocument;
     let findDevice: DeviceDocument;
@@ -147,8 +155,8 @@ export class VehicleService {
             customer: findCustomer._id,
             device: findDevice._id,
             billing: findBilling._id,
-            billigStart: addDaytoStart,
-            billigEnd: addDaytoEnd,
+            billigStart: renew ? billigStart : addDaytoStart,
+            billigEnd: renew ? billigEnd : addDaytoEnd,
           },
           { new: true },
         )

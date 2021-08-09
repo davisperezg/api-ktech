@@ -5531,8 +5531,8 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/services/vehicle.service.ts": {
-        "version": "aab1eeb5803f8094193b852a8214ef144517001eda801fc1b7e32e431dcc1098",
-        "signature": "c45753617c9c4091fc473f3cd6e8ec618cd9d9fba6416ec2dca2045cd36d08bd",
+        "version": "9d3fb818a09c50433d77ea9e8ae946bc08400ef5786bb656b22f607103e1d95c",
+        "signature": "9035aa391fbdc93b0870d0098a8acd3ea3226efc7a964f53554e23ed6c086807",
         "affectsGlobalScope": false
       },
       "../src/vehicle/resolvers/vehicle.resolver.ts": {
@@ -5556,8 +5556,8 @@
         "affectsGlobalScope": false
       },
       "../src/billing/resolvers/billing.resolver.ts": {
-        "version": "befe7a099e4bf8a50c8fb41db0fc7a49e7b9facb3255e62ff4103fb17a838372",
-        "signature": "dc55bfd747c41eba548aa591fdfad67011578671bbdec5e6db974f8fa6fe01fd",
+        "version": "0702d04a729b82f45a7e267565e2b88a7edc2a1a812b409f0e15b1d22eb140f1",
+        "signature": "ac1e4f3c7a472e73c06451660d459a1934260a8e1b02fe5817200de92bac014d",
         "affectsGlobalScope": false
       },
       "../src/billing/billing.module.ts": {
@@ -5565,8 +5565,38 @@
         "signature": "896719c6777f97febea89b3894c2ac27e1fd1eb8048815f093dacdc4621b4117",
         "affectsGlobalScope": false
       },
+      "../src/renew/dto/inputs/create-renew.input.ts": {
+        "version": "12a84c8376198f7cd886795456b56114bfee537d410649af5727d1b7831f2018",
+        "signature": "36378e4d39fabb3e9ffa2a4e59dd13ae19c5ee72d35251691afb89d3d387ee73",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/schemas/renew.schema.ts": {
+        "version": "68c804636e9cfcfd2d16a521a7880188aad539fee83615aa4d47ca8dcd28f9e8",
+        "signature": "4db790e1f6cc67a3fe89db6c77a7fbb2a95dd5fb0847161abb2837f9834838de",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/services/renew.service.ts": {
+        "version": "eb50c33b78b777e1f26cc48ccc27d688692eedb4428316bdd1a276a6604dffde",
+        "signature": "2a71a1e2b2ff6b2b638e463eb0defcd6e52214cb71ad3fe4ff3ec8518bd7eb6f",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/dto/querys/renew.type.ts": {
+        "version": "8712126cc5dc602aeb3782b8fbf26daa87883bced80c98f25036ad23ae030a57",
+        "signature": "58ec1fbf47c7f0eac607e15ebef4eca513504e5b80fcecc22d3ee0241fdfb007",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/resolvers/renew.resolver.ts": {
+        "version": "e96ef909fec3b2e053983c54710d4dd74cecd1244ac37e665a5f271724c698e5",
+        "signature": "98b93730b9729d51956342ba45139a98120844cef2e46944d999d8e0881935ec",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/renew.module.ts": {
+        "version": "022061c2d32c25db4c53ec5f61eeb89cdaa00a8c9a0dfdc52f9525c58e37dbb7",
+        "signature": "3dbc492de2cf51d4eef47f90abfa18308c7dd3e9fc00fed9b586fbfa718ffc9f",
+        "affectsGlobalScope": false
+      },
       "../src/app.module.ts": {
-        "version": "2b4c2afc20a8a28d7a708b5913be32a71f017ebb8f73821350969cea3b030bea",
+        "version": "d69b8d27361529f71a77eeea3f115e97dfc28d97b29b356895a5c24873ab9aa2",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -5638,6 +5668,11 @@
       "../src/main.ts": {
         "version": "73d25a65f7eb963ba8b93508f1b5cabb06aa0c51d2ec80766991bc321425710c",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "../src/renew/dto/inputs/update-renew.input.ts": {
+        "version": "bdfbfc36c33744855e9f1abfbaf0f641e94d394980c23afac8086d98b67d8d4d",
+        "signature": "b8757dcb1e55b878a7c573c4b95b97d5e2f6ea09986e6c33098ed22ab8afcce4",
         "affectsGlobalScope": false
       },
       "../node_modules/@babel/types/lib/index.d.ts": {
@@ -11439,6 +11474,7 @@
         "../src/model/model.module.ts",
         "../src/modules/modules.module.ts",
         "../src/product/product.module.ts",
+        "../src/renew/renew.module.ts",
         "../src/role/role.module.ts",
         "../src/service/service.module.ts",
         "../src/user/user.module.ts",
@@ -11553,7 +11589,8 @@
         "../src/billing/dto/inputs/update-billing.input.ts",
         "../src/billing/dto/querys/billing.type.ts",
         "../src/billing/schemas/billing.schema.ts",
-        "../src/billing/services/billing.service.ts"
+        "../src/billing/services/billing.service.ts",
+        "../src/lib/conts/index.ts"
       ],
       "../src/billing/schemas/billing.schema.ts": [
         "../node_modules/@nestjs/mongoose/index.d.ts",
@@ -12206,6 +12243,83 @@
         "../src/product/dto/inputs/create-product.input.ts",
         "../src/product/dto/inputs/update-product.input.ts",
         "../src/product/schemas/product.schema.ts"
+      ],
+      "../src/renew/dto/inputs/create-renew.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts"
+      ],
+      "../src/renew/dto/inputs/update-renew.input.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/class-validator/types/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts"
+      ],
+      "../src/renew/dto/querys/renew.type.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts",
+        "../src/billing/dto/querys/billing.type.ts",
+        "../src/user/dto/querys/user.type.ts",
+        "../src/vehicle/dto/querys/vehicle.type.ts"
+      ],
+      "../src/renew/renew.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts",
+        "../src/access/schemas/access.schema.ts",
+        "../src/access/services/access.service.ts",
+        "../src/billing/schemas/billing.schema.ts",
+        "../src/billing/services/billing.service.ts",
+        "../src/customer/schemas/customer.schema.ts",
+        "../src/customer/services/customer.service.ts",
+        "../src/device/schemas/device.schema.ts",
+        "../src/device/services/device.service.ts",
+        "../src/menu/schemas/menu.schema.ts",
+        "../src/menu/services/menu.service.ts",
+        "../src/modules/schemas/module.schema.ts",
+        "../src/modules/services/module.service.ts",
+        "../src/renew/resolvers/renew.resolver.ts",
+        "../src/renew/schemas/renew.schema.ts",
+        "../src/renew/services/renew.service.ts",
+        "../src/role/schemas/role.schema.ts",
+        "../src/role/services/role.service.ts",
+        "../src/user/schemas/user.schema.ts",
+        "../src/user/services/user.service.ts",
+        "../src/vehicle/schemas/vehicle.schema.ts",
+        "../src/vehicle/services/vehicle.service.ts"
+      ],
+      "../src/renew/resolvers/renew.resolver.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts",
+        "../src/lib/decorators/ctx-user.decorators.ts",
+        "../src/lib/guards/gql-auth.guard.ts",
+        "../src/renew/dto/inputs/create-renew.input.ts",
+        "../src/renew/dto/querys/renew.type.ts",
+        "../src/renew/schemas/renew.schema.ts",
+        "../src/renew/services/renew.service.ts",
+        "../src/user/schemas/user.schema.ts"
+      ],
+      "../src/renew/schemas/renew.schema.ts": [
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/billing/schemas/billing.schema.ts",
+        "../src/user/schemas/user.schema.ts",
+        "../src/vehicle/schemas/vehicle.schema.ts"
+      ],
+      "../src/renew/services/renew.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
+        "../node_modules/date-fns/typings.d.ts",
+        "../node_modules/moment/ts3.1-typings/moment.d.ts",
+        "../node_modules/mongoose/index.d.ts",
+        "../src/billing/services/billing.service.ts",
+        "../src/lib/conts/index.ts",
+        "../src/renew/dto/inputs/create-renew.input.ts",
+        "../src/renew/schemas/renew.schema.ts",
+        "../src/user/services/user.service.ts",
+        "../src/vehicle/dto/inputs/update-vehicle.input.ts",
+        "../src/vehicle/services/vehicle.service.ts"
       ],
       "../src/role/dto/inputs/role-update.input.ts": [
         "../node_modules/@nestjs/graphql/index.d.ts",
@@ -16851,6 +16965,31 @@
         "../src/product/dto/inputs/update-product.input.ts",
         "../src/product/schemas/product.schema.ts"
       ],
+      "../src/renew/dto/querys/renew.type.ts": [
+        "../src/billing/dto/querys/billing.type.ts",
+        "../src/user/dto/querys/user.type.ts",
+        "../src/vehicle/dto/querys/vehicle.type.ts"
+      ],
+      "../src/renew/resolvers/renew.resolver.ts": [
+        "../src/renew/dto/inputs/create-renew.input.ts",
+        "../src/renew/schemas/renew.schema.ts",
+        "../src/renew/services/renew.service.ts",
+        "../src/user/schemas/user.schema.ts"
+      ],
+      "../src/renew/schemas/renew.schema.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/billing/schemas/billing.schema.ts",
+        "../src/user/schemas/user.schema.ts",
+        "../src/vehicle/schemas/vehicle.schema.ts"
+      ],
+      "../src/renew/services/renew.service.ts": [
+        "../node_modules/mongoose/index.d.ts",
+        "../src/billing/services/billing.service.ts",
+        "../src/renew/dto/inputs/create-renew.input.ts",
+        "../src/renew/schemas/renew.schema.ts",
+        "../src/user/services/user.service.ts",
+        "../src/vehicle/services/vehicle.service.ts"
+      ],
       "../src/role/dto/inputs/role.input.ts": [
         "../src/modules/dto/inputs/create-module.input.ts"
       ],
@@ -18088,6 +18227,13 @@
       "../src/product/resolvers/product.resolver.ts",
       "../src/product/schemas/product.schema.ts",
       "../src/product/services/product.service.ts",
+      "../src/renew/dto/inputs/create-renew.input.ts",
+      "../src/renew/dto/inputs/update-renew.input.ts",
+      "../src/renew/dto/querys/renew.type.ts",
+      "../src/renew/renew.module.ts",
+      "../src/renew/resolvers/renew.resolver.ts",
+      "../src/renew/schemas/renew.schema.ts",
+      "../src/renew/services/renew.service.ts",
       "../src/role/dto/inputs/role-update.input.ts",
       "../src/role/dto/inputs/role.input.ts",
       "../src/role/dto/querys/role.type.ts",

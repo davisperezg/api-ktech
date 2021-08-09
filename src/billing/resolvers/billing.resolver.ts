@@ -1,4 +1,5 @@
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
+import { NOEXIST } from 'src/lib/conts';
 import { CreateBillingInput } from '../dto/inputs/create-billing.input';
 import { UpdateBillingInput } from '../dto/inputs/update-billing.input';
 import { BillingType } from '../dto/querys/billing.type';
@@ -33,5 +34,10 @@ export class BillingResolver {
   @Query(() => [BillingType])
   getBillings(): Promise<BillingDocument[]> {
     return this.billingService.findAllBilling();
+  }
+
+  @Query(() => BillingType)
+  getBillingByName(@Args('name') name: string): Promise<BillingDocument> {
+    return this.billingService.findOneBillingByName(name, NOEXIST);
   }
 }

@@ -9,4 +9,5 @@ export declare class BillingResolver {
     updateBilling(billingInput: UpdateBillingInput): Promise<BillingDocument>;
     deleteBilling(id: string): Promise<boolean>;
     getBillings(): Promise<BillingDocument[]>;
+    getBillingByName(name: string): Promise<BillingDocument>;
 }

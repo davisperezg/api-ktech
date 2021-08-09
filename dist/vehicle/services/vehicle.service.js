@@ -65,7 +65,7 @@ let VehicleService = class VehicleService {
         return foundVehicle;
     }
     async updateVehicle(vehicleInput) {
-        const { id, customer, device, billing, billigStart } = vehicleInput;
+        const { id, customer, device, billing, billigStart, renew, billigEnd, } = vehicleInput;
         let findCustomer;
         let findDevice;
         let findBilling;
@@ -94,7 +94,7 @@ let VehicleService = class VehicleService {
         const addDaytoEnd = date_fns_1.add(addDaytoStart, { days: findBilling.day });
         try {
             updateVehicle = await this.vehicleModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: addDaytoStart, billigEnd: addDaytoEnd }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew ? billigStart : addDaytoStart, billigEnd: renew ? billigEnd : addDaytoEnd }), { new: true })
                 .populate([
                 {
                     path: 'customer',

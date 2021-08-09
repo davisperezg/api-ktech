@@ -19,6 +19,7 @@ import { CustomerModule } from './customer/customer.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { DeviceModule } from './device/device.module';
 import { BillingModule } from './billing/billing.module';
+import { RenewModule } from './renew/renew.module';
 
 //mongodb://localhost
 
@@ -51,6 +52,7 @@ import { BillingModule } from './billing/billing.module';
     VehicleModule,
     DeviceModule,
     BillingModule,
+    RenewModule,
   ],
 })
 export class AppModule {}

@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BillingResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const conts_1 = require("../../lib/conts");
 const create_billing_input_1 = require("../dto/inputs/create-billing.input");
 const update_billing_input_1 = require("../dto/inputs/update-billing.input");
 const billing_type_1 = require("../dto/querys/billing.type");
@@ -33,6 +34,9 @@ let BillingResolver = class BillingResolver {
     }
     getBillings() {
         return this.billingService.findAllBilling();
+    }
+    getBillingByName(name) {
+        return this.billingService.findOneBillingByName(name, conts_1.NOEXIST);
     }
 };
 __decorate([
@@ -62,6 +66,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BillingResolver.prototype, "getBillings", null);
+__decorate([
+    graphql_1.Query(() => billing_type_1.BillingType),
+    __param(0, graphql_1.Args('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], BillingResolver.prototype, "getBillingByName", null);
 BillingResolver = __decorate([
     graphql_1.Resolver(),
     __metadata("design:paramtypes", [billing_service_1.BillingService])

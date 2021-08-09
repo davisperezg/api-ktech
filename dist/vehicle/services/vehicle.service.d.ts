@@ -12,7 +12,7 @@ export declare class VehicleService {
     private readonly billingService;
     constructor(vehicleModel: Model<VehicleDocument>, customerService: CustomerService, deviceService: DeviceService, billingService: BillingService);
     createVehicle(vehicleInput: CreateVehicleInput): Promise<VehicleDocument>;
-    updateVehicle(vehicleInput: UpdateVehicleInput): Promise<VehicleDocument>;
+    updateVehicle(vehicleInput: UpdateVehicleInput | any): Promise<VehicleDocument>;
     findOneVehicleById(id: string): Promise<VehicleDocument>;
     deleteVehicleById(id: string): Promise<boolean>;
     findAllVehicle(): Promise<VehicleDocument[]>;

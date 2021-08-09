@@ -28,6 +28,7 @@ const customer_module_1 = require("./customer/customer.module");
 const vehicle_module_1 = require("./vehicle/vehicle.module");
 const device_module_1 = require("./device/device.module");
 const billing_module_1 = require("./billing/billing.module");
+const renew_module_1 = require("./renew/renew.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -60,6 +61,7 @@ AppModule = __decorate([
             vehicle_module_1.VehicleModule,
             device_module_1.DeviceModule,
             billing_module_1.BillingModule,
+            renew_module_1.RenewModule,
         ],
     })
 ], AppModule);
