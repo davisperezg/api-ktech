@@ -5426,12 +5426,12 @@
         "affectsGlobalScope": false
       },
       "../src/customer/dto/inputs/create-customer.input.ts": {
-        "version": "dfe70bb7ab1b4c07ee4a78e6ee909d3253409df0134e68bf5b7ae74cc7a3c287",
+        "version": "db344aead5da8592715d5c5446f8c3fbef12eae269ddbc9ff9778a86f58d4b59",
         "signature": "17dc35f2f4a48e57884af271ac25bca5c7a616900120ca7bb5a849a325e811bf",
         "affectsGlobalScope": false
       },
       "../src/customer/dto/inputs/update-customer.input.ts": {
-        "version": "4fd1697d14a8ef324a0bf476746362d8ea0905436f66a25e465168b79c511682",
+        "version": "cfbecc6a0207334eb9770827df7a476fad4d74119615cd9239a746dd179b5f15",
         "signature": "8fdc54b54ce549a7835b7e9630abfe350e673255a42514cc56bda1316267cc5b",
         "affectsGlobalScope": false
       },
@@ -5441,8 +5441,8 @@
         "affectsGlobalScope": false
       },
       "../src/customer/services/customer.service.ts": {
-        "version": "6090168658cf9ef87e18a45fe48812faa00aff959d8c59f1ba6551b0aaa412e7",
-        "signature": "af6d3764b49fff65c51a9795d7590565b8abd63ba7cfda22dec772b0f0e8bcd7",
+        "version": "e12b664c6e608cbd3c2043c400ac7c348f7aad4fbcd472fe8d639f2311215f16",
+        "signature": "1202c806f110f60fb8c8a7039c396a7671ec615fa508e42ed68f68d7be9c7274",
         "affectsGlobalScope": false
       },
       "../src/customer/dto/querys/customer.type.ts": {
@@ -5461,13 +5461,13 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/create-vehicle.input.ts": {
-        "version": "5e3cf2324d32e0b467a42a54f8f94e7be909301f948710495ea26243da459f1e",
-        "signature": "cde435e7bc6ac1ab742eaf64cab544033cb29836e7dcdb17b01021aee651b9bf",
+        "version": "27bf1e893737af064fc81d5ec3ee00dfa39b0642b342075a821e0e84b462fd09",
+        "signature": "124ea50fc2c24bc123b0b890f7439ab953dc9330877e00d24b3b48e06e34b02a",
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/update-vehicle.input.ts": {
-        "version": "3644265cb977e10efc559513957af17c94bda5592fdd3b2d93966bd06b3edbc6",
-        "signature": "1b1339e81565c9a4560fb6c69bdc6419f32e256cf73d185f78ca5db034a3b9bd",
+        "version": "f287fe98f66d5cf0395355ede420e00d0e62e39638d1999d2d3e3214af65a1f2",
+        "signature": "6d9f47d10d81aa881f8c54364f74f44ad2fe3a29b95ea3a71a5d800cb214b4c7",
         "affectsGlobalScope": false
       },
       "../src/billing/dto/querys/billing.type.ts": {
@@ -5481,8 +5481,8 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/querys/vehicle.type.ts": {
-        "version": "f6a49ef002e7f74aa76879aebf35ead5da1f862be37df05a60182a302b71b08e",
-        "signature": "0a2448eeb4359ccee4a1bb26a6266b2afeff9b11afc96eac6818f5fa9c8de217",
+        "version": "e146ef98b5403ee3b33860c5e71d1f7a1ee5f8dbac129d34c0a668c63eeb778c",
+        "signature": "76aa7003aa5f21b4daddbaa5c428033668f0cffafa36cc7a0f5430ea6e392bec",
         "affectsGlobalScope": false
       },
       "../src/billing/schemas/billing.schema.ts": {
@@ -5496,8 +5496,8 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/schemas/vehicle.schema.ts": {
-        "version": "712f7c9e3c6fcc771cf5f2fdf449b08864c74ead75fa2db63945f97fe016a430",
-        "signature": "be04343d987331810d20397901c5274dea2fcf2496c0d4cfb50d8fba910bc7e5",
+        "version": "dfc9dd49b07d3bde1217030a1cc59cee4da76d21ab34f003bd3950496728b56d",
+        "signature": "03f482a16bb33adaa7151d81701fc71b858b694052ffc938fc5701b223c3b2d0",
         "affectsGlobalScope": false
       },
       "../src/billing/dto/inputs/create-billing.input.ts": {
@@ -5531,13 +5531,13 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/services/vehicle.service.ts": {
-        "version": "9d3fb818a09c50433d77ea9e8ae946bc08400ef5786bb656b22f607103e1d95c",
-        "signature": "9035aa391fbdc93b0870d0098a8acd3ea3226efc7a964f53554e23ed6c086807",
+        "version": "660d6355863980f12b51729372ccc69d77fa796d1a9cedae05be2768740e7811",
+        "signature": "aa49062db44128007cf1c61dea8cd57395df084d83db7acf88c0664e1b5ea119",
         "affectsGlobalScope": false
       },
       "../src/vehicle/resolvers/vehicle.resolver.ts": {
-        "version": "0548b7b3d3172b194768a5788ee6bf9f0ffd92c791b4b641815d012688f4cad6",
-        "signature": "c79fac216e190d5dc5bd2fcb29bfdc8349bb7b5424d328e4f8b40d8b6b2c7a65",
+        "version": "4ac2ce8161acb23c226fae5cd786b2d288b3c2134e012d0d845e3d444d8e7e2a",
+        "signature": "fb1c2c3ed381ff732b48ba2f2fceecdaf02138ac6f497644704890bd719b4ef4",
         "affectsGlobalScope": false
       },
       "../src/vehicle/vehicle.module.ts": {
@@ -5576,7 +5576,7 @@
         "affectsGlobalScope": false
       },
       "../src/renew/services/renew.service.ts": {
-        "version": "eb50c33b78b777e1f26cc48ccc27d688692eedb4428316bdd1a276a6604dffde",
+        "version": "a256412fad579815f673bb4bae9757e66becbd190aca7d2b56a17c73c6cf24f0",
         "signature": "2a71a1e2b2ff6b2b638e463eb0defcd6e52214cb71ad3fe4ff3ec8518bd7eb6f",
         "affectsGlobalScope": false
       },
@@ -5596,7 +5596,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "d8e7e242737a09b8b43078f0ca6e74f507d1a7fbea50722f217a298f16157ba1",
+        "version": "4c06381b7160d1f075aad9a9c365596e0698b170946b34274f32640424fb2180",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -12525,13 +12525,16 @@
         "../node_modules/date-fns/typings.d.ts",
         "../src/billing/dto/querys/billing.type.ts",
         "../src/customer/dto/querys/customer.type.ts",
-        "../src/device/dto/querys/device.type.ts"
+        "../src/device/dto/querys/device.type.ts",
+        "../src/user/dto/querys/user.type.ts"
       ],
       "../src/vehicle/resolvers/vehicle.resolver.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
         "../node_modules/date-fns/typings.d.ts",
+        "../src/lib/decorators/ctx-user.decorators.ts",
         "../src/lib/guards/gql-auth.guard.ts",
+        "../src/user/schemas/user.schema.ts",
         "../src/vehicle/dto/inputs/create-vehicle.input.ts",
         "../src/vehicle/dto/inputs/update-vehicle.input.ts",
         "../src/vehicle/dto/querys/vehicle.type.ts",
@@ -12544,7 +12547,8 @@
         "../node_modules/mongoose/index.d.ts",
         "../src/billing/schemas/billing.schema.ts",
         "../src/customer/schemas/customer.schema.ts",
-        "../src/device/schemas/device.schema.ts"
+        "../src/device/schemas/device.schema.ts",
+        "../src/user/schemas/user.schema.ts"
       ],
       "../src/vehicle/services/vehicle.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -17066,9 +17070,11 @@
       "../src/vehicle/dto/querys/vehicle.type.ts": [
         "../src/billing/dto/querys/billing.type.ts",
         "../src/customer/dto/querys/customer.type.ts",
-        "../src/device/dto/querys/device.type.ts"
+        "../src/device/dto/querys/device.type.ts",
+        "../src/user/dto/querys/user.type.ts"
       ],
       "../src/vehicle/resolvers/vehicle.resolver.ts": [
+        "../src/user/schemas/user.schema.ts",
         "../src/vehicle/dto/inputs/create-vehicle.input.ts",
         "../src/vehicle/dto/inputs/update-vehicle.input.ts",
         "../src/vehicle/schemas/vehicle.schema.ts",
@@ -17078,7 +17084,8 @@
         "../node_modules/mongoose/index.d.ts",
         "../src/billing/schemas/billing.schema.ts",
         "../src/customer/schemas/customer.schema.ts",
-        "../src/device/schemas/device.schema.ts"
+        "../src/device/schemas/device.schema.ts",
+        "../src/user/schemas/user.schema.ts"
       ],
       "../src/vehicle/services/vehicle.service.ts": [
         "../node_modules/mongoose/index.d.ts",

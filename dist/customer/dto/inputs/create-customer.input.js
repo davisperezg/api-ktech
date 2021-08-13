@@ -29,7 +29,7 @@ __decorate([
 ], CreateCustomerInput.prototype, "numDocument", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
+    class_validator_1.Matches(/^[A-Za-záéíóú.Ññ\s]+$/, {
         message: 'El nombre solo puede contener letras.',
     }),
     class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),

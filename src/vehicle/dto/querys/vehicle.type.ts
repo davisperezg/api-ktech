@@ -2,6 +2,7 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 import { BillingType } from 'src/billing/dto/querys/billing.type';
 import { CustomerType } from 'src/customer/dto/querys/customer.type';
 import { DeviceType } from 'src/device/dto/querys/device.type';
+import { UserType } from 'src/user/dto/querys/user.type';
 
 @ObjectType()
 export class VehicleType {
@@ -17,8 +18,20 @@ export class VehicleType {
   @Field(() => BillingType, { nullable: true })
   billing: BillingType;
 
+  @Field(() => UserType, { nullable: true })
+  createdBy: UserType;
+
+  @Field(() => UserType, { nullable: true })
+  updatedBy: UserType;
+
+  @Field({ nullable: true })
+  platform: string;
+
   @Field()
   plate: string;
+
+  @Field({ nullable: true })
+  sim: string;
 
   @Field()
   nroGPS: string;

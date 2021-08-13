@@ -10,6 +10,7 @@ export declare class CustomerService {
     deleteCustomer(id: string): Promise<boolean>;
     findAllCustomer(): Promise<CustomerDocument[]>;
     findOneCustomerById(id: string): Promise<CustomerDocument>;
-    findOneCustomerByNroDocument(number: string): Promise<CustomerDocument>;
+    findOneCustomerByNroDocument(number: string, param: string): Promise<CustomerDocument>;
+    findOneCustomerByCellphoneOne(number: string, param: string): Promise<CustomerDocument>;
     findOneCustomerByLastname(lastName: string, param: string): Promise<CustomerDocument>;
 }

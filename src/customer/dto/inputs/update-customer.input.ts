@@ -35,7 +35,7 @@ export class UpdateCustomerInput {
   numDocument?: string;
 
   @Field()
-  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
+  @Matches(/^[A-Za-záéíóú.Ññ\s]+$/, {
     message: 'El nombre solo puede contener letras.',
   })
   @Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' })

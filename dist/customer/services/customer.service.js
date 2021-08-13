@@ -22,14 +22,9 @@ let CustomerService = class CustomerService {
         this.customerModel = customerModel;
     }
     async createCustomer(customerInput) {
-        const { numDocument } = customerInput;
-        const findUserByNroDocument = await this.findOneCustomerByNroDocument(numDocument);
-        if (findUserByNroDocument) {
-            throw new common_1.BadRequestException({
-                path: `customer`,
-                message: [`El cliente ya se encuentra registrado.`],
-            });
-        }
+        const { numDocument, cellphone_1 } = customerInput;
+        await this.findOneCustomerByNroDocument(numDocument, conts_1.EXIST);
+        await this.findOneCustomerByCellphoneOne(cellphone_1, conts_1.EXIST);
         let customerSaved;
         const newCustomer = new this.customerModel(Object.assign(Object.assign({}, customerInput), { status: 1 }));
         try {
@@ -41,8 +36,15 @@ let CustomerService = class CustomerService {
         return customerSaved;
     }
     async updateCustomer(customerInput) {
-        const { id } = customerInput;
+        const { id, numDocument, cellphone_1 } = customerInput;
         let updateCustomer;
+        const findCustomerById = await this.findOneCustomerById(id);
+        if (numDocument !== findCustomerById.numDocument) {
+            await this.findOneCustomerByNroDocument(numDocument, conts_1.EXIST);
+        }
+        if (cellphone_1 !== findCustomerById.cellphone_1) {
+            await this.findOneCustomerByCellphoneOne(cellphone_1, conts_1.EXIST);
+        }
         try {
             updateCustomer = await this.customerModel.findByIdAndUpdate(id, customerInput, { new: true });
         }
@@ -88,13 +90,59 @@ let CustomerService = class CustomerService {
             });
         return customer;
     }
-    async findOneCustomerByNroDocument(number) {
+    async findOneCustomerByNroDocument(number, param) {
         let customer;
         try {
             customer = await this.customerModel.findOne({ numDocument: number });
         }
         catch (e) {
-            throw new Error(`Error en CustomerService.findOneProductByName ${e}`);
+            throw new Error(`Error en CustomerService.findOneCustomerByNroDocument ${e}`);
+        }
+        switch (param) {
+            case conts_1.EXIST:
+                if (customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [
+                            `El cliente con nro de documento ${number} ya existe y le pertenece a otro cliente.`,
+                        ],
+                    });
+                break;
+            case conts_1.NOEXIST:
+                if (!customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [`El cliente no existe.`],
+                    });
+                break;
+        }
+        return customer;
+    }
+    async findOneCustomerByCellphoneOne(number, param) {
+        let customer;
+        try {
+            customer = await this.customerModel.findOne({ cellphone_1: number });
+        }
+        catch (e) {
+            throw new Error(`Error en CustomerService.findOneCustomerByCellphoneOne ${e}`);
+        }
+        switch (param) {
+            case conts_1.EXIST:
+                if (customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [
+                            `El cliente con nro de celular ${number} ya existe y le pertenece a otro cliente.`,
+                        ],
+                    });
+                break;
+            case conts_1.NOEXIST:
+                if (!customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [`El nro de celular principal del cliente no existe.`],
+                    });
+                break;
         }
         return customer;
     }

@@ -20,7 +20,6 @@ import { VehicleModule } from './vehicle/vehicle.module';
 import { DeviceModule } from './device/device.module';
 import { BillingModule } from './billing/billing.module';
 import { RenewModule } from './renew/renew.module';
-
 //mongodb://localhost
 
 @Module({

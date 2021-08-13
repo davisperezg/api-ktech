@@ -3,7 +3,9 @@ export declare class UpdateVehicleInput {
     customer: string;
     device: string;
     billing: string;
+    platform: string;
     plate: string;
+    sim: string;
     nroGPS: string;
     billigStart: string;
 }

@@ -89,7 +89,7 @@ export class RenewService {
         billigEnd: addDaytoEnd,
       };
 
-      await this.vehicleService.updateVehicle(dataToUpdatedVehicle);
+      await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
     } catch (e) {
       throw new Error(`Error en RenewService.createRenew ${e}`);
     }

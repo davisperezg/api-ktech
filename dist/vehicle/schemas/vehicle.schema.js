@@ -15,6 +15,7 @@ const mongoose = require("mongoose");
 const billing_schema_1 = require("../../billing/schemas/billing.schema");
 const customer_schema_1 = require("../../customer/schemas/customer.schema");
 const device_schema_1 = require("../../device/schemas/device.schema");
+const user_schema_1 = require("../../user/schemas/user.schema");
 let Vehicle = class Vehicle {
 };
 __decorate([
@@ -29,6 +30,22 @@ __decorate([
     mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Billing' }),
     __metadata("design:type", billing_schema_1.Billing)
 ], Vehicle.prototype, "billing", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true, uppercase: true }),
+    __metadata("design:type", String)
+], Vehicle.prototype, "sim", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true, uppercase: true }),
+    __metadata("design:type", String)
+], Vehicle.prototype, "platform", void 0);
+__decorate([
+    mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", user_schema_1.User)
+], Vehicle.prototype, "createdBy", void 0);
+__decorate([
+    mongoose_1.Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", user_schema_1.User)
+], Vehicle.prototype, "updatedBy", void 0);
 __decorate([
     mongoose_1.Prop({ trim: true, uppercase: true }),
     __metadata("design:type", String)

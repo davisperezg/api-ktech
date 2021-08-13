@@ -27,7 +27,7 @@ export class VehicleService {
     private readonly billingService: BillingService,
   ) {}
 
-  async createVehicle(vehicleInput: CreateVehicleInput) {
+  async createVehicle(vehicleInput: CreateVehicleInput, user: string) {
     const {
       customer,
       device,
@@ -63,6 +63,8 @@ export class VehicleService {
       billing: findBilling._id,
       billigStart: addDaytoStart,
       billigEnd: addDaytoEnd,
+      createdBy: user,
+      updatedBy: user,
       status: 1,
     });
 
@@ -81,6 +83,8 @@ export class VehicleService {
           { path: 'customer' },
           { path: 'device' },
           { path: 'billing' },
+          { path: 'createdBy' },
+          { path: 'updatedBy' },
         ])
         .execPopulate();
     } catch (e) {
@@ -92,15 +96,19 @@ export class VehicleService {
 
   async updateVehicle(
     vehicleInput: UpdateVehicleInput | any,
+    user: string,
   ): Promise<VehicleDocument> {
     const {
       id,
       customer,
       device,
+
       billing,
       billigStart,
       renew,
       billigEnd,
+      nroGPS,
+      plate,
     } = vehicleInput;
 
     let findCustomer: CustomerDocument;
@@ -109,6 +117,14 @@ export class VehicleService {
     let updateVehicle: VehicleDocument;
 
     const findVehicleById: any = await this.findOneVehicleById(id);
+
+    if (nroGPS !== findVehicleById.nroGPS) {
+      await this.findOneVehicleByNroGPS(nroGPS, EXIST);
+    }
+
+    if (plate !== findVehicleById.plate) {
+      await this.findOneVehicleByPlate(plate, EXIST);
+    }
 
     if (customer) {
       findCustomer = await this.customerService.findOneCustomerById(customer);
@@ -157,6 +173,7 @@ export class VehicleService {
             billing: findBilling._id,
             billigStart: renew ? billigStart : addDaytoStart,
             billigEnd: renew ? billigEnd : addDaytoEnd,
+            updatedBy: user,
           },
           { new: true },
         )
@@ -170,6 +187,8 @@ export class VehicleService {
           {
             path: 'billing',
           },
+          { path: 'createdBy' },
+          { path: 'updatedBy' },
         ]);
     } catch (e) {
       throw new Error(`Error en VehicleService.updateVehicle ${e}`);
@@ -192,6 +211,8 @@ export class VehicleService {
         {
           path: 'billing',
         },
+        { path: 'createdBy' },
+        { path: 'updatedBy' },
       ]);
     } catch (e) {
       throw new Error(`Error en VehicleService.findOneVehicleById ${e}`);
@@ -236,6 +257,8 @@ export class VehicleService {
         {
           path: 'billing',
         },
+        { path: 'createdBy' },
+        { path: 'updatedBy' },
       ]);
     } catch (e) {
       throw new Error(`Error en VehicleService.findAllVehicle ${e}`);
@@ -261,7 +284,9 @@ export class VehicleService {
         if (vehicle)
           throw new BadRequestException({
             path: 'vehicle',
-            message: [`El vehiculo con placa ${plate} ya existe.`],
+            message: [
+              `El vehiculo con placa ${plate} ya existe y le pertenece a otro vehículo.`,
+            ],
           });
         break;
 
@@ -294,7 +319,9 @@ export class VehicleService {
         if (vehicle)
           throw new BadRequestException({
             path: 'vehicle',
-            message: [`El vehiculo con chip ${nroGPS} ya existe.`],
+            message: [
+              `El vehiculo con chip ${nroGPS} ya existe y le pertenece a otro vehículo.`,
+            ],
           });
         break;
 

@@ -16,8 +16,16 @@ export class CreateVehicleInput {
   billing: string;
 
   @Field()
+  @IsNotEmpty({ message: 'Debe completer el tipo de plataforma.' })
+  platform: string;
+
+  @Field()
   @IsNotEmpty({ message: 'Debe completar la placa del vehiculo' })
   plate: string;
+
+  @Field()
+  @IsNotEmpty({ message: 'Debe completer el tipo de sim.' })
+  sim: string;
 
   @Field()
   @IsNotEmpty({ message: 'Debe completar el número de gps' })

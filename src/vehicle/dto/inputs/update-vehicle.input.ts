@@ -20,9 +20,17 @@ export class UpdateVehicleInput {
   @IsOptional()
   billing: string;
 
+  @Field({ nullable: true })
+  @IsOptional()
+  platform: string;
+
   @Field()
   @IsOptional()
   plate: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  sim: string;
 
   @Field()
   @IsOptional()

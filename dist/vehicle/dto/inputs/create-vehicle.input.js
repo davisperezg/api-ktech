@@ -31,9 +31,19 @@ __decorate([
 ], CreateVehicleInput.prototype, "billing", void 0);
 __decorate([
     graphql_1.Field(),
+    class_validator_1.IsNotEmpty({ message: 'Debe completer el tipo de plataforma.' }),
+    __metadata("design:type", String)
+], CreateVehicleInput.prototype, "platform", void 0);
+__decorate([
+    graphql_1.Field(),
     class_validator_1.IsNotEmpty({ message: 'Debe completar la placa del vehiculo' }),
     __metadata("design:type", String)
 ], CreateVehicleInput.prototype, "plate", void 0);
+__decorate([
+    graphql_1.Field(),
+    class_validator_1.IsNotEmpty({ message: 'Debe completer el tipo de sim.' }),
+    __metadata("design:type", String)
+], CreateVehicleInput.prototype, "sim", void 0);
 __decorate([
     graphql_1.Field(),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el número de gps' }),

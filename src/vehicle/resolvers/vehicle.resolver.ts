@@ -6,6 +6,8 @@ import { VehicleDocument } from '../schemas/vehicle.schema';
 import { VehicleService } from '../services/vehicle.service';
 import { GqlAuthGuard } from '../../lib/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { UserDocument } from 'src/user/schemas/user.schema';
+import { CtxUser } from 'src/lib/decorators/ctx-user.decorators';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -16,16 +18,18 @@ export class VehicleResolver {
   registerVehicle(
     @Args({ name: 'vehicleInput', type: () => CreateVehicleInput })
     vehicleInput: CreateVehicleInput,
+    @CtxUser() user: UserDocument,
   ) {
-    return this.vehicleService.createVehicle(vehicleInput);
+    return this.vehicleService.createVehicle(vehicleInput, user.id);
   }
 
   @Mutation(() => VehicleType)
   updateVehicle(
     @Args({ name: 'vehicleInput', type: () => UpdateVehicleInput })
     vehicleInput: UpdateVehicleInput,
+    @CtxUser() user: UserDocument,
   ) {
-    return this.vehicleService.updateVehicle(vehicleInput);
+    return this.vehicleService.updateVehicle(vehicleInput, user.id);
   }
 
   @Mutation(() => Boolean)

@@ -20,18 +20,11 @@ export class CustomerService {
   async createCustomer(
     customerInput: CreateCustomerInput,
   ): Promise<CustomerDocument> {
-    const { numDocument } = customerInput;
+    const { numDocument, cellphone_1 } = customerInput;
 
-    const findUserByNroDocument = await this.findOneCustomerByNroDocument(
-      numDocument,
-    );
+    await this.findOneCustomerByNroDocument(numDocument, EXIST);
 
-    if (findUserByNroDocument) {
-      throw new BadRequestException({
-        path: `customer`,
-        message: [`El cliente ya se encuentra registrado.`],
-      });
-    }
+    await this.findOneCustomerByCellphoneOne(cellphone_1, EXIST);
 
     let customerSaved: CustomerDocument;
     const newCustomer = new this.customerModel({
@@ -50,9 +43,18 @@ export class CustomerService {
   async updateCustomer(
     customerInput: UpdateCustomerInput,
   ): Promise<CustomerDocument> {
-    const { id } = customerInput;
+    const { id, numDocument, cellphone_1 } = customerInput;
 
     let updateCustomer: CustomerDocument;
+    const findCustomerById: any = await this.findOneCustomerById(id);
+
+    if (numDocument !== findCustomerById.numDocument) {
+      await this.findOneCustomerByNroDocument(numDocument, EXIST);
+    }
+
+    if (cellphone_1 !== findCustomerById.cellphone_1) {
+      await this.findOneCustomerByCellphoneOne(cellphone_1, EXIST);
+    }
 
     try {
       updateCustomer = await this.customerModel.findByIdAndUpdate(
@@ -114,13 +116,73 @@ export class CustomerService {
 
   async findOneCustomerByNroDocument(
     number: string,
+    param: string,
   ): Promise<CustomerDocument> {
     let customer: CustomerDocument;
 
     try {
       customer = await this.customerModel.findOne({ numDocument: number });
     } catch (e) {
-      throw new Error(`Error en CustomerService.findOneProductByName ${e}`);
+      throw new Error(
+        `Error en CustomerService.findOneCustomerByNroDocument ${e}`,
+      );
+    }
+
+    switch (param) {
+      case EXIST:
+        if (customer)
+          throw new BadRequestException({
+            path: 'customer',
+            message: [
+              `El cliente con nro de documento ${number} ya existe y le pertenece a otro cliente.`,
+            ],
+          });
+        break;
+
+      case NOEXIST:
+        if (!customer)
+          throw new BadRequestException({
+            path: 'customer',
+            message: [`El cliente no existe.`],
+          });
+        break;
+    }
+
+    return customer;
+  }
+
+  async findOneCustomerByCellphoneOne(
+    number: string,
+    param: string,
+  ): Promise<CustomerDocument> {
+    let customer: CustomerDocument;
+
+    try {
+      customer = await this.customerModel.findOne({ cellphone_1: number });
+    } catch (e) {
+      throw new Error(
+        `Error en CustomerService.findOneCustomerByCellphoneOne ${e}`,
+      );
+    }
+
+    switch (param) {
+      case EXIST:
+        if (customer)
+          throw new BadRequestException({
+            path: 'customer',
+            message: [
+              `El cliente con nro de celular ${number} ya existe y le pertenece a otro cliente.`,
+            ],
+          });
+        break;
+
+      case NOEXIST:
+        if (!customer)
+          throw new BadRequestException({
+            path: 'customer',
+            message: [`El nro de celular principal del cliente no existe.`],
+          });
+        break;
     }
 
     return customer;

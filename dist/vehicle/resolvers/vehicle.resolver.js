@@ -20,15 +20,17 @@ const vehicle_type_1 = require("../dto/querys/vehicle.type");
 const vehicle_service_1 = require("../services/vehicle.service");
 const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 const common_1 = require("@nestjs/common");
+const user_schema_1 = require("../../user/schemas/user.schema");
+const ctx_user_decorators_1 = require("../../lib/decorators/ctx-user.decorators");
 let VehicleResolver = class VehicleResolver {
     constructor(vehicleService) {
         this.vehicleService = vehicleService;
     }
-    registerVehicle(vehicleInput) {
-        return this.vehicleService.createVehicle(vehicleInput);
+    registerVehicle(vehicleInput, user) {
+        return this.vehicleService.createVehicle(vehicleInput, user.id);
     }
-    updateVehicle(vehicleInput) {
-        return this.vehicleService.updateVehicle(vehicleInput);
+    updateVehicle(vehicleInput, user) {
+        return this.vehicleService.updateVehicle(vehicleInput, user.id);
     }
     deleteVehicle(id) {
         return this.vehicleService.deleteVehicleById(id);
@@ -40,15 +42,17 @@ let VehicleResolver = class VehicleResolver {
 __decorate([
     graphql_1.Mutation(() => vehicle_type_1.VehicleType),
     __param(0, graphql_1.Args({ name: 'vehicleInput', type: () => create_vehicle_input_1.CreateVehicleInput })),
+    __param(1, ctx_user_decorators_1.CtxUser()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_vehicle_input_1.CreateVehicleInput]),
+    __metadata("design:paramtypes", [create_vehicle_input_1.CreateVehicleInput, Object]),
     __metadata("design:returntype", void 0)
 ], VehicleResolver.prototype, "registerVehicle", null);
 __decorate([
     graphql_1.Mutation(() => vehicle_type_1.VehicleType),
     __param(0, graphql_1.Args({ name: 'vehicleInput', type: () => update_vehicle_input_1.UpdateVehicleInput })),
+    __param(1, ctx_user_decorators_1.CtxUser()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_vehicle_input_1.UpdateVehicleInput]),
+    __metadata("design:paramtypes", [update_vehicle_input_1.UpdateVehicleInput, Object]),
     __metadata("design:returntype", void 0)
 ], VehicleResolver.prototype, "updateVehicle", null);
 __decorate([

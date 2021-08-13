@@ -64,7 +64,7 @@ let RenewService = class RenewService {
                 billigStart: dataStart,
                 billigEnd: addDaytoEnd,
             };
-            await this.vehicleService.updateVehicle(dataToUpdatedVehicle);
+            await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
         }
         catch (e) {
             throw new Error(`Error en RenewService.createRenew ${e}`);

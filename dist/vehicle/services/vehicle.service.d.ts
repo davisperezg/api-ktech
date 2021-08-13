@@ -11,8 +11,8 @@ export declare class VehicleService {
     private readonly deviceService;
     private readonly billingService;
     constructor(vehicleModel: Model<VehicleDocument>, customerService: CustomerService, deviceService: DeviceService, billingService: BillingService);
-    createVehicle(vehicleInput: CreateVehicleInput): Promise<VehicleDocument>;
-    updateVehicle(vehicleInput: UpdateVehicleInput | any): Promise<VehicleDocument>;
+    createVehicle(vehicleInput: CreateVehicleInput, user: string): Promise<VehicleDocument>;
+    updateVehicle(vehicleInput: UpdateVehicleInput | any, user: string): Promise<VehicleDocument>;
     findOneVehicleById(id: string): Promise<VehicleDocument>;
     deleteVehicleById(id: string): Promise<boolean>;
     findAllVehicle(): Promise<VehicleDocument[]>;

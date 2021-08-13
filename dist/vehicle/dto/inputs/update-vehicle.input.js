@@ -36,10 +36,20 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "billing", void 0);
 __decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", String)
+], UpdateVehicleInput.prototype, "platform", void 0);
+__decorate([
     graphql_1.Field(),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "plate", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", String)
+], UpdateVehicleInput.prototype, "sim", void 0);
 __decorate([
     graphql_1.Field(),
     class_validator_1.IsOptional(),

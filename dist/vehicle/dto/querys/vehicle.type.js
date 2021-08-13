@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const billing_type_1 = require("../../../billing/dto/querys/billing.type");
 const customer_type_1 = require("../../../customer/dto/querys/customer.type");
 const device_type_1 = require("../../../device/dto/querys/device.type");
+const user_type_1 = require("../../../user/dto/querys/user.type");
 let VehicleType = class VehicleType {
 };
 __decorate([
@@ -33,9 +34,25 @@ __decorate([
     __metadata("design:type", billing_type_1.BillingType)
 ], VehicleType.prototype, "billing", void 0);
 __decorate([
+    graphql_1.Field(() => user_type_1.UserType, { nullable: true }),
+    __metadata("design:type", user_type_1.UserType)
+], VehicleType.prototype, "createdBy", void 0);
+__decorate([
+    graphql_1.Field(() => user_type_1.UserType, { nullable: true }),
+    __metadata("design:type", user_type_1.UserType)
+], VehicleType.prototype, "updatedBy", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], VehicleType.prototype, "platform", void 0);
+__decorate([
     graphql_1.Field(),
     __metadata("design:type", String)
 ], VehicleType.prototype, "plate", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], VehicleType.prototype, "sim", void 0);
 __decorate([
     graphql_1.Field(),
     __metadata("design:type", String)

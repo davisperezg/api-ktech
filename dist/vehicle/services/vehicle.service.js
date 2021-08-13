@@ -31,7 +31,7 @@ let VehicleService = class VehicleService {
         this.deviceService = deviceService;
         this.billingService = billingService;
     }
-    async createVehicle(vehicleInput) {
+    async createVehicle(vehicleInput, user) {
         const { customer, device, billing, plate, nroGPS, billigStart, } = vehicleInput;
         const findCustomer = await this.customerService.findOneCustomerById(customer);
         const findDevice = await this.deviceService.findOneDeviceByName(device, conts_1.NOEXIST);
@@ -41,7 +41,7 @@ let VehicleService = class VehicleService {
         const dataStart = date_fns_1.startOfDay(new Date(billigStart));
         const addDaytoStart = date_fns_1.add(dataStart, { days: 1 });
         const addDaytoEnd = date_fns_1.add(addDaytoStart, { days: findBilling.day });
-        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: addDaytoStart, billigEnd: addDaytoEnd, status: 1 }));
+        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: addDaytoStart, billigEnd: addDaytoEnd, createdBy: user, updatedBy: user, status: 1 }));
         let vehicleSaved;
         let foundVehicle;
         try {
@@ -56,6 +56,8 @@ let VehicleService = class VehicleService {
                 { path: 'customer' },
                 { path: 'device' },
                 { path: 'billing' },
+                { path: 'createdBy' },
+                { path: 'updatedBy' },
             ])
                 .execPopulate();
         }
@@ -64,13 +66,19 @@ let VehicleService = class VehicleService {
         }
         return foundVehicle;
     }
-    async updateVehicle(vehicleInput) {
-        const { id, customer, device, billing, billigStart, renew, billigEnd, } = vehicleInput;
+    async updateVehicle(vehicleInput, user) {
+        const { id, customer, device, billing, billigStart, renew, billigEnd, nroGPS, plate, } = vehicleInput;
         let findCustomer;
         let findDevice;
         let findBilling;
         let updateVehicle;
         const findVehicleById = await this.findOneVehicleById(id);
+        if (nroGPS !== findVehicleById.nroGPS) {
+            await this.findOneVehicleByNroGPS(nroGPS, conts_1.EXIST);
+        }
+        if (plate !== findVehicleById.plate) {
+            await this.findOneVehicleByPlate(plate, conts_1.EXIST);
+        }
         if (customer) {
             findCustomer = await this.customerService.findOneCustomerById(customer);
         }
@@ -94,7 +102,7 @@ let VehicleService = class VehicleService {
         const addDaytoEnd = date_fns_1.add(addDaytoStart, { days: findBilling.day });
         try {
             updateVehicle = await this.vehicleModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew ? billigStart : addDaytoStart, billigEnd: renew ? billigEnd : addDaytoEnd }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew ? billigStart : addDaytoStart, billigEnd: renew ? billigEnd : addDaytoEnd, updatedBy: user }), { new: true })
                 .populate([
                 {
                     path: 'customer',
@@ -105,6 +113,8 @@ let VehicleService = class VehicleService {
                 {
                     path: 'billing',
                 },
+                { path: 'createdBy' },
+                { path: 'updatedBy' },
             ]);
         }
         catch (e) {
@@ -125,6 +135,8 @@ let VehicleService = class VehicleService {
                 {
                     path: 'billing',
                 },
+                { path: 'createdBy' },
+                { path: 'updatedBy' },
             ]);
         }
         catch (e) {
@@ -162,6 +174,8 @@ let VehicleService = class VehicleService {
                 {
                     path: 'billing',
                 },
+                { path: 'createdBy' },
+                { path: 'updatedBy' },
             ]);
         }
         catch (e) {
@@ -182,7 +196,9 @@ let VehicleService = class VehicleService {
                 if (vehicle)
                     throw new common_1.BadRequestException({
                         path: 'vehicle',
-                        message: [`El vehiculo con placa ${plate} ya existe.`],
+                        message: [
+                            `El vehiculo con placa ${plate} ya existe y le pertenece a otro vehículo.`,
+                        ],
                     });
                 break;
             case conts_1.NOEXIST:
@@ -208,7 +224,9 @@ let VehicleService = class VehicleService {
                 if (vehicle)
                     throw new common_1.BadRequestException({
                         path: 'vehicle',
-                        message: [`El vehiculo con chip ${nroGPS} ya existe.`],
+                        message: [
+                            `El vehiculo con chip ${nroGPS} ya existe y le pertenece a otro vehículo.`,
+                        ],
                     });
                 break;
             case conts_1.NOEXIST:
