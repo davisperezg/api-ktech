@@ -70,7 +70,7 @@ export class UpdateCustomerInput {
   direction?: string;
 
   @Field()
-  @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
+  @Matches(/^[A-Za-z0-9_áéíóúÑñ\s]+$/, {
     message: 'El usuario solo puede contener letras, numeros.',
   })
   @Length(3, 20, { message: 'El usuario debe tener entre 3-20 caracteres.' })
@@ -78,7 +78,7 @@ export class UpdateCustomerInput {
   username?: string;
 
   @Field()
-  @Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
+  @Matches(/^[A-Za-z0-9_áéíóúÑñ\s]+$/, {
     message: 'El usuario solo puede contener letras, numeros.',
   })
   @Length(3, 20, { message: 'La contraseña debe tener entre 3-20 caracteres.' })

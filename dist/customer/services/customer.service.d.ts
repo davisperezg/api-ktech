@@ -12,5 +12,6 @@ export declare class CustomerService {
     findOneCustomerById(id: string): Promise<CustomerDocument>;
     findOneCustomerByNroDocument(number: string, param: string): Promise<CustomerDocument>;
     findOneCustomerByCellphoneOne(number: string, param: string): Promise<CustomerDocument>;
+    findOneCustomerByCellphoneTwo(number: string, param: string): Promise<CustomerDocument>;
     findOneCustomerByLastname(lastName: string, param: string): Promise<CustomerDocument>;
 }

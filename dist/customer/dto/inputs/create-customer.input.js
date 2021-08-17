@@ -69,7 +69,7 @@ __decorate([
 ], CreateCustomerInput.prototype, "direction", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
+    class_validator_1.Matches(/^[A-Za-z0-9_áéíóúÑñ\s]+$/, {
         message: 'El usuario solo puede contener letras, numeros.',
     }),
     class_validator_1.Length(3, 20, { message: 'El usuario debe tener entre 3-20 caracteres.' }),
@@ -78,7 +78,7 @@ __decorate([
 ], CreateCustomerInput.prototype, "username", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
+    class_validator_1.Matches(/^[A-Za-z0-9_áéíóúÑñ\s]+$/, {
         message: 'El usuario solo puede contener letras, numeros.',
     }),
     class_validator_1.Length(3, 20, { message: 'La contraseña debe tener entre 3-20 caracteres.' }),

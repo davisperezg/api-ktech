@@ -22,9 +22,14 @@ let CustomerService = class CustomerService {
         this.customerModel = customerModel;
     }
     async createCustomer(customerInput) {
-        const { numDocument, cellphone_1 } = customerInput;
+        const { numDocument, cellphone_1, cellphone_2 } = customerInput;
         await this.findOneCustomerByNroDocument(numDocument, conts_1.EXIST);
         await this.findOneCustomerByCellphoneOne(cellphone_1, conts_1.EXIST);
+        await this.findOneCustomerByCellphoneTwo(cellphone_1, conts_1.EXIST);
+        if (cellphone_2) {
+            await this.findOneCustomerByCellphoneTwo(cellphone_2, conts_1.EXIST);
+            await this.findOneCustomerByCellphoneOne(cellphone_2, conts_1.EXIST);
+        }
         let customerSaved;
         const newCustomer = new this.customerModel(Object.assign(Object.assign({}, customerInput), { status: 1 }));
         try {
@@ -36,7 +41,7 @@ let CustomerService = class CustomerService {
         return customerSaved;
     }
     async updateCustomer(customerInput) {
-        const { id, numDocument, cellphone_1 } = customerInput;
+        const { id, numDocument, cellphone_1, cellphone_2, direction, } = customerInput;
         let updateCustomer;
         const findCustomerById = await this.findOneCustomerById(id);
         if (numDocument !== findCustomerById.numDocument) {
@@ -44,6 +49,23 @@ let CustomerService = class CustomerService {
         }
         if (cellphone_1 !== findCustomerById.cellphone_1) {
             await this.findOneCustomerByCellphoneOne(cellphone_1, conts_1.EXIST);
+        }
+        if (cellphone_1 !== findCustomerById.cellphone_2) {
+            await this.findOneCustomerByCellphoneTwo(cellphone_1, conts_1.EXIST);
+        }
+        if (!cellphone_2) {
+            customerInput.cellphone_2 = '';
+        }
+        else {
+            if (cellphone_2 !== findCustomerById.cellphone_2) {
+                await this.findOneCustomerByCellphoneTwo(cellphone_2, conts_1.EXIST);
+            }
+            if (cellphone_2 !== findCustomerById.cellphone_1) {
+                await this.findOneCustomerByCellphoneOne(cellphone_2, conts_1.EXIST);
+            }
+        }
+        if (!direction) {
+            customerInput.direction = '';
         }
         try {
             updateCustomer = await this.customerModel.findByIdAndUpdate(id, customerInput, { new: true });
@@ -141,6 +163,34 @@ let CustomerService = class CustomerService {
                     throw new common_1.BadRequestException({
                         path: 'customer',
                         message: [`El nro de celular principal del cliente no existe.`],
+                    });
+                break;
+        }
+        return customer;
+    }
+    async findOneCustomerByCellphoneTwo(number, param) {
+        let customer;
+        try {
+            customer = await this.customerModel.findOne({ cellphone_2: number });
+        }
+        catch (e) {
+            throw new Error(`Error en CustomerService.findOneCustomerByCellphoneTwo ${e}`);
+        }
+        switch (param) {
+            case conts_1.EXIST:
+                if (customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [
+                            `El cliente con nro de celular ${number} ya existe y le pertenece a otro cliente.`,
+                        ],
+                    });
+                break;
+            case conts_1.NOEXIST:
+                if (!customer)
+                    throw new common_1.BadRequestException({
+                        path: 'customer',
+                        message: [`El nro de celular opcional del cliente no existe.`],
                     });
                 break;
         }
