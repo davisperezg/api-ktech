@@ -8,6 +8,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(helmet({ contentSecurityPolicy: false }));
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(8080);
 }
 bootstrap();
