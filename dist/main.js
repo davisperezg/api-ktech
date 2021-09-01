@@ -9,7 +9,7 @@ async function bootstrap() {
     app.useGlobalPipes(new common_1.ValidationPipe());
     app.use(helmet({ contentSecurityPolicy: false }));
     app.enableCors();
-    await app.listen(3000);
+    await app.listen(8080);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

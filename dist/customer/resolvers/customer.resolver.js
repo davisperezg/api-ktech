@@ -36,6 +36,9 @@ let CustomerResolver = class CustomerResolver {
     getCustomer() {
         return this.customerService.findAllCustomer();
     }
+    getCustomerById(id) {
+        return this.customerService.findOneCustomerById(id);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => customer_type_1.CustomerType),
@@ -64,6 +67,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CustomerResolver.prototype, "getCustomer", null);
+__decorate([
+    graphql_1.Query(() => customer_type_1.CustomerType),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CustomerResolver.prototype, "getCustomerById", null);
 CustomerResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

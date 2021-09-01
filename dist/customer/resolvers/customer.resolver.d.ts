@@ -9,4 +9,5 @@ export declare class CustomerResolver {
     updateCustomer(customerIput: UpdateCustomerInput): Promise<CustomerDocument>;
     deleteCustomer(id: string): Promise<boolean>;
     getCustomer(): Promise<CustomerDocument[]>;
+    getCustomerById(id: string): Promise<CustomerDocument>;
 }

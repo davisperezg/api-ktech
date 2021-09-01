@@ -37,4 +37,9 @@ export class CustomerResolver {
   getCustomer(): Promise<CustomerDocument[]> {
     return this.customerService.findAllCustomer();
   }
+
+  @Query(() => CustomerType)
+  getCustomerById(@Args('id') id: string): Promise<CustomerDocument> {
+    return this.customerService.findOneCustomerById(id);
+  }
 }

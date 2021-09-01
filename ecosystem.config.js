@@ -5,7 +5,7 @@ module.exports = {
       script: 'node dist/main',
       watch: true,
       env_production: {
-        PORT: 3000,
+        PORT: 8080,
         NODE_ENV: 'production',
       },
       env_development: {

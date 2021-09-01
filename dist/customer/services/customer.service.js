@@ -99,8 +99,10 @@ let CustomerService = class CustomerService {
     }
     async findOneCustomerById(id) {
         let customer;
+        console.log(id);
         try {
             customer = await this.customerModel.findById(id);
+            console.log(customer);
         }
         catch (e) {
             throw new Error(`Error en CustomerService.findOneCustomerById ${e}`);
