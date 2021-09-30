@@ -12,4 +12,5 @@ export declare class RenewService {
     constructor(renewModel: Model<RenewDocument>, userService: UserService, vehicleService: VehicleService, billingService: BillingService);
     createRenew(renewInput: CreateRenewInput, user: string): Promise<RenewDocument>;
     findAllRenews(): Promise<RenewDocument[]>;
+    buscarRenovacionesXFecha(desde: Date | string, hasta: Date | string): Promise<RenewDocument[]>;
 }

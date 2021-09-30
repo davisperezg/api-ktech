@@ -10,4 +10,6 @@ export declare class VehicleResolver {
     updateVehicle(vehicleInput: UpdateVehicleInput, user: UserDocument): Promise<VehicleDocument>;
     deleteVehicle(id: string): Promise<boolean>;
     getVehicles(): Promise<VehicleDocument[]>;
+    getVehiculosInstaladosXrango(desde: Date, hasta: Date): Promise<VehicleDocument[]>;
+    getVehiculosVencidosXFecha(desde: Date, hasta: Date): Promise<VehicleDocument[]>;
 }

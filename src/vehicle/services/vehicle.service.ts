@@ -15,7 +15,7 @@ import { EXIST, NOEXIST, NULL } from 'src/lib/conts';
 import { CreateVehicleInput } from '../dto/inputs/create-vehicle.input';
 import { UpdateVehicleInput } from '../dto/inputs/update-vehicle.input';
 import { VehicleDocument } from '../schemas/vehicle.schema';
-import { startOfDay, add } from 'date-fns';
+import { startOfDay, add, endOfDay } from 'date-fns';
 
 @Injectable()
 export class VehicleService {
@@ -36,7 +36,7 @@ export class VehicleService {
       nroGPS,
       billigStart,
     } = vehicleInput;
-
+  
     const findCustomer = await this.customerService.findOneCustomerById(
       customer,
     );
@@ -335,5 +335,83 @@ export class VehicleService {
     }
 
     return vehicle;
+  }
+
+  async buscarXrangoFechaInstalaciones (desde:Date | string, hasta:Date | string): Promise<VehicleDocument[]>{
+      let vehiculos: VehicleDocument[]
+      console.log(desde)
+      console.log(hasta)
+
+      const desdeTest = startOfDay(new Date(desde));
+      const addDesde = add(desdeTest, { days: 1 });
+      console.log(addDesde)
+
+      const hastaTest = endOfDay(new Date(hasta));
+      const addHasta = add(hastaTest, { days: 1 });
+      console.log(addHasta)
+
+      try {
+        vehiculos = await this.vehicleModel
+          .find({
+            status: 1,
+            createdAt: {
+              $gte: addDesde,
+              $lt: addHasta,
+            },
+          })
+          .populate([
+            {
+              path: 'customer',
+            },
+            { path: 'billing' },
+            { path: 'device' },
+            
+          ]);
+
+          console.log(vehiculos)
+      } catch (e) {
+        throw new Error(`Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`);
+      };
+
+      return vehiculos
+    }
+
+
+  async buscarVencidosXrangoFechas(desde:Date |string ,hasta:Date | string):Promise<VehicleDocument[]>{
+    let vehiculos: VehicleDocument[]
+    console.log(desde)
+    console.log(hasta)
+
+    const desdeTest = startOfDay(new Date(desde));
+    const addDesde = add(desdeTest, { days: 1 });
+    console.log(addDesde)
+
+    const hastaTest = endOfDay(new Date(hasta));
+    const addHasta = add(hastaTest, { days: 1 });
+    console.log(addHasta)
+
+    try {
+      vehiculos = await this.vehicleModel
+        .find({
+          status: 1,
+         billigEnd: {
+            $gte: addDesde,
+            $lt: addHasta,
+          },
+        })
+        .populate([
+          {
+            path: 'billing',
+          },
+          { path: 'customer' },
+          { path: 'device' },
+        ]);
+
+        console.log(vehiculos)
+    } catch (e) {
+      throw new Error(`Error en VehicleService.buscarVencidosXrangoFechas ${e}`);
+    };
+
+    return vehiculos
   }
 }

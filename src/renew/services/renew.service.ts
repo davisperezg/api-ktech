@@ -7,7 +7,7 @@ import { UserService } from 'src/user/services/user.service';
 import { VehicleService } from 'src/vehicle/services/vehicle.service';
 import { CreateRenewInput } from '../dto/inputs/create-renew.input';
 import { RenewDocument } from '../schemas/renew.schema';
-import { startOfDay, add } from 'date-fns';
+import { startOfDay, add, endOfDay } from 'date-fns';
 import { UpdateVehicleInput } from 'src/vehicle/dto/inputs/update-vehicle.input';
 
 import * as moment from 'moment';
@@ -113,5 +113,45 @@ export class RenewService {
     }
 
     return findRenew;
+  }
+  async buscarRenovacionesXFecha(desde:Date |string ,hasta:Date | string): Promise<RenewDocument[]>{
+    let vehiculos: RenewDocument[]
+    console.log(desde)
+    console.log(hasta)
+
+    const desdeTest = startOfDay(new Date(desde));
+    const addDesde = add(desdeTest, { days: 1 });
+    console.log(addDesde)
+
+    const hastaTest = endOfDay(new Date(hasta));
+    const addHasta = add(hastaTest, { days: 1 });
+    console.log(addHasta)
+
+    try {
+      vehiculos = await this.renewModel
+        .find({
+          status: 1,
+          renovationStart: {
+            $gte: addDesde,
+            $lt: addHasta,
+          },
+        })
+        .populate([
+          {
+            path: 'vehicle',
+            populate: [
+              { path: 'customer' },
+              { path: 'device' },
+            ],
+          },
+          { path: 'billing' },
+        ]);
+
+        console.log(vehiculos)
+    } catch (e) {
+      throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);
+    };
+
+    return vehiculos
   }
 }

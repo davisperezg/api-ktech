@@ -38,6 +38,12 @@ let VehicleResolver = class VehicleResolver {
     getVehicles() {
         return this.vehicleService.findAllVehicle();
     }
+    getVehiculosInstaladosXrango(desde, hasta) {
+        return this.vehicleService.buscarXrangoFechaInstalaciones(desde, hasta);
+    }
+    getVehiculosVencidosXFecha(desde, hasta) {
+        return this.vehicleService.buscarVencidosXrangoFechas(desde, hasta);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => vehicle_type_1.VehicleType),
@@ -68,6 +74,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], VehicleResolver.prototype, "getVehicles", null);
+__decorate([
+    graphql_1.Query(() => [vehicle_type_1.VehicleType]),
+    __param(0, graphql_1.Args('desde')), __param(1, graphql_1.Args('hasta')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Date, Date]),
+    __metadata("design:returntype", void 0)
+], VehicleResolver.prototype, "getVehiculosInstaladosXrango", null);
+__decorate([
+    graphql_1.Query(() => [vehicle_type_1.VehicleType]),
+    __param(0, graphql_1.Args('desde')), __param(1, graphql_1.Args('hasta')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Date, Date]),
+    __metadata("design:returntype", void 0)
+], VehicleResolver.prototype, "getVehiculosVencidosXFecha", null);
 VehicleResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

@@ -41,4 +41,14 @@ export class VehicleResolver {
   getVehicles(): Promise<VehicleDocument[]> {
     return this.vehicleService.findAllVehicle();
   }
+
+  @Query(() => [VehicleType])
+  getVehiculosInstaladosXrango(@Args('desde') desde: Date , @Args('hasta') hasta: Date){
+    return this.vehicleService.buscarXrangoFechaInstalaciones(desde, hasta)
+  }
+
+  @Query(() => [VehicleType])
+  getVehiculosVencidosXFecha(@Args('desde') desde: Date , @Args('hasta') hasta: Date){
+    return this.vehicleService.buscarVencidosXrangoFechas(desde, hasta)
+  }
 }

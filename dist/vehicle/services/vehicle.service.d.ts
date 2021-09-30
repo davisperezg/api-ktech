@@ -18,4 +18,6 @@ export declare class VehicleService {
     findAllVehicle(): Promise<VehicleDocument[]>;
     findOneVehicleByPlate(plate: string, param: string): Promise<VehicleDocument>;
     findOneVehicleByNroGPS(nroGPS: string, param: string): Promise<VehicleDocument>;
+    buscarXrangoFechaInstalaciones(desde: Date | string, hasta: Date | string): Promise<VehicleDocument[]>;
+    buscarVencidosXrangoFechas(desde: Date | string, hasta: Date | string): Promise<VehicleDocument[]>;
 }

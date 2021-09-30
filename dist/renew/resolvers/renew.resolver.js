@@ -31,6 +31,9 @@ let RenewResolver = class RenewResolver {
     getRenews() {
         return this.renewService.findAllRenews();
     }
+    getVehiculosRenovadosXFecha(desde, hasta) {
+        return this.renewService.buscarRenovacionesXFecha(desde, hasta);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => renew_type_1.RenewType),
@@ -46,6 +49,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RenewResolver.prototype, "getRenews", null);
+__decorate([
+    graphql_1.Query(() => [renew_type_1.RenewType]),
+    __param(0, graphql_1.Args('desde')), __param(1, graphql_1.Args('hasta')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Date, Date]),
+    __metadata("design:returntype", void 0)
+], RenewResolver.prototype, "getVehiculosRenovadosXFecha", null);
 RenewResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

@@ -26,4 +26,8 @@ export class RenewResolver {
   getRenews(): Promise<RenewDocument[]> {
     return this.renewService.findAllRenews();
   }
+  @Query(() => [RenewType])
+  getVehiculosRenovadosXFecha(@Args('desde') desde: Date , @Args('hasta') hasta: Date){
+    return this.renewService.buscarRenovacionesXFecha(desde, hasta)
+  }
 }

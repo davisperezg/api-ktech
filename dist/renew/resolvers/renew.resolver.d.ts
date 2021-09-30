@@ -7,4 +7,5 @@ export declare class RenewResolver {
     constructor(renewService: RenewService);
     registerRenew(renewInput: CreateRenewInput, user: UserDocument): Promise<RenewDocument>;
     getRenews(): Promise<RenewDocument[]>;
+    getVehiculosRenovadosXFecha(desde: Date, hasta: Date): Promise<RenewDocument[]>;
 }
