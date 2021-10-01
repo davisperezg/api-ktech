@@ -129,10 +129,9 @@ export class CustomerService {
 
   async findOneCustomerById(id: string): Promise<CustomerDocument> {
     let customer: CustomerDocument;
-    console.log(id);
+
     try {
       customer = await this.customerModel.findById(id);
-      console.log(customer);
     } catch (e) {
       throw new Error(`Error en CustomerService.findOneCustomerById ${e}`);
     }

@@ -36,7 +36,7 @@ export class VehicleService {
       nroGPS,
       billigStart,
     } = vehicleInput;
-  
+
     const findCustomer = await this.customerService.findOneCustomerById(
       customer,
     );
@@ -337,64 +337,70 @@ export class VehicleService {
     return vehicle;
   }
 
-  async buscarXrangoFechaInstalaciones (desde:Date | string, hasta:Date | string): Promise<VehicleDocument[]>{
-      let vehiculos: VehicleDocument[]
-      console.log(desde)
-      console.log(hasta)
-
-      const desdeTest = startOfDay(new Date(desde));
-      const addDesde = add(desdeTest, { days: 1 });
-      console.log(addDesde)
-
-      const hastaTest = endOfDay(new Date(hasta));
-      const addHasta = add(hastaTest, { days: 1 });
-      console.log(addHasta)
-
-      try {
-        vehiculos = await this.vehicleModel
-          .find({
-            status: 1,
-            createdAt: {
-              $gte: addDesde,
-              $lt: addHasta,
-            },
-          })
-          .populate([
-            {
-              path: 'customer',
-            },
-            { path: 'billing' },
-            { path: 'device' },
-            
-          ]);
-
-          console.log(vehiculos)
-      } catch (e) {
-        throw new Error(`Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`);
-      };
-
-      return vehiculos
-    }
-
-
-  async buscarVencidosXrangoFechas(desde:Date |string ,hasta:Date | string):Promise<VehicleDocument[]>{
-    let vehiculos: VehicleDocument[]
-    console.log(desde)
-    console.log(hasta)
+  async buscarXrangoFechaInstalaciones(
+    desde: Date | string,
+    hasta: Date | string,
+  ): Promise<VehicleDocument[]> {
+    let vehiculos: VehicleDocument[];
+    console.log(desde);
+    console.log(hasta);
 
     const desdeTest = startOfDay(new Date(desde));
     const addDesde = add(desdeTest, { days: 1 });
-    console.log(addDesde)
+    console.log(addDesde);
 
     const hastaTest = endOfDay(new Date(hasta));
     const addHasta = add(hastaTest, { days: 1 });
-    console.log(addHasta)
+    console.log(addHasta);
 
     try {
       vehiculos = await this.vehicleModel
         .find({
           status: 1,
-         billigEnd: {
+          createdAt: {
+            $gte: addDesde,
+            $lt: addHasta,
+          },
+        })
+        .populate([
+          {
+            path: 'customer',
+          },
+          { path: 'billing' },
+          { path: 'device' },
+        ]);
+
+      console.log(vehiculos);
+    } catch (e) {
+      throw new Error(
+        `Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`,
+      );
+    }
+
+    return vehiculos;
+  }
+
+  async buscarVencidosXrangoFechas(
+    desde: Date | string,
+    hasta: Date | string,
+  ): Promise<VehicleDocument[]> {
+    let vehiculos: VehicleDocument[];
+    console.log(desde);
+    console.log(hasta);
+
+    const desdeTest = startOfDay(new Date(desde));
+    const addDesde = add(desdeTest, { days: 1 });
+    console.log(addDesde);
+
+    const hastaTest = endOfDay(new Date(hasta));
+    const addHasta = add(hastaTest, { days: 1 });
+    console.log(addHasta);
+
+    try {
+      vehiculos = await this.vehicleModel
+        .find({
+          status: 1,
+          billigEnd: {
             $gte: addDesde,
             $lt: addHasta,
           },
@@ -407,11 +413,13 @@ export class VehicleService {
           { path: 'device' },
         ]);
 
-        console.log(vehiculos)
+      console.log(vehiculos);
     } catch (e) {
-      throw new Error(`Error en VehicleService.buscarVencidosXrangoFechas ${e}`);
-    };
+      throw new Error(
+        `Error en VehicleService.buscarVencidosXrangoFechas ${e}`,
+      );
+    }
 
-    return vehiculos
+    return vehiculos;
   }
 }

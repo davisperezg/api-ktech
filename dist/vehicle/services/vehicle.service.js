@@ -270,7 +270,6 @@ let VehicleService = class VehicleService {
         catch (e) {
             throw new Error(`Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`);
         }
-        ;
         return vehiculos;
     }
     async buscarVencidosXrangoFechas(desde, hasta) {
@@ -304,7 +303,6 @@ let VehicleService = class VehicleService {
         catch (e) {
             throw new Error(`Error en VehicleService.buscarVencidosXrangoFechas ${e}`);
         }
-        ;
         return vehiculos;
     }
 };

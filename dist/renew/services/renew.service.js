@@ -110,10 +110,7 @@ let RenewService = class RenewService {
                 .populate([
                 {
                     path: 'vehicle',
-                    populate: [
-                        { path: 'customer' },
-                        { path: 'device' },
-                    ],
+                    populate: [{ path: 'customer' }, { path: 'device' }],
                 },
                 { path: 'billing' },
             ]);
@@ -122,7 +119,6 @@ let RenewService = class RenewService {
         catch (e) {
             throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);
         }
-        ;
         return vehiculos;
     }
 };

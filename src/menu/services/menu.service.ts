@@ -19,10 +19,6 @@ export class MenuService implements OnModuleInit {
   async onModuleInit(): Promise<MenuDocument[] | number> {
     let countMenus: number;
     let valuesMenus: MenuDocument[];
-  
-    //  valuesMenus = await Promise.all([
-    //    new this.menuModel({ name: 'Consultar Caja', link: 'consultar-caja' }).save(),
-    //  ]);
 
     try {
       countMenus = await this.menuModel.estimatedDocumentCount();
