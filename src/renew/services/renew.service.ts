@@ -24,6 +24,8 @@ export class RenewService {
 
   async createRenew(renewInput: CreateRenewInput, user: string) {
     const { vehicle, billing } = renewInput;
+    let newRenew: RenewDocument;
+    let fechafinal;
 
     const findVehicle = await this.vehicleService.findOneVehicleByPlate(
       vehicle,
@@ -33,44 +35,41 @@ export class RenewService {
       billing,
       NOEXIST,
     );
+    const getTimeEnd = findVehicle.billigEnd.getTime();
+    const dataStart = startOfDay(new Date());
+    const getTimeStart = dataStart.getTime();
 
-    //validar
+    if (getTimeStart > getTimeEnd) {
+      fechafinal = add(dataStart, { days: findBilling.day });
+      newRenew = new this.renewModel({
+        ...renewInput,
+        registeredBy: user,
+        updatedBy: user,
+        expirationDate: findVehicle.billigEnd,
+        renovationStart: dataStart,
+        renovationEnd: fechafinal,
+        vehicle: findVehicle._id,
+        billing: findBilling._id,
+        status: 1,
+      });
+    } else {
+      fechafinal = add(findVehicle.billigEnd, { days: findBilling.day });
 
-    // const getTimeEnd = findVehicle.billigEnd.getTime();
-     const dataStart = startOfDay(new Date());
-     console.log(dataStart)
-    // const getTimeStart = dataStart.getTime();
-    
-    // if (getTimeEnd > getTimeStart) {
-    //   throw new NotFoundException({
-    //     path: 'renew',
-    //     message: [
-    //       `El vehiculo con placa ${
-    //         findVehicle.plate
-    //       } no puede renovarse porque aun no caduca. Termina el ${moment(
-    //         findVehicle.billigEnd,
-    //       ).format('DD/MM/YYYY')}`,
-    //     ],
-    //   });
-    // }
-     const nueva_fecha = add(findVehicle.billigEnd, { days: findBilling.day });
-    
+      // const addDaytoStart = add(dataStart, { days: 1 });
+      // console.log(addDaytoStart);
 
-    // const addDaytoStart = add(dataStart, { days: 1 });
-    // console.log(addDaytoStart);
-    // const addDaytoEnd = add(dataStart, { days: findBilling.day });
-
-    const newRenew = new this.renewModel({
-      ...renewInput,
-      registeredBy: user,
-      updatedBy: user,
-      expirationDate: findVehicle.billigEnd,
-      renovationStart: dataStart,
-      renovationEnd: nueva_fecha,
-      vehicle: findVehicle._id,
-      billing: findBilling._id,
-      status: 1,
-    });
+      newRenew = new this.renewModel({
+        ...renewInput,
+        registeredBy: user,
+        updatedBy: user,
+        expirationDate: findVehicle.billigEnd,
+        renovationStart: dataStart,
+        renovationEnd: fechafinal,
+        vehicle: findVehicle._id,
+        billing: findBilling._id,
+        status: 1,
+      });
+    }
 
     let vehicleSaved: RenewDocument;
 
@@ -89,7 +88,7 @@ export class RenewService {
         id: findVehicle._id,
         billing: billing,
         billigStart: dataStart,
-        billigEnd: nueva_fecha,
+        billigEnd: fechafinal,
       };
 
       await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);

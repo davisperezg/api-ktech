@@ -4811,7 +4811,7 @@
         "affectsGlobalScope": false
       },
       "../src/menu/services/menu.service.ts": {
-        "version": "6f06fdfcb35923e96fac90c9797c6c5ff027a17b9247f3179dc359283aa484bc",
+        "version": "6ae78e65749f956f1ebdae1f3c30de42dcaa83c0e9edfe6343e4a688ac93e6ae",
         "signature": "ef9d8a10c7edb8cd967a497994d28fbca002ad235a602afc92784b0537064fc6",
         "affectsGlobalScope": false
       },
@@ -5441,7 +5441,7 @@
         "affectsGlobalScope": false
       },
       "../src/customer/services/customer.service.ts": {
-        "version": "52a75d2939adb303bf825cdb620ee53d3ec3644d77aeec2e142bf57c0eb33dd9",
+        "version": "ada96b3a771ba2022571fe3a9e5999835a2cc9cc83cdaa3b6a0f1ae705ed53f6",
         "signature": "95a6697d2ff19eb7738f86fc06686ae81417f29e8578df222ce0d2c26e5aa641",
         "affectsGlobalScope": false
       },
@@ -5576,7 +5576,7 @@
         "affectsGlobalScope": false
       },
       "../src/renew/services/renew.service.ts": {
-        "version": "29836db4791018f7cfbfc7df4bf017d2bec86e0058177b592ffd3e349cbf5e65",
+        "version": "f9d92af866056e318401687434cf330e51cbe3fbca9b79d72f650ff3ba3ac7bd",
         "signature": "a3fb18d464de45054038a234261e797642ba308ab4f35d0bd0fb9dda9d101eb8",
         "affectsGlobalScope": false
       },
