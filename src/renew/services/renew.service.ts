@@ -36,26 +36,29 @@ export class RenewService {
 
     //validar
 
-    const getTimeEnd = findVehicle.billigEnd.getTime();
-    const dataStart = startOfDay(new Date());
-    const getTimeStart = dataStart.getTime();
-
-    if (getTimeEnd > getTimeStart) {
-      throw new NotFoundException({
-        path: 'renew',
-        message: [
-          `El vehiculo con placa ${
-            findVehicle.plate
-          } no puede renovarse porque aun no caduca. Termina el ${moment(
-            findVehicle.billigEnd,
-          ).format('DD/MM/YYYY')}`,
-        ],
-      });
-    }
+    // const getTimeEnd = findVehicle.billigEnd.getTime();
+     const dataStart = startOfDay(new Date());
+     console.log(dataStart)
+    // const getTimeStart = dataStart.getTime();
+    
+    // if (getTimeEnd > getTimeStart) {
+    //   throw new NotFoundException({
+    //     path: 'renew',
+    //     message: [
+    //       `El vehiculo con placa ${
+    //         findVehicle.plate
+    //       } no puede renovarse porque aun no caduca. Termina el ${moment(
+    //         findVehicle.billigEnd,
+    //       ).format('DD/MM/YYYY')}`,
+    //     ],
+    //   });
+    // }
+     const nueva_fecha = add(findVehicle.billigEnd, { days: findBilling.day });
+    
 
     // const addDaytoStart = add(dataStart, { days: 1 });
     // console.log(addDaytoStart);
-    const addDaytoEnd = add(dataStart, { days: findBilling.day });
+    // const addDaytoEnd = add(dataStart, { days: findBilling.day });
 
     const newRenew = new this.renewModel({
       ...renewInput,
@@ -63,7 +66,7 @@ export class RenewService {
       updatedBy: user,
       expirationDate: findVehicle.billigEnd,
       renovationStart: dataStart,
-      renovationEnd: addDaytoEnd,
+      renovationEnd: nueva_fecha,
       vehicle: findVehicle._id,
       billing: findBilling._id,
       status: 1,
@@ -86,7 +89,7 @@ export class RenewService {
         id: findVehicle._id,
         billing: billing,
         billigStart: dataStart,
-        billigEnd: addDaytoEnd,
+        billigEnd: nueva_fecha,
       };
 
       await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
