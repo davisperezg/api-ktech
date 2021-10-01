@@ -22,7 +22,6 @@ const user_service_1 = require("../../user/services/user.service");
 const vehicle_service_1 = require("../../vehicle/services/vehicle.service");
 const date_fns_1 = require("date-fns");
 const update_vehicle_input_1 = require("../../vehicle/dto/inputs/update-vehicle.input");
-const moment = require("moment");
 let RenewService = class RenewService {
     constructor(renewModel, userService, vehicleService, billingService) {
         this.renewModel = renewModel;
@@ -34,19 +33,10 @@ let RenewService = class RenewService {
         const { vehicle, billing } = renewInput;
         const findVehicle = await this.vehicleService.findOneVehicleByPlate(vehicle, conts_1.NOEXIST);
         const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
-        const getTimeEnd = findVehicle.billigEnd.getTime();
         const dataStart = date_fns_1.startOfDay(new Date());
-        const getTimeStart = dataStart.getTime();
-        if (getTimeEnd > getTimeStart) {
-            throw new common_1.NotFoundException({
-                path: 'renew',
-                message: [
-                    `El vehiculo con placa ${findVehicle.plate} no puede renovarse porque aun no caduca. Termina el ${moment(findVehicle.billigEnd).format('DD/MM/YYYY')}`,
-                ],
-            });
-        }
-        const addDaytoEnd = date_fns_1.add(dataStart, { days: findBilling.day });
-        const newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: addDaytoEnd, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+        console.log(dataStart);
+        const nueva_fecha = date_fns_1.add(findVehicle.billigEnd, { days: findBilling.day });
+        const newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: nueva_fecha, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
         let vehicleSaved;
         try {
             vehicleSaved = await (await newRenew.save())
@@ -62,7 +52,7 @@ let RenewService = class RenewService {
                 id: findVehicle._id,
                 billing: billing,
                 billigStart: dataStart,
-                billigEnd: addDaytoEnd,
+                billigEnd: nueva_fecha,
             };
             await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
         }
