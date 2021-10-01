@@ -31,12 +31,21 @@ let RenewService = class RenewService {
     }
     async createRenew(renewInput, user) {
         const { vehicle, billing } = renewInput;
+        let newRenew;
+        let fechafinal;
         const findVehicle = await this.vehicleService.findOneVehicleByPlate(vehicle, conts_1.NOEXIST);
         const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
+        const getTimeEnd = findVehicle.billigEnd.getTime();
         const dataStart = date_fns_1.startOfDay(new Date());
-        console.log(dataStart);
-        const nueva_fecha = date_fns_1.add(findVehicle.billigEnd, { days: findBilling.day });
-        const newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: nueva_fecha, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+        const getTimeStart = dataStart.getTime();
+        if (getTimeStart > getTimeEnd) {
+            fechafinal = date_fns_1.add(dataStart, { days: findBilling.day });
+            newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: fechafinal, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+        }
+        else {
+            fechafinal = date_fns_1.add(findVehicle.billigEnd, { days: findBilling.day });
+            newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: fechafinal, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+        }
         let vehicleSaved;
         try {
             vehicleSaved = await (await newRenew.save())
@@ -52,7 +61,7 @@ let RenewService = class RenewService {
                 id: findVehicle._id,
                 billing: billing,
                 billigStart: dataStart,
-                billigEnd: nueva_fecha,
+                billigEnd: fechafinal,
             };
             await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
         }
@@ -100,10 +109,7 @@ let RenewService = class RenewService {
                 .populate([
                 {
                     path: 'vehicle',
-                    populate: [
-                        { path: 'customer' },
-                        { path: 'device' },
-                    ],
+                    populate: [{ path: 'customer' }, { path: 'device' }],
                 },
                 { path: 'billing' },
             ]);
@@ -112,7 +118,6 @@ let RenewService = class RenewService {
         catch (e) {
             throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);
         }
-        ;
         return vehiculos;
     }
 };
