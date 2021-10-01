@@ -24,6 +24,8 @@ export class RenewService {
 
   async createRenew(renewInput: CreateRenewInput, user: string) {
     const { vehicle, billing } = renewInput;
+    let newRenew :RenewDocument;
+    let  fechafinal;
 
     const findVehicle = await this.vehicleService.findOneVehicleByPlate(
       vehicle,
@@ -36,41 +38,43 @@ export class RenewService {
 
     //validar
 
-    // const getTimeEnd = findVehicle.billigEnd.getTime();
-     const dataStart = startOfDay(new Date());
-     console.log(dataStart)
-    // const getTimeStart = dataStart.getTime();
-    
-    // if (getTimeEnd > getTimeStart) {
-    //   throw new NotFoundException({
-    //     path: 'renew',
-    //     message: [
-    //       `El vehiculo con placa ${
-    //         findVehicle.plate
-    //       } no puede renovarse porque aun no caduca. Termina el ${moment(
-    //         findVehicle.billigEnd,
-    //       ).format('DD/MM/YYYY')}`,
-    //     ],
-    //   });
-    // }
-     const nueva_fecha = add(findVehicle.billigEnd, { days: findBilling.day });
-    
+    const getTimeEnd = findVehicle.billigEnd.getTime();
+    const dataStart = startOfDay(new Date());
+    const getTimeStart = dataStart.getTime();
 
-    // const addDaytoStart = add(dataStart, { days: 1 });
-    // console.log(addDaytoStart);
-    // const addDaytoEnd = add(dataStart, { days: findBilling.day });
+    if (getTimeStart > getTimeEnd) {
+      fechafinal = add(dataStart, { days: findBilling.day });
+        newRenew = new this.renewModel({
+              ...renewInput,
+              registeredBy: user,
+              updatedBy: user,
+              expirationDate: findVehicle.billigEnd,
+              renovationStart: dataStart,
+              renovationEnd: fechafinal,
+              vehicle: findVehicle._id,
+              billing: findBilling._id,
+              status: 1,
+            });
+    }else{
+      fechafinal = add(findVehicle.billigEnd, { days: findBilling.day });
 
-    const newRenew = new this.renewModel({
-      ...renewInput,
-      registeredBy: user,
-      updatedBy: user,
-      expirationDate: findVehicle.billigEnd,
-      renovationStart: dataStart,
-      renovationEnd: nueva_fecha,
-      vehicle: findVehicle._id,
-      billing: findBilling._id,
-      status: 1,
-    });
+      // const addDaytoStart = add(dataStart, { days: 1 });
+      // console.log(addDaytoStart);
+      
+       newRenew = new this.renewModel({
+        ...renewInput,
+        registeredBy: user,
+        updatedBy: user,
+        expirationDate: findVehicle.billigEnd,
+        renovationStart: dataStart,
+        renovationEnd: fechafinal,
+        vehicle: findVehicle._id,
+        billing: findBilling._id,
+        status: 1,
+      });
+    }
+
+    
 
     let vehicleSaved: RenewDocument;
 
@@ -89,7 +93,7 @@ export class RenewService {
         id: findVehicle._id,
         billing: billing,
         billigStart: dataStart,
-        billigEnd: nueva_fecha,
+        billigEnd: fechafinal,
       };
 
       await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
@@ -117,18 +121,21 @@ export class RenewService {
 
     return findRenew;
   }
-  async buscarRenovacionesXFecha(desde:Date |string ,hasta:Date | string): Promise<RenewDocument[]>{
-    let vehiculos: RenewDocument[]
-    console.log(desde)
-    console.log(hasta)
+  async buscarRenovacionesXFecha(
+    desde: Date | string,
+    hasta: Date | string,
+  ): Promise<RenewDocument[]> {
+    let vehiculos: RenewDocument[];
+    console.log(desde);
+    console.log(hasta);
 
     const desdeTest = startOfDay(new Date(desde));
     const addDesde = add(desdeTest, { days: 1 });
-    console.log(addDesde)
+    console.log(addDesde);
 
     const hastaTest = endOfDay(new Date(hasta));
     const addHasta = add(hastaTest, { days: 1 });
-    console.log(addHasta)
+    console.log(addHasta);
 
     try {
       vehiculos = await this.renewModel
@@ -142,19 +149,16 @@ export class RenewService {
         .populate([
           {
             path: 'vehicle',
-            populate: [
-              { path: 'customer' },
-              { path: 'device' },
-            ],
+            populate: [{ path: 'customer' }, { path: 'device' }],
           },
           { path: 'billing' },
         ]);
 
-        console.log(vehiculos)
+      console.log(vehiculos);
     } catch (e) {
       throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);
-    };
+    }
 
-    return vehiculos
+    return vehiculos;
   }
 }
