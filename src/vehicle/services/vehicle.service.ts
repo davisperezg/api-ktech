@@ -34,7 +34,6 @@ export class VehicleService {
       billing,
       plate,
       nroGPS,
-      billigStart,
     } = vehicleInput;
   
     const findCustomer = await this.customerService.findOneCustomerById(
@@ -52,16 +51,16 @@ export class VehicleService {
     await this.findOneVehicleByPlate(plate, EXIST);
     await this.findOneVehicleByNroGPS(nroGPS, EXIST);
 
-    const dataStart = startOfDay(new Date(billigStart));
-    const addDaytoStart = add(dataStart, { days: 1 });
-    const addDaytoEnd = add(addDaytoStart, { days: findBilling.day });
+    const dataStart = startOfDay(new Date());
+    //const addDaytoStart = add(dataStart, { days: 1 });
+    const addDaytoEnd = add(dataStart, { days: findBilling.day });
 
     const newVehicle = new this.vehicleModel({
       ...vehicleInput,
       customer: findCustomer._id,
       device: findDevice._id,
       billing: findBilling._id,
-      billigStart: addDaytoStart,
+      billigStart: dataStart,
       billigEnd: addDaytoEnd,
       createdBy: user,
       updatedBy: user,

@@ -5461,8 +5461,8 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/create-vehicle.input.ts": {
-        "version": "e7c59cabc7f2f51695558cd487a30ee4475e37a28cea6a3b6d24572d84d9027b",
-        "signature": "124ea50fc2c24bc123b0b890f7439ab953dc9330877e00d24b3b48e06e34b02a",
+        "version": "fe079925583f8cd39f649f88f6209c5028bc7151826af3012547e66c20c44ec0",
+        "signature": "3e0c572cdf5077873da450035c2bf514767ebeafebff1b4dfbe0d8e28b6bca8a",
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/update-vehicle.input.ts": {
@@ -5531,7 +5531,7 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/services/vehicle.service.ts": {
-        "version": "982c0a95cf1768418ee0144ffb7820086101ead19684151819768416eb5da4e2",
+        "version": "53ff12500cb1b37e86f0f2569dee073543d7eb85cfcbf078e39b085ccfeb5ca1",
         "signature": "7f12f13a3bd6d2a479ea809a429f0ab1bdeb528a40407d0bc77c18a75c1c77f8",
         "affectsGlobalScope": false
       },
@@ -5576,7 +5576,7 @@
         "affectsGlobalScope": false
       },
       "../src/renew/services/renew.service.ts": {
-        "version": "bae5833ad50966ec2a66e5c7bd37cfb6f0fa64085046c6fd501eefa20c8c2f9d",
+        "version": "36138b8afa18638adb58bb3e5bae5137860b61cff3923d3222bc910b3f6b1c58",
         "signature": "a3fb18d464de45054038a234261e797642ba308ab4f35d0bd0fb9dda9d101eb8",
         "affectsGlobalScope": false
       },

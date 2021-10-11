@@ -49,11 +49,6 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe completar el número de gps' }),
     __metadata("design:type", String)
 ], CreateVehicleInput.prototype, "nroGPS", void 0);
-__decorate([
-    graphql_1.Field(),
-    class_validator_1.IsNotEmpty({ message: 'Debe completar la fecha de inicio' }),
-    __metadata("design:type", String)
-], CreateVehicleInput.prototype, "billigStart", void 0);
 CreateVehicleInput = __decorate([
     graphql_1.InputType()
 ], CreateVehicleInput);
