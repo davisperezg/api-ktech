@@ -37,7 +37,7 @@ export class RenewService {
     );
     const getTimeEnd = findVehicle.billigEnd.getTime();
     const dataStart = startOfDay(new Date());
-    console.log(dataStart);
+
     const getTimeStart = dataStart.getTime();
 
     if (getTimeStart > getTimeEnd) {

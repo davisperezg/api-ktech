@@ -28,13 +28,7 @@ export class VehicleService {
   ) {}
 
   async createVehicle(vehicleInput: CreateVehicleInput, user: string) {
-    const {
-      customer,
-      device,
-      billing,
-      plate,
-      nroGPS,
-    } = vehicleInput;
+    const { customer, device, billing, plate, nroGPS } = vehicleInput;
 
     const findCustomer = await this.customerService.findOneCustomerById(
       customer,
@@ -101,9 +95,8 @@ export class VehicleService {
       id,
       customer,
       device,
-
       billing,
-      billigStart,
+      //billigStart,
       renew,
       billigEnd,
       nroGPS,
@@ -157,9 +150,11 @@ export class VehicleService {
       );
     }
 
-    const dataStart = startOfDay(new Date(billigStart));
-    const addDaytoStart = add(dataStart, { days: 1 });
-    const addDaytoEnd = add(addDaytoStart, { days: findBilling.day });
+    //const dataStart = startOfDay(new Date(billigStart));
+    //const addDaytoStart = add(dataStart, { days: 1 });
+    const addDaytoEnd = add(findVehicleById.billigStart, {
+      days: findBilling.day,
+    });
 
     try {
       updateVehicle = await this.vehicleModel
@@ -170,7 +165,9 @@ export class VehicleService {
             customer: findCustomer._id,
             device: findDevice._id,
             billing: findBilling._id,
-            billigStart: renew ? billigStart : addDaytoStart,
+            billigStart: renew
+              ? vehicleInput.billigStart
+              : findVehicleById.billigStart,
             billigEnd: renew ? billigEnd : addDaytoEnd,
             updatedBy: user,
           },
@@ -341,16 +338,12 @@ export class VehicleService {
     hasta: Date | string,
   ): Promise<VehicleDocument[]> {
     let vehiculos: VehicleDocument[];
-    console.log(desde);
-    console.log(hasta);
 
     const desdeTest = startOfDay(new Date(desde));
     const addDesde = add(desdeTest, { days: 1 });
-    console.log(addDesde);
 
     const hastaTest = endOfDay(new Date(hasta));
     const addHasta = add(hastaTest, { days: 1 });
-    console.log(addHasta);
 
     try {
       vehiculos = await this.vehicleModel

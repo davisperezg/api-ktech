@@ -32,7 +32,7 @@ let VehicleService = class VehicleService {
         this.billingService = billingService;
     }
     async createVehicle(vehicleInput, user) {
-        const { customer, device, billing, plate, nroGPS, } = vehicleInput;
+        const { customer, device, billing, plate, nroGPS } = vehicleInput;
         const findCustomer = await this.customerService.findOneCustomerById(customer);
         const findDevice = await this.deviceService.findOneDeviceByName(device, conts_1.NOEXIST);
         const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
@@ -66,7 +66,7 @@ let VehicleService = class VehicleService {
         return foundVehicle;
     }
     async updateVehicle(vehicleInput, user) {
-        const { id, customer, device, billing, billigStart, renew, billigEnd, nroGPS, plate, } = vehicleInput;
+        const { id, customer, device, billing, renew, billigEnd, nroGPS, plate, } = vehicleInput;
         let findCustomer;
         let findDevice;
         let findBilling;
@@ -96,12 +96,14 @@ let VehicleService = class VehicleService {
         else {
             findBilling = await this.billingService.findOneBillingByName(findVehicleById.billing.name, conts_1.NULL);
         }
-        const dataStart = date_fns_1.startOfDay(new Date(billigStart));
-        const addDaytoStart = date_fns_1.add(dataStart, { days: 1 });
-        const addDaytoEnd = date_fns_1.add(addDaytoStart, { days: findBilling.day });
+        const addDaytoEnd = date_fns_1.add(findVehicleById.billigStart, {
+            days: findBilling.day,
+        });
         try {
             updateVehicle = await this.vehicleModel
-                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew ? billigStart : addDaytoStart, billigEnd: renew ? billigEnd : addDaytoEnd, updatedBy: user }), { new: true })
+                .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew
+                    ? vehicleInput.billigStart
+                    : findVehicleById.billigStart, billigEnd: renew ? billigEnd : addDaytoEnd, updatedBy: user }), { new: true })
                 .populate([
                 {
                     path: 'customer',
@@ -240,14 +242,10 @@ let VehicleService = class VehicleService {
     }
     async buscarXrangoFechaInstalaciones(desde, hasta) {
         let vehiculos;
-        console.log(desde);
-        console.log(hasta);
         const desdeTest = date_fns_1.startOfDay(new Date(desde));
         const addDesde = date_fns_1.add(desdeTest, { days: 1 });
-        console.log(addDesde);
         const hastaTest = date_fns_1.endOfDay(new Date(hasta));
         const addHasta = date_fns_1.add(hastaTest, { days: 1 });
-        console.log(addHasta);
         try {
             vehiculos = await this.vehicleModel
                 .find({

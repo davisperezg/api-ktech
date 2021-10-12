@@ -37,7 +37,6 @@ let RenewService = class RenewService {
         const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
         const getTimeEnd = findVehicle.billigEnd.getTime();
         const dataStart = date_fns_1.startOfDay(new Date());
-        console.log(dataStart);
         const getTimeStart = dataStart.getTime();
         if (getTimeStart > getTimeEnd) {
             fechafinal = date_fns_1.add(dataStart, { days: findBilling.day });
