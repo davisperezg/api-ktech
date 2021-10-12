@@ -37,9 +37,11 @@ export class RenewService {
     );
     const getTimeEnd = findVehicle.billigEnd.getTime();
     const dataStart = startOfDay(new Date());
+    console.log(dataStart);
     const getTimeStart = dataStart.getTime();
 
     if (getTimeStart > getTimeEnd) {
+      //renuva cuando la fecha ya ha expirado
       fechafinal = add(dataStart, { days: findBilling.day });
       newRenew = new this.renewModel({
         ...renewInput,
@@ -53,6 +55,7 @@ export class RenewService {
         status: 1,
       });
     } else {
+      //renueva cuando su fecha aun no expira
       fechafinal = add(findVehicle.billigEnd, { days: findBilling.day });
 
       // const addDaytoStart = add(dataStart, { days: 1 });

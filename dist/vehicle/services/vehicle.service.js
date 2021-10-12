@@ -32,16 +32,15 @@ let VehicleService = class VehicleService {
         this.billingService = billingService;
     }
     async createVehicle(vehicleInput, user) {
-        const { customer, device, billing, plate, nroGPS, billigStart, } = vehicleInput;
+        const { customer, device, billing, plate, nroGPS, } = vehicleInput;
         const findCustomer = await this.customerService.findOneCustomerById(customer);
         const findDevice = await this.deviceService.findOneDeviceByName(device, conts_1.NOEXIST);
         const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
         await this.findOneVehicleByPlate(plate, conts_1.EXIST);
         await this.findOneVehicleByNroGPS(nroGPS, conts_1.EXIST);
-        const dataStart = date_fns_1.startOfDay(new Date(billigStart));
-        const addDaytoStart = date_fns_1.add(dataStart, { days: 1 });
-        const addDaytoEnd = date_fns_1.add(addDaytoStart, { days: findBilling.day });
-        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: addDaytoStart, billigEnd: addDaytoEnd, createdBy: user, updatedBy: user, status: 1 }));
+        const dataStart = date_fns_1.startOfDay(new Date());
+        const addDaytoEnd = date_fns_1.add(dataStart, { days: findBilling.day });
+        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: dataStart, billigEnd: addDaytoEnd, createdBy: user, updatedBy: user, status: 1 }));
         let vehicleSaved;
         let foundVehicle;
         try {

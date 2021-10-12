@@ -31,7 +31,9 @@ export class CreateVehicleInput {
   @IsNotEmpty({ message: 'Debe completar el número de gps' })
   nroGPS: string;
 
-  @Field()
+  /**
+  *  @Field()
   @IsNotEmpty({ message: 'Debe completar la fecha de inicio' })
   billigStart: string;
+  */
 }
