@@ -7,5 +7,4 @@ export declare class UpdateVehicleInput {
     plate: string;
     sim: string;
     nroGPS: string;
-    billigStart: string;
 }

@@ -55,11 +55,6 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "nroGPS", void 0);
-__decorate([
-    graphql_1.Field(),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", String)
-], UpdateVehicleInput.prototype, "billigStart", void 0);
 UpdateVehicleInput = __decorate([
     graphql_1.InputType()
 ], UpdateVehicleInput);
