@@ -39,6 +39,7 @@ export class RenewService {
     const dataStart = startOfDay(new Date());
 
     const getTimeStart = dataStart.getTime();
+    let dataToUpdatedVehicle;
 
     if (getTimeStart > getTimeEnd) {
       //renuva cuando la fecha ya ha expirado
@@ -54,6 +55,14 @@ export class RenewService {
         billing: findBilling._id,
         status: 1,
       });
+
+      dataToUpdatedVehicle = {
+        renew: true,
+        id: findVehicle._id,
+        billing: billing,
+        billigStart: dataStart,
+        billigEnd: fechafinal,
+      };
     } else {
       //renueva cuando su fecha aun no expira
       fechafinal = add(findVehicle.billigEnd, { days: findBilling.day });
@@ -72,6 +81,14 @@ export class RenewService {
         billing: findBilling._id,
         status: 1,
       });
+
+      dataToUpdatedVehicle = {
+        renew: true,
+        id: findVehicle._id,
+        billing: billing,
+        billigStart: findVehicle.billigEnd,
+        billigEnd: fechafinal,
+      };
     }
 
     let vehicleSaved: RenewDocument;
@@ -85,14 +102,6 @@ export class RenewService {
           { path: 'updatedBy' },
         ])
         .execPopulate();
-
-      const dataToUpdatedVehicle = {
-        renew: true,
-        id: findVehicle._id,
-        billing: billing,
-        billigStart: dataStart,
-        billigEnd: fechafinal,
-      };
 
       await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
     } catch (e) {

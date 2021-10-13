@@ -5466,7 +5466,7 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/update-vehicle.input.ts": {
-        "version": "800258e440eb8f178f7a45ed263033dbd66fbe7c3f8181692612b75614dd5008",
+        "version": "17222401d8f85fc54c6dc5836912ed26d598f04871edf5633d6cfa9f6519deec",
         "signature": "081f29d76e4395d2a70c710dee3a11217cacb001402dab69aa21b6171f099a7a",
         "affectsGlobalScope": false
       },
@@ -5576,7 +5576,7 @@
         "affectsGlobalScope": false
       },
       "../src/renew/services/renew.service.ts": {
-        "version": "06dd6ae2cabdca6867a4a80bd14a52f30b78b94394e20bab3cdcdc9c83a7edec",
+        "version": "1e7afa48c54a31b7ee531262a804aab9579c120531ea6960565ea86ceb0a55f5",
         "signature": "a3fb18d464de45054038a234261e797642ba308ab4f35d0bd0fb9dda9d101eb8",
         "affectsGlobalScope": false
       },

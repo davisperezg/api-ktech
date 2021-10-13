@@ -38,13 +38,28 @@ let RenewService = class RenewService {
         const getTimeEnd = findVehicle.billigEnd.getTime();
         const dataStart = date_fns_1.startOfDay(new Date());
         const getTimeStart = dataStart.getTime();
+        let dataToUpdatedVehicle;
         if (getTimeStart > getTimeEnd) {
             fechafinal = date_fns_1.add(dataStart, { days: findBilling.day });
             newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: fechafinal, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+            dataToUpdatedVehicle = {
+                renew: true,
+                id: findVehicle._id,
+                billing: billing,
+                billigStart: dataStart,
+                billigEnd: fechafinal,
+            };
         }
         else {
             fechafinal = date_fns_1.add(findVehicle.billigEnd, { days: findBilling.day });
             newRenew = new this.renewModel(Object.assign(Object.assign({}, renewInput), { registeredBy: user, updatedBy: user, expirationDate: findVehicle.billigEnd, renovationStart: dataStart, renovationEnd: fechafinal, vehicle: findVehicle._id, billing: findBilling._id, status: 1 }));
+            dataToUpdatedVehicle = {
+                renew: true,
+                id: findVehicle._id,
+                billing: billing,
+                billigStart: findVehicle.billigEnd,
+                billigEnd: fechafinal,
+            };
         }
         let vehicleSaved;
         try {
@@ -56,13 +71,6 @@ let RenewService = class RenewService {
                 { path: 'updatedBy' },
             ])
                 .execPopulate();
-            const dataToUpdatedVehicle = {
-                renew: true,
-                id: findVehicle._id,
-                billing: billing,
-                billigStart: dataStart,
-                billigEnd: fechafinal,
-            };
             await this.vehicleService.updateVehicle(dataToUpdatedVehicle, user);
         }
         catch (e) {
