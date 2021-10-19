@@ -35,6 +35,9 @@ export class Customer {
 
   @Prop({ trim: true })
   status: number;
+
+  @Prop({ trim: true })
+  fecha_nac: Date;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);

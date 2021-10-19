@@ -84,4 +84,8 @@ export class UpdateCustomerInput {
   @Length(3, 20, { message: 'La contraseña debe tener entre 3-20 caracteres.' })
   @IsOptional()
   password?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  fecha_nac?: Date;
 }

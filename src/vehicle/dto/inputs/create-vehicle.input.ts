@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
+import { Matches } from 'class-validator';
 
 @InputType()
 export class CreateVehicleInput {
@@ -20,6 +21,9 @@ export class CreateVehicleInput {
   platform: string;
 
   @Field()
+  @Matches(/^[A-Za-z0-9]+$/, {
+    message: 'La placa solo permite letras y numeros, los - se no aceptan',
+  })
   @IsNotEmpty({ message: 'Debe completar la placa del vehiculo' })
   plate: string;
 

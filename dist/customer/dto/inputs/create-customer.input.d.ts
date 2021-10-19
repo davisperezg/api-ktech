@@ -8,4 +8,5 @@ export declare class CreateCustomerInput {
     direction: string;
     username: string;
     password: string;
+    fecha_nac?: Date;
 }

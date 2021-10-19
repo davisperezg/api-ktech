@@ -41,7 +41,7 @@ let CustomerService = class CustomerService {
         return customerSaved;
     }
     async updateCustomer(customerInput) {
-        const { id, numDocument, cellphone_1, cellphone_2, direction, } = customerInput;
+        const { id, numDocument, cellphone_1, cellphone_2, direction, fecha_nac, } = customerInput;
         let updateCustomer;
         const findCustomerById = await this.findOneCustomerById(id);
         if (numDocument !== findCustomerById.numDocument) {

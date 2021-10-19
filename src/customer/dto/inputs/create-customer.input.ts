@@ -78,4 +78,8 @@ export class CreateCustomerInput {
   @Length(3, 20, { message: 'La contraseña debe tener entre 3-20 caracteres.' })
   @IsNotEmpty({ message: 'Debe completar la contraseña.' })
   password: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  fecha_nac?: Date;
 }

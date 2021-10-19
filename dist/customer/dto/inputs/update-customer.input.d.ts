@@ -9,4 +9,5 @@ export declare class UpdateCustomerInput {
     direction?: string;
     username?: string;
     password?: string;
+    fecha_nac?: Date;
 }

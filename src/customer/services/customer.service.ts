@@ -56,6 +56,7 @@ export class CustomerService {
       cellphone_1,
       cellphone_2,
       direction,
+      fecha_nac,
     } = customerInput;
 
     let updateCustomer: CustomerDocument;

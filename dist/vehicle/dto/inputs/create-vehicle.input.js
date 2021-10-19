@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateVehicleInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
+const class_validator_2 = require("class-validator");
 let CreateVehicleInput = class CreateVehicleInput {
 };
 __decorate([
@@ -36,6 +37,9 @@ __decorate([
 ], CreateVehicleInput.prototype, "platform", void 0);
 __decorate([
     graphql_1.Field(),
+    class_validator_2.Matches(/^[A-Za-z0-9]+$/, {
+        message: 'La placa solo permite letras y numeros, los - se no aceptan',
+    }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar la placa del vehiculo' }),
     __metadata("design:type", String)
 ], CreateVehicleInput.prototype, "plate", void 0);

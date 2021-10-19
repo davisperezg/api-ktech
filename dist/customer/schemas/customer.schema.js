@@ -53,6 +53,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Customer.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", Date)
+], Customer.prototype, "fecha_nac", void 0);
 Customer = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Customer);

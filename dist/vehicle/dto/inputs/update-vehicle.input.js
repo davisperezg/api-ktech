@@ -42,6 +42,9 @@ __decorate([
 ], UpdateVehicleInput.prototype, "platform", void 0);
 __decorate([
     graphql_1.Field(),
+    class_validator_1.Matches(/^[A-Za-z0-9]+$/, {
+        message: 'La placa solo permite letras y numeros, los - se no aceptan',
+    }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "plate", void 0);

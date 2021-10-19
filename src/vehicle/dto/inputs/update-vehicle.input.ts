@@ -1,5 +1,5 @@
 import { Field, InputType, ID } from '@nestjs/graphql';
-import { IsOptional, IsMongoId, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsMongoId, IsNotEmpty, Matches } from 'class-validator';
 
 @InputType()
 export class UpdateVehicleInput {
@@ -25,6 +25,9 @@ export class UpdateVehicleInput {
   platform: string;
 
   @Field()
+  @Matches(/^[A-Za-z0-9]+$/, {
+    message: 'La placa solo permite letras y numeros, los - se no aceptan',
+  })
   @IsOptional()
   plate: string;
 

@@ -11,5 +11,6 @@ export declare class Customer {
     username: string;
     password: string;
     status: number;
+    fecha_nac: Date;
 }
 export declare const CustomerSchema: mongoose.Schema<mongoose.Document<Customer, {}>, mongoose.Model<any, any>, undefined>;

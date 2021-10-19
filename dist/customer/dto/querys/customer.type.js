@@ -61,6 +61,10 @@ __decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], CustomerType.prototype, "updatedAt", void 0);
+__decorate([
+    graphql_1.Field(() => Date, { nullable: true }),
+    __metadata("design:type", Date)
+], CustomerType.prototype, "fecha_nac", void 0);
 CustomerType = __decorate([
     graphql_1.ObjectType()
 ], CustomerType);

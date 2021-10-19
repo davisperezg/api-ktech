@@ -91,6 +91,11 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateCustomerInput.prototype, "password", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Date)
+], UpdateCustomerInput.prototype, "fecha_nac", void 0);
 UpdateCustomerInput = __decorate([
     graphql_1.InputType()
 ], UpdateCustomerInput);

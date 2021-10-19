@@ -85,6 +85,11 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe completar la contraseña.' }),
     __metadata("design:type", String)
 ], CreateCustomerInput.prototype, "password", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Date)
+], CreateCustomerInput.prototype, "fecha_nac", void 0);
 CreateCustomerInput = __decorate([
     graphql_1.InputType()
 ], CreateCustomerInput);

@@ -37,4 +37,7 @@ export class CustomerType {
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field(() => Date, { nullable: true })
+  fecha_nac: Date;
 }
