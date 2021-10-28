@@ -5446,7 +5446,7 @@
         "affectsGlobalScope": false
       },
       "../src/customer/dto/querys/customer.type.ts": {
-        "version": "8d4a99baf2e51cc83908321ae888fee5a70d39ae10ef97329a8333fa2864910b",
+        "version": "c7f20699d86f7ec4ec65d913bd89a755bec29d5f78611893afb320ceef0e0572",
         "signature": "7ac3ccd50e3954c50d2148ba94cb548111b2f5de0b7e061942663ec271a9317a",
         "affectsGlobalScope": false
       },
@@ -5476,7 +5476,7 @@
         "affectsGlobalScope": false
       },
       "../src/device/dto/querys/device.type.ts": {
-        "version": "237f719669e2da7fc91db6fa5e866a9d13ea757ff46ae6b94481ac34fead7fde",
+        "version": "b409e2311b7ed1f1ed90e489ab631d005a72fe233b8b74fbf3fb690784583e5d",
         "signature": "a38a8a7c53cbba95917a50500048854cb262415cf937e9a1aff720cf9915aeb4",
         "affectsGlobalScope": false
       },
@@ -5531,7 +5531,7 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/services/vehicle.service.ts": {
-        "version": "0ecb190848f301974ea964346cb8d16621325dda629bf16e802e71916bcf3c3d",
+        "version": "0c301b7113f5a0b5534106e88843edc88ee61f1eec838c940f76e13346ad34db",
         "signature": "7f12f13a3bd6d2a479ea809a429f0ab1bdeb528a40407d0bc77c18a75c1c77f8",
         "affectsGlobalScope": false
       },
@@ -5576,7 +5576,7 @@
         "affectsGlobalScope": false
       },
       "../src/renew/services/renew.service.ts": {
-        "version": "1e7afa48c54a31b7ee531262a804aab9579c120531ea6960565ea86ceb0a55f5",
+        "version": "c547a827dc9e0e234d3c21c45ae4bdbde2f7cec2f62a49add70e7634e1e249fb",
         "signature": "a3fb18d464de45054038a234261e797642ba308ab4f35d0bd0fb9dda9d101eb8",
         "affectsGlobalScope": false
       },

@@ -14,27 +14,27 @@ const graphql_1 = require("@nestjs/graphql");
 let CustomerType = class CustomerType {
 };
 __decorate([
-    graphql_1.Field(() => graphql_1.ID),
+    graphql_1.Field(() => graphql_1.ID, { nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "id", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "name", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "lastName", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "document", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "numDocument", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "cellphone_1", void 0);
 __decorate([
@@ -46,11 +46,11 @@ __decorate([
     __metadata("design:type", String)
 ], CustomerType.prototype, "direction", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "username", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], CustomerType.prototype, "password", void 0);
 __decorate([

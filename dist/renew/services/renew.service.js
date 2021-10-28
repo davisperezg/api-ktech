@@ -84,7 +84,7 @@ let RenewService = class RenewService {
             findRenew = await this.renewModel
                 .find({ status: 1 })
                 .populate([
-                { path: 'vehicle' },
+                { path: 'vehicle', populate: [{ path: 'customer' }] },
                 { path: 'billing' },
                 { path: 'registeredBy' },
                 { path: 'updatedBy' },
@@ -97,14 +97,10 @@ let RenewService = class RenewService {
     }
     async buscarRenovacionesXFecha(desde, hasta) {
         let vehiculos;
-        console.log(desde);
-        console.log(hasta);
         const desdeTest = date_fns_1.startOfDay(new Date(desde));
         const addDesde = date_fns_1.add(desdeTest, { days: 1 });
-        console.log(addDesde);
         const hastaTest = date_fns_1.endOfDay(new Date(hasta));
         const addHasta = date_fns_1.add(hastaTest, { days: 1 });
-        console.log(addHasta);
         try {
             vehiculos = await this.renewModel
                 .find({
@@ -121,7 +117,6 @@ let RenewService = class RenewService {
                 },
                 { path: 'billing' },
             ]);
-            console.log(vehiculos);
         }
         catch (e) {
             throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);

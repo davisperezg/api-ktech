@@ -5,7 +5,7 @@ export class DeviceType {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
   @Field(() => Date)

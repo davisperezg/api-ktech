@@ -117,7 +117,7 @@ export class RenewService {
       findRenew = await this.renewModel
         .find({ status: 1 })
         .populate([
-          { path: 'vehicle' },
+          { path: 'vehicle', populate: [{ path: 'customer' }] },
           { path: 'billing' },
           { path: 'registeredBy' },
           { path: 'updatedBy' },
@@ -133,16 +133,12 @@ export class RenewService {
     hasta: Date | string,
   ): Promise<RenewDocument[]> {
     let vehiculos: RenewDocument[];
-    console.log(desde);
-    console.log(hasta);
 
     const desdeTest = startOfDay(new Date(desde));
     const addDesde = add(desdeTest, { days: 1 });
-    console.log(addDesde);
 
     const hastaTest = endOfDay(new Date(hasta));
     const addHasta = add(hastaTest, { days: 1 });
-    console.log(addHasta);
 
     try {
       vehiculos = await this.renewModel
@@ -160,8 +156,6 @@ export class RenewService {
           },
           { path: 'billing' },
         ]);
-
-      console.log(vehiculos);
     } catch (e) {
       throw new Error(`Error en RenewService.buscarRenovacionesXFecha ${e}`);
     }

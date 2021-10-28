@@ -18,7 +18,7 @@ __decorate([
     __metadata("design:type", String)
 ], DeviceType.prototype, "id", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], DeviceType.prototype, "name", void 0);
 __decorate([

@@ -262,7 +262,6 @@ let VehicleService = class VehicleService {
                 { path: 'billing' },
                 { path: 'device' },
             ]);
-            console.log(vehiculos);
         }
         catch (e) {
             throw new Error(`Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`);
@@ -271,14 +270,10 @@ let VehicleService = class VehicleService {
     }
     async buscarVencidosXrangoFechas(desde, hasta) {
         let vehiculos;
-        console.log(desde);
-        console.log(hasta);
         const desdeTest = date_fns_1.startOfDay(new Date(desde));
         const addDesde = date_fns_1.add(desdeTest, { days: 1 });
-        console.log(addDesde);
         const hastaTest = date_fns_1.endOfDay(new Date(hasta));
         const addHasta = date_fns_1.add(hastaTest, { days: 1 });
-        console.log(addHasta);
         try {
             vehiculos = await this.vehicleModel
                 .find({
@@ -295,7 +290,6 @@ let VehicleService = class VehicleService {
                 { path: 'customer' },
                 { path: 'device' },
             ]);
-            console.log(vehiculos);
         }
         catch (e) {
             throw new Error(`Error en VehicleService.buscarVencidosXrangoFechas ${e}`);

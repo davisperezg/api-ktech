@@ -2,22 +2,22 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class CustomerType {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   id: string;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   lastName: string;
 
-  @Field()
+  @Field({ nullable: true })
   document: string;
 
-  @Field()
+  @Field({ nullable: true })
   numDocument: string;
 
-  @Field()
+  @Field({ nullable: true })
   cellphone_1: string;
 
   @Field({ nullable: true })
@@ -26,10 +26,10 @@ export class CustomerType {
   @Field({ nullable: true })
   direction: string;
 
-  @Field()
+  @Field({ nullable: true })
   username: string;
 
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
   @Field(() => Date)

@@ -361,8 +361,6 @@ export class VehicleService {
           { path: 'billing' },
           { path: 'device' },
         ]);
-
-      console.log(vehiculos);
     } catch (e) {
       throw new Error(
         `Error en VehicleService.buscarXrangoFechaInstalaciones ${e}`,
@@ -377,16 +375,12 @@ export class VehicleService {
     hasta: Date | string,
   ): Promise<VehicleDocument[]> {
     let vehiculos: VehicleDocument[];
-    console.log(desde);
-    console.log(hasta);
 
     const desdeTest = startOfDay(new Date(desde));
     const addDesde = add(desdeTest, { days: 1 });
-    console.log(addDesde);
 
     const hastaTest = endOfDay(new Date(hasta));
     const addHasta = add(hastaTest, { days: 1 });
-    console.log(addHasta);
 
     try {
       vehiculos = await this.vehicleModel
@@ -404,8 +398,6 @@ export class VehicleService {
           { path: 'customer' },
           { path: 'device' },
         ]);
-
-      console.log(vehiculos);
     } catch (e) {
       throw new Error(
         `Error en VehicleService.buscarVencidosXrangoFechas ${e}`,
