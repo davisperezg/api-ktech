@@ -122,6 +122,7 @@ export class RenewService {
           { path: 'registeredBy' },
           { path: 'updatedBy' },
         ]);
+      console.log(findRenew);
     } catch (e) {
       throw new Error(`Error en RenewService.findAllRenews ${e}`);
     }
