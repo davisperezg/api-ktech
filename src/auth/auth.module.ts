@@ -24,7 +24,7 @@ import { RolesGuard } from 'src/lib/guards/roles.guard';
     //forwardRef(() => UserService),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '5m' },
+      signOptions: { expiresIn: '24h' },
     }),
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },

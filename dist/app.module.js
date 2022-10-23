@@ -29,6 +29,8 @@ const vehicle_module_1 = require("./vehicle/vehicle.module");
 const device_module_1 = require("./device/device.module");
 const billing_module_1 = require("./billing/billing.module");
 const renew_module_1 = require("./renew/renew.module");
+const sext_module_1 = require("./services-ext/sext.module");
+const renews_canceled_module_1 = require("./renews-canceled/renews-canceled.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -62,6 +64,8 @@ AppModule = __decorate([
             device_module_1.DeviceModule,
             billing_module_1.BillingModule,
             renew_module_1.RenewModule,
+            sext_module_1.SExtModule,
+            renews_canceled_module_1.RenewsCanceledModule,
         ],
     })
 ], AppModule);

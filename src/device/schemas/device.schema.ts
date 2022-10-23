@@ -9,6 +9,15 @@ export class Device {
   @Prop({ trim: true, uppercase: true })
   name: string;
 
+  @Prop({ type: String, required: false })
+  commands?: string;
+
+  @Prop({ type: String, required: false })
+  commandsclient?: string;
+
+  @Prop({ type: String, required: false })
+  reference?: string;
+
   @Prop({ trim: true })
   status: number;
 }

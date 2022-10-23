@@ -13,8 +13,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BillingResolver = void 0;
+const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
 const conts_1 = require("../../lib/conts");
+const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 const create_billing_input_1 = require("../dto/inputs/create-billing.input");
 const update_billing_input_1 = require("../dto/inputs/update-billing.input");
 const billing_type_1 = require("../dto/querys/billing.type");
@@ -75,6 +77,7 @@ __decorate([
 ], BillingResolver.prototype, "getBillingByName", null);
 BillingResolver = __decorate([
     graphql_1.Resolver(),
+    common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),
     __metadata("design:paramtypes", [billing_service_1.BillingService])
 ], BillingResolver);
 exports.BillingResolver = BillingResolver;

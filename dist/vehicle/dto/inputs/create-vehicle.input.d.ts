@@ -6,4 +6,5 @@ export declare class CreateVehicleInput {
     plate: string;
     sim: string;
     nroGPS: string;
+    retired: boolean;
 }

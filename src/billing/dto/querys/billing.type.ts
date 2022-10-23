@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID, Int } from '@nestjs/graphql';
+import { Field, ObjectType, ID, Int, Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class BillingType {
@@ -10,6 +10,9 @@ export class BillingType {
 
   @Field(() => Int)
   day: number;
+
+  @Field(() => Float, { nullable: true })
+  price: number;
 
   @Field(() => Date)
   createdAt: Date;

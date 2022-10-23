@@ -30,6 +30,8 @@ const access_service_1 = require("../access/services/access.service");
 const access_schema_1 = require("../access/schemas/access.schema");
 const menu_schema_1 = require("../menu/schemas/menu.schema");
 const menu_service_1 = require("../menu/services/menu.service");
+const canceled_schema_1 = require("../renews-canceled/schemas/canceled.schema");
+const canceled_service_1 = require("../renews-canceled/services/canceled.service");
 let RenewModule = class RenewModule {
 };
 RenewModule = __decorate([
@@ -46,6 +48,7 @@ RenewModule = __decorate([
                 { name: 'Module', schema: module_schema_1.ModuleSchema },
                 { name: 'Access', schema: access_schema_1.AccessSchema },
                 { name: 'Menu', schema: menu_schema_1.MenuSchema },
+                { name: 'Canceled', schema: canceled_schema_1.CanceledSchema },
             ]),
         ],
         providers: [
@@ -60,6 +63,7 @@ RenewModule = __decorate([
             module_service_1.ModuleService,
             access_service_1.AccessService,
             menu_service_1.MenuService,
+            canceled_service_1.CanceledService,
         ],
     })
 ], RenewModule);

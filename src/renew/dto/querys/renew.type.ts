@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, Int } from '@nestjs/graphql';
 import { BillingType } from 'src/billing/dto/querys/billing.type';
 import { UserType } from 'src/user/dto/querys/user.type';
 import { VehicleType } from 'src/vehicle/dto/querys/vehicle.type';
@@ -34,4 +34,22 @@ export class RenewType {
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field(() => String, { nullable: true })
+  billingPayToday: String;
+
+  @Field(() => String, { nullable: true })
+  billingDes: String;
+
+  @Field(() => Int, { nullable: true })
+  status: number;
+}
+
+@ObjectType()
+export class RenewTypeCheck {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => Int, { nullable: true })
+  status: number;
 }

@@ -33,7 +33,7 @@ AuthModule = __decorate([
         imports: [
             jwt_1.JwtModule.register({
                 secret: constants_1.jwtConstants.secret,
-                signOptions: { expiresIn: '5m' },
+                signOptions: { expiresIn: '24h' },
             }),
             mongoose_1.MongooseModule.forFeature([
                 { name: 'User', schema: user_schema_1.UserSchema },

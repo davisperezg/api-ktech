@@ -17,5 +17,6 @@ export declare class Vehicle {
     billigStart: Date;
     billigEnd: Date;
     status: number;
+    retired: boolean;
 }
 export declare const VehicleSchema: mongoose.Schema<mongoose.Document<Vehicle, {}>, mongoose.Model<any, any>, undefined>;

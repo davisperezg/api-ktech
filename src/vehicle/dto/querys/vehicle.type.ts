@@ -47,4 +47,7 @@ export class VehicleType {
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field({ nullable: true })
+  retired: boolean;
 }

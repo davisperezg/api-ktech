@@ -17,4 +17,5 @@ export declare class VehicleType {
     billigEnd: Date;
     createdAt: Date;
     updatedAt: Date;
+    retired: boolean;
 }

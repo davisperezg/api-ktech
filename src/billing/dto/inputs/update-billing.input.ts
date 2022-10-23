@@ -1,4 +1,4 @@
-import { Field, InputType, ID, Int } from '@nestjs/graphql';
+import { Field, InputType, ID, Int, Float } from '@nestjs/graphql';
 import {
   IsOptional,
   Length,
@@ -14,7 +14,7 @@ export class UpdateBillingInput {
   @IsNotEmpty({ message: 'El ID del plan de facturación no existe' })
   id: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
     message: 'El nombre solo puede contener letras.',
   })
@@ -22,7 +22,11 @@ export class UpdateBillingInput {
   @IsOptional()
   name: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @IsOptional()
   day: number;
+
+  @Field(() => Float, { nullable: true })
+  @IsOptional()
+  price: number;
 }

@@ -13,4 +13,13 @@ export class DeviceType {
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field({ nullable: true })
+  commands: string;
+
+  @Field({ nullable: true })
+  commandsclient: string;
+
+  @Field({ nullable: true })
+  reference: string;
 }

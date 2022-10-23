@@ -12,5 +12,8 @@ export declare class Renew {
     renovationStart: Date;
     renovationEnd: Date;
     status: number;
+    billingPayToday: string;
+    billingDes: string;
+    billingTime: [];
 }
 export declare const RenewSchema: mongoose.Schema<mongoose.Document<Renew, {}>, mongoose.Model<any, any>, undefined>;

@@ -9,4 +9,5 @@ export declare class DeviceResolver {
     updateDevice(deviceInput: UpdateDeviceInput): Promise<DeviceDocument>;
     deleteDevice(id: string): Promise<boolean>;
     getDevices(): Promise<DeviceDocument[]>;
+    getDevice(id: string): Promise<DeviceDocument>;
 }

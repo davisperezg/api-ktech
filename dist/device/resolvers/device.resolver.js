@@ -36,6 +36,9 @@ let DeviceResolver = class DeviceResolver {
     getDevices() {
         return this.deviceService.findAllDevice();
     }
+    getDevice(id) {
+        return this.deviceService.findOneDeviceById(id);
+    }
 };
 __decorate([
     graphql_1.Mutation(() => device_type_1.DeviceType),
@@ -64,6 +67,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], DeviceResolver.prototype, "getDevices", null);
+__decorate([
+    graphql_1.Query(() => device_type_1.DeviceType),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], DeviceResolver.prototype, "getDevice", null);
 DeviceResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

@@ -18,6 +18,18 @@ __decorate([
     __metadata("design:type", String)
 ], Device.prototype, "name", void 0);
 __decorate([
+    mongoose_1.Prop({ type: String, required: false }),
+    __metadata("design:type", String)
+], Device.prototype, "commands", void 0);
+__decorate([
+    mongoose_1.Prop({ type: String, required: false }),
+    __metadata("design:type", String)
+], Device.prototype, "commandsclient", void 0);
+__decorate([
+    mongoose_1.Prop({ type: String, required: false }),
+    __metadata("design:type", String)
+], Device.prototype, "reference", void 0);
+__decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Device.prototype, "status", void 0);

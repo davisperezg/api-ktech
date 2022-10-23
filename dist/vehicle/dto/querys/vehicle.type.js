@@ -73,6 +73,10 @@ __decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], VehicleType.prototype, "updatedAt", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", Boolean)
+], VehicleType.prototype, "retired", void 0);
 VehicleType = __decorate([
     graphql_1.ObjectType()
 ], VehicleType);

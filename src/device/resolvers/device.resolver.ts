@@ -6,6 +6,7 @@ import { DeviceType } from '../dto/querys/device.type';
 import { CreateDeviceInput } from '../dto/inputs/create-device.input';
 import { UpdateDeviceInput } from '../dto/inputs/update-device.input';
 import { DeviceDocument } from '../schemas/device.schema';
+import { ObjectID } from 'mongodb';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -36,5 +37,10 @@ export class DeviceResolver {
   @Query(() => [DeviceType])
   getDevices(): Promise<DeviceDocument[]> {
     return this.deviceService.findAllDevice();
+  }
+
+  @Query(() => DeviceType)
+  getDevice(@Args('id') id: string): Promise<DeviceDocument> {
+    return this.deviceService.findOneDeviceById(id);
   }
 }

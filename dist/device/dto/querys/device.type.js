@@ -29,6 +29,18 @@ __decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], DeviceType.prototype, "updatedAt", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], DeviceType.prototype, "commands", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], DeviceType.prototype, "commandsclient", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], DeviceType.prototype, "reference", void 0);
 DeviceType = __decorate([
     graphql_1.ObjectType()
 ], DeviceType);

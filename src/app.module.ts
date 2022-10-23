@@ -20,6 +20,8 @@ import { VehicleModule } from './vehicle/vehicle.module';
 import { DeviceModule } from './device/device.module';
 import { BillingModule } from './billing/billing.module';
 import { RenewModule } from './renew/renew.module';
+import { SExtModule } from './services-ext/sext.module';
+import { RenewsCanceledModule } from './renews-canceled/renews-canceled.module';
 //mongodb://localhost
 
 @Module({
@@ -52,6 +54,8 @@ import { RenewModule } from './renew/renew.module';
     DeviceModule,
     BillingModule,
     RenewModule,
+    SExtModule,
+    RenewsCanceledModule,
   ],
 })
 export class AppModule {}

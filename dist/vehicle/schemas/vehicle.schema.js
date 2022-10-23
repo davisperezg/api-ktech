@@ -66,6 +66,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Vehicle.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true, type: Boolean }),
+    __metadata("design:type", Boolean)
+], Vehicle.prototype, "retired", void 0);
 Vehicle = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Vehicle);

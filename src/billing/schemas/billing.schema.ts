@@ -14,6 +14,9 @@ export class Billing {
 
   @Prop({ trim: true })
   status: number;
+
+  @Prop({ type: Number })
+  price: number;
 }
 
 export const BillingSchema = SchemaFactory.createForClass(Billing);

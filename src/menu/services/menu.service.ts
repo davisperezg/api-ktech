@@ -27,7 +27,7 @@ export class MenuService implements OnModuleInit {
     }
 
     if (countMenus > 0) return;
-
+    //plan-de-facturacion
     try {
       valuesMenus = await Promise.all([
         new this.menuModel({ name: 'Roles', link: 'roles' }).save(),

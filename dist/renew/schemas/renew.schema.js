@@ -49,6 +49,18 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Renew.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", String)
+], Renew.prototype, "billingPayToday", void 0);
+__decorate([
+    mongoose_1.Prop({ trim: true }),
+    __metadata("design:type", String)
+], Renew.prototype, "billingDes", void 0);
+__decorate([
+    mongoose_1.Prop(),
+    __metadata("design:type", Array)
+], Renew.prototype, "billingTime", void 0);
 Renew = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Renew);

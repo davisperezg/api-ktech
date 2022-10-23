@@ -1,5 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { NOEXIST } from 'src/lib/conts';
+import { GqlAuthGuard } from 'src/lib/guards/gql-auth.guard';
 import { CreateBillingInput } from '../dto/inputs/create-billing.input';
 import { UpdateBillingInput } from '../dto/inputs/update-billing.input';
 import { BillingType } from '../dto/querys/billing.type';
@@ -7,6 +9,7 @@ import { BillingDocument } from '../schemas/billing.schema';
 import { BillingService } from '../services/billing.service';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class BillingResolver {
   constructor(private readonly billingService: BillingService) {}
 

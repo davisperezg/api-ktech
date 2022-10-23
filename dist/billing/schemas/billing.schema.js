@@ -25,6 +25,10 @@ __decorate([
     mongoose_1.Prop({ trim: true }),
     __metadata("design:type", Number)
 ], Billing.prototype, "status", void 0);
+__decorate([
+    mongoose_1.Prop({ type: Number }),
+    __metadata("design:type", Number)
+], Billing.prototype, "price", void 0);
 Billing = __decorate([
     mongoose_1.Schema({ timestamps: true, versionKey: false })
 ], Billing);

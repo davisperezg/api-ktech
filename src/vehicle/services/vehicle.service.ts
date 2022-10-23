@@ -33,14 +33,8 @@ export class VehicleService {
     const findCustomer = await this.customerService.findOneCustomerById(
       customer,
     );
-    const findDevice = await this.deviceService.findOneDeviceByName(
-      device,
-      NOEXIST,
-    );
-    const findBilling = await this.billingService.findOneBillingByName(
-      billing,
-      NOEXIST,
-    );
+    const findDevice = await this.deviceService.findOneDeviceById(device);
+    const findBilling = await this.billingService.findOneBillingById(billing);
 
     await this.findOneVehicleByPlate(plate, EXIST);
     await this.findOneVehicleByNroGPS(nroGPS, EXIST);
@@ -59,6 +53,7 @@ export class VehicleService {
       createdBy: user,
       updatedBy: user,
       status: 1,
+      retired: false,
     });
 
     let vehicleSaved: VehicleDocument;
@@ -98,7 +93,7 @@ export class VehicleService {
       billing,
       //billigStart,
       renew,
-      billigEnd,
+      //billigEnd,
       nroGPS,
       plate,
     } = vehicleInput;
@@ -127,34 +122,27 @@ export class VehicleService {
     }
 
     if (device) {
-      findDevice = await this.deviceService.findOneDeviceByName(
-        device,
-        NOEXIST,
-      );
+      findDevice = await this.deviceService.findOneDeviceById(device);
     } else {
-      findDevice = await this.deviceService.findOneDeviceByName(
-        findVehicleById.device.name,
-        NULL,
+      findDevice = await this.deviceService.findOneDeviceById(
+        findVehicleById.device._id,
       );
+    }
+
+    if (renew === false && billing) {
+      throw new NotFoundException({
+        path: `billing`,
+        message: [`Valor no permitido`],
+      });
     }
 
     if (billing) {
-      findBilling = await this.billingService.findOneBillingByName(
-        billing,
-        NOEXIST,
-      );
+      findBilling = await this.billingService.findOneBillingById(billing);
     } else {
-      findBilling = await this.billingService.findOneBillingByName(
-        findVehicleById.billing.name,
-        NULL,
+      findBilling = await this.billingService.findOneBillingById(
+        findVehicleById.billing._id,
       );
     }
-
-    //const dataStart = startOfDay(new Date(billigStart));
-    //const addDaytoStart = add(dataStart, { days: 1 });
-    const addDaytoEnd = add(findVehicleById.billigStart, {
-      days: findBilling.day,
-    });
 
     try {
       updateVehicle = await this.vehicleModel
@@ -168,7 +156,9 @@ export class VehicleService {
             billigStart: renew
               ? vehicleInput.billigStart
               : findVehicleById.billigStart,
-            billigEnd: renew ? billigEnd : addDaytoEnd,
+            billigEnd: renew
+              ? vehicleInput.billigEnd
+              : findVehicleById.billigEnd,
             updatedBy: user,
           },
           { new: true },
@@ -186,6 +176,8 @@ export class VehicleService {
           { path: 'createdBy' },
           { path: 'updatedBy' },
         ]);
+
+      console.log('updateVehicle', updateVehicle);
     } catch (e) {
       throw new Error(`Error en VehicleService.updateVehicle ${e}`);
     }

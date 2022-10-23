@@ -6,6 +6,9 @@ import {
   IsOptional,
   MaxLength,
   MinLength,
+  ValidateIf,
+  IsString,
+  IsDate,
 } from 'class-validator';
 
 @InputType()
@@ -53,6 +56,8 @@ export class CreateCustomerInput {
   @Field({ nullable: true })
   @MaxLength(9, { message: 'El celular opcional debe contener 9 dígitos.' })
   @MinLength(9, { message: 'El celular opcional debe contener 9 dígitos.' })
+  @ValidateIf((customer) => customer.cellphone_2 !== '')
+  @IsString()
   @IsOptional()
   cellphone_2: string;
 
@@ -60,6 +65,8 @@ export class CreateCustomerInput {
   @Length(3, 250, {
     message: 'La dirección debe tener entre 3-250 caracteres.',
   })
+  @ValidateIf((customer) => customer.direction !== '')
+  @IsString()
   @IsOptional()
   direction: string;
 

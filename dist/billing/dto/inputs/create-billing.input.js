@@ -28,6 +28,11 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe completar los dias del plan de facturación.' }),
     __metadata("design:type", Number)
 ], CreateBillingInput.prototype, "day", void 0);
+__decorate([
+    graphql_1.Field(() => graphql_1.Float),
+    class_validator_1.IsNotEmpty({ message: 'Debe completar el precio del plan de facturación.' }),
+    __metadata("design:type", Number)
+], CreateBillingInput.prototype, "price", void 0);
 CreateBillingInput = __decorate([
     graphql_1.InputType()
 ], CreateBillingInput);

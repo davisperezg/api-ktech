@@ -56,6 +56,8 @@ __decorate([
     graphql_1.Field({ nullable: true }),
     class_validator_1.MaxLength(9, { message: 'El celular opcional debe contener 9 dígitos.' }),
     class_validator_1.MinLength(9, { message: 'El celular opcional debe contener 9 dígitos.' }),
+    class_validator_1.ValidateIf((customer) => customer.cellphone_2 !== ''),
+    class_validator_1.IsString(),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CreateCustomerInput.prototype, "cellphone_2", void 0);
@@ -64,6 +66,8 @@ __decorate([
     class_validator_1.Length(3, 250, {
         message: 'La dirección debe tener entre 3-250 caracteres.',
     }),
+    class_validator_1.ValidateIf((customer) => customer.direction !== ''),
+    class_validator_1.IsString(),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], CreateCustomerInput.prototype, "direction", void 0);

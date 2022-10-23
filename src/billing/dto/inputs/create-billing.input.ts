@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType, Int, Float } from '@nestjs/graphql';
 import { IsNotEmpty, Length, Matches } from 'class-validator';
 
 @InputType()
@@ -14,4 +14,8 @@ export class CreateBillingInput {
   @Field(() => Int)
   @IsNotEmpty({ message: 'Debe completar los dias del plan de facturación.' })
   day: number;
+
+  @Field(() => Float)
+  @IsNotEmpty({ message: 'Debe completar el precio del plan de facturación.' })
+  price: number;
 }

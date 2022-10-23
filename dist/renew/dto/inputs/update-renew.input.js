@@ -20,16 +20,6 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'El ID de la renovacion no existe' }),
     __metadata("design:type", String)
 ], UpdateRenewInput.prototype, "id", void 0);
-__decorate([
-    graphql_1.Field(),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", String)
-], UpdateRenewInput.prototype, "vehicle", void 0);
-__decorate([
-    graphql_1.Field(),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", String)
-], UpdateRenewInput.prototype, "billing", void 0);
 UpdateRenewInput = __decorate([
     graphql_1.InputType()
 ], UpdateRenewInput);

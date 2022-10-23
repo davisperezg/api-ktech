@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", Number)
 ], BillingType.prototype, "day", void 0);
 __decorate([
+    graphql_1.Field(() => graphql_1.Float, { nullable: true }),
+    __metadata("design:type", Number)
+], BillingType.prototype, "price", void 0);
+__decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], BillingType.prototype, "createdAt", void 0);

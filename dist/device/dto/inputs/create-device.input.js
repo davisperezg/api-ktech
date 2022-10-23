@@ -16,13 +16,29 @@ let CreateDeviceInput = class CreateDeviceInput {
 };
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
-        message: 'El nombre solo puede contener letras.',
+    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
+        message: 'El nombre puede contener letras, numeros, guiones y espacios.',
     }),
     class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar el nombre del plan de facturación.' }),
     __metadata("design:type", String)
 ], CreateDeviceInput.prototype, "name", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], CreateDeviceInput.prototype, "commands", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], CreateDeviceInput.prototype, "commandsclient", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
+        message: 'El nombre puede contener letras, numeros, guiones y espacios.',
+    }),
+    class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
+    __metadata("design:type", String)
+], CreateDeviceInput.prototype, "reference", void 0);
 CreateDeviceInput = __decorate([
     graphql_1.InputType()
 ], CreateDeviceInput);

@@ -31,11 +31,6 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "device", void 0);
 __decorate([
-    graphql_1.Field(),
-    class_validator_1.IsOptional(),
-    __metadata("design:type", String)
-], UpdateVehicleInput.prototype, "billing", void 0);
-__decorate([
     graphql_1.Field({ nullable: true }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
@@ -58,6 +53,10 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateVehicleInput.prototype, "nroGPS", void 0);
+__decorate([
+    graphql_1.Field(),
+    __metadata("design:type", Boolean)
+], UpdateVehicleInput.prototype, "retired", void 0);
 UpdateVehicleInput = __decorate([
     graphql_1.InputType()
 ], UpdateVehicleInput);

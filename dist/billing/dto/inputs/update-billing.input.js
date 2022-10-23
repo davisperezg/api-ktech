@@ -21,7 +21,7 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateBillingInput.prototype, "id", void 0);
 __decorate([
-    graphql_1.Field(),
+    graphql_1.Field(() => String, { nullable: true }),
     class_validator_1.Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
         message: 'El nombre solo puede contener letras.',
     }),
@@ -30,10 +30,15 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateBillingInput.prototype, "name", void 0);
 __decorate([
-    graphql_1.Field(() => graphql_1.Int),
+    graphql_1.Field(() => graphql_1.Int, { nullable: true }),
     class_validator_1.IsOptional(),
     __metadata("design:type", Number)
 ], UpdateBillingInput.prototype, "day", void 0);
+__decorate([
+    graphql_1.Field(() => graphql_1.Float, { nullable: true }),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Number)
+], UpdateBillingInput.prototype, "price", void 0);
 UpdateBillingInput = __decorate([
     graphql_1.InputType()
 ], UpdateBillingInput);

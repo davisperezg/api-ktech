@@ -12,4 +12,11 @@ export declare class RenewType {
     renovationEnd: Date;
     createdAt: Date;
     updatedAt: Date;
+    billingPayToday: String;
+    billingDes: String;
+    status: number;
+}
+export declare class RenewTypeCheck {
+    id: string;
+    status: number;
 }

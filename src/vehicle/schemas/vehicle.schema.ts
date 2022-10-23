@@ -45,6 +45,9 @@ export class Vehicle {
 
   @Prop({ trim: true })
   status: number;
+
+  @Prop({ trim: true, type: Boolean })
+  retired: boolean;
 }
 
 export const VehicleSchema = SchemaFactory.createForClass(Vehicle);

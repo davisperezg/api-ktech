@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RenewType = void 0;
+exports.RenewTypeCheck = exports.RenewType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const billing_type_1 = require("../../../billing/dto/querys/billing.type");
 const user_type_1 = require("../../../user/dto/querys/user.type");
@@ -56,8 +56,34 @@ __decorate([
     graphql_1.Field(() => Date),
     __metadata("design:type", Date)
 ], RenewType.prototype, "updatedAt", void 0);
+__decorate([
+    graphql_1.Field(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], RenewType.prototype, "billingPayToday", void 0);
+__decorate([
+    graphql_1.Field(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], RenewType.prototype, "billingDes", void 0);
+__decorate([
+    graphql_1.Field(() => graphql_1.Int, { nullable: true }),
+    __metadata("design:type", Number)
+], RenewType.prototype, "status", void 0);
 RenewType = __decorate([
     graphql_1.ObjectType()
 ], RenewType);
 exports.RenewType = RenewType;
+let RenewTypeCheck = class RenewTypeCheck {
+};
+__decorate([
+    graphql_1.Field(() => graphql_1.ID),
+    __metadata("design:type", String)
+], RenewTypeCheck.prototype, "id", void 0);
+__decorate([
+    graphql_1.Field(() => graphql_1.Int, { nullable: true }),
+    __metadata("design:type", Number)
+], RenewTypeCheck.prototype, "status", void 0);
+RenewTypeCheck = __decorate([
+    graphql_1.ObjectType()
+], RenewTypeCheck);
+exports.RenewTypeCheck = RenewTypeCheck;
 //# sourceMappingURL=renew.type.js.map

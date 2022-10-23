@@ -21,6 +21,8 @@ import { AccessService } from 'src/access/services/access.service';
 import { AccessSchema } from 'src/access/schemas/access.schema';
 import { MenuSchema } from 'src/menu/schemas/menu.schema';
 import { MenuService } from 'src/menu/services/menu.service';
+import { CanceledSchema } from 'src/renews-canceled/schemas/canceled.schema';
+import { CanceledService } from 'src/renews-canceled/services/canceled.service';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { MenuService } from 'src/menu/services/menu.service';
       { name: 'Module', schema: ModuleSchema },
       { name: 'Access', schema: AccessSchema },
       { name: 'Menu', schema: MenuSchema },
+      { name: 'Canceled', schema: CanceledSchema },
     ]),
   ],
   providers: [
@@ -49,6 +52,7 @@ import { MenuService } from 'src/menu/services/menu.service';
     ModuleService,
     AccessService,
     MenuService,
+    CanceledService,
   ],
 })
 export class RenewModule {}

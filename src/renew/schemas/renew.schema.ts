@@ -30,7 +30,16 @@ export class Renew {
   renovationEnd: Date;
 
   @Prop({ trim: true })
-  status: number;
+  status: number; //1-correcto, 2-revision
+
+  @Prop({ trim: true })
+  billingPayToday: string;
+
+  @Prop({ trim: true })
+  billingDes: string;
+
+  @Prop()
+  billingTime: [];
 }
 
 export const RenewSchema = SchemaFactory.createForClass(Renew);

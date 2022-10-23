@@ -16,10 +16,6 @@ export class UpdateVehicleInput {
   @IsOptional()
   device: string;
 
-  @Field()
-  @IsOptional()
-  billing: string;
-
   @Field({ nullable: true })
   @IsOptional()
   platform: string;
@@ -39,6 +35,8 @@ export class UpdateVehicleInput {
   @IsOptional()
   nroGPS: string;
 
+  @Field()
+  retired: boolean;
   // @Field()
   // @IsOptional()
   // billigStart: string;

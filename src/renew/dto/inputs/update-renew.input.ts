@@ -8,11 +8,11 @@ export class UpdateRenewInput {
   @IsNotEmpty({ message: 'El ID de la renovacion no existe' })
   id: string;
 
-  @Field()
-  @IsOptional()
-  vehicle: string;
+  // @Field()
+  // @IsOptional()
+  // vehicle: string;
 
-  @Field()
-  @IsOptional()
-  billing: string;
+  // @Field()
+  // @IsOptional()
+  // billing: string;
 }

@@ -7,6 +7,8 @@ import {
   MaxLength,
   IsMongoId,
   IsNotEmpty,
+  ValidateIf,
+  IsString,
 } from 'class-validator';
 
 @InputType()
@@ -59,6 +61,8 @@ export class UpdateCustomerInput {
   @Field({ nullable: true })
   @MaxLength(9, { message: 'El celular opcional debe contener 9 dígitos.' })
   @MinLength(9, { message: 'El celular opcional debe contener 9 dígitos.' })
+  @ValidateIf((customer) => customer.cellphone_2 !== '')
+  @IsString()
   @IsOptional()
   cellphone_2?: string;
 
@@ -66,6 +70,8 @@ export class UpdateCustomerInput {
   @Length(3, 250, {
     message: 'La dirección debe tener entre 3-250 caracteres.',
   })
+  @ValidateIf((customer) => customer.direction !== '')
+  @IsString()
   @IsOptional()
   direction?: string;
 

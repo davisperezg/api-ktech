@@ -9,9 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateRenewInput = void 0;
+exports.CreateRenewInput = exports.Time = exports.PropsTime = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
+let PropsTime = class PropsTime {
+};
+__decorate([
+    graphql_1.Field(),
+    __metadata("design:type", String)
+], PropsTime.prototype, "name", void 0);
+PropsTime = __decorate([
+    graphql_1.InputType()
+], PropsTime);
+exports.PropsTime = PropsTime;
+let Time = class Time {
+};
+__decorate([
+    graphql_1.Field(() => String),
+    __metadata("design:type", String)
+], Time.prototype, "year", void 0);
+__decorate([
+    graphql_1.Field(() => [String]),
+    __metadata("design:type", Array)
+], Time.prototype, "months", void 0);
+Time = __decorate([
+    graphql_1.InputType()
+], Time);
+exports.Time = Time;
 let CreateRenewInput = class CreateRenewInput {
 };
 __decorate([
@@ -24,6 +48,21 @@ __decorate([
     class_validator_1.IsNotEmpty({ message: 'Debe seleccionar el  plan de facturación.' }),
     __metadata("design:type", String)
 ], CreateRenewInput.prototype, "billing", void 0);
+__decorate([
+    graphql_1.Field(),
+    class_validator_1.IsNotEmpty({ message: 'Debe ingresar alguna descripción de la renovación.' }),
+    __metadata("design:type", String)
+], CreateRenewInput.prototype, "billingDes", void 0);
+__decorate([
+    graphql_1.Field(),
+    class_validator_1.IsString(),
+    __metadata("design:type", String)
+], CreateRenewInput.prototype, "billingPayToday", void 0);
+__decorate([
+    graphql_1.Field(() => [Time]),
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Array)
+], CreateRenewInput.prototype, "billingTime", void 0);
 CreateRenewInput = __decorate([
     graphql_1.InputType()
 ], CreateRenewInput);

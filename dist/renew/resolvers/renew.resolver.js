@@ -21,6 +21,7 @@ const gql_auth_guard_1 = require("../../lib/guards/gql-auth.guard");
 const renew_type_1 = require("../dto/querys/renew.type");
 const create_renew_input_1 = require("../dto/inputs/create-renew.input");
 const user_schema_1 = require("../../user/schemas/user.schema");
+const update_renew_input_1 = require("../dto/inputs/update-renew.input");
 let RenewResolver = class RenewResolver {
     constructor(renewService) {
         this.renewService = renewService;
@@ -33,6 +34,15 @@ let RenewResolver = class RenewResolver {
     }
     getVehiculosRenovadosXFecha(desde, hasta) {
         return this.renewService.buscarRenovacionesXFecha(desde, hasta);
+    }
+    getRenewById(id) {
+        return this.renewService.findAllRenewsById(id);
+    }
+    getRenewByPlate(id) {
+        return this.renewService.findAllRenewsByVehicle(id);
+    }
+    toCheck(renewInput) {
+        return this.renewService.toCheck(renewInput);
     }
 };
 __decorate([
@@ -51,11 +61,34 @@ __decorate([
 ], RenewResolver.prototype, "getRenews", null);
 __decorate([
     graphql_1.Query(() => [renew_type_1.RenewType]),
-    __param(0, graphql_1.Args('desde')), __param(1, graphql_1.Args('hasta')),
+    __param(0, graphql_1.Args('desde')),
+    __param(1, graphql_1.Args('hasta')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Date, Date]),
+    __metadata("design:paramtypes", [Date,
+        Date]),
     __metadata("design:returntype", void 0)
 ], RenewResolver.prototype, "getVehiculosRenovadosXFecha", null);
+__decorate([
+    graphql_1.Query(() => renew_type_1.RenewType),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RenewResolver.prototype, "getRenewById", null);
+__decorate([
+    graphql_1.Query(() => [renew_type_1.RenewType]),
+    __param(0, graphql_1.Args('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RenewResolver.prototype, "getRenewByPlate", null);
+__decorate([
+    graphql_1.Mutation(() => renew_type_1.RenewTypeCheck),
+    __param(0, graphql_1.Args({ name: 'renewInput', type: () => update_renew_input_1.UpdateRenewInput })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_renew_input_1.UpdateRenewInput]),
+    __metadata("design:returntype", void 0)
+], RenewResolver.prototype, "toCheck", null);
 RenewResolver = __decorate([
     graphql_1.Resolver(),
     common_1.UseGuards(gql_auth_guard_1.GqlAuthGuard),

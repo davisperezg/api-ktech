@@ -22,13 +22,29 @@ __decorate([
 ], UpdateDeviceInput.prototype, "id", void 0);
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s]+$/, {
-        message: 'El nombre solo puede contener letras.',
+    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
+        message: 'El nombre puede contener letras, numeros, guiones y espacios.',
     }),
     class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateDeviceInput.prototype, "name", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateDeviceInput.prototype, "commands", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], UpdateDeviceInput.prototype, "commandsclient", void 0);
+__decorate([
+    graphql_1.Field({ nullable: true }),
+    class_validator_1.Matches(/^[A-Za-z0-9áéíóúÑñ\s-]+$/, {
+        message: 'El nombre puede contener letras, numeros, guiones y espacios.',
+    }),
+    class_validator_1.Length(3, 55, { message: 'El nombre debe tener entre 3-55 caracteres.' }),
+    __metadata("design:type", String)
+], UpdateDeviceInput.prototype, "reference", void 0);
 UpdateDeviceInput = __decorate([
     graphql_1.InputType()
 ], UpdateDeviceInput);

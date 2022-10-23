@@ -34,13 +34,13 @@ let VehicleService = class VehicleService {
     async createVehicle(vehicleInput, user) {
         const { customer, device, billing, plate, nroGPS } = vehicleInput;
         const findCustomer = await this.customerService.findOneCustomerById(customer);
-        const findDevice = await this.deviceService.findOneDeviceByName(device, conts_1.NOEXIST);
-        const findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
+        const findDevice = await this.deviceService.findOneDeviceById(device);
+        const findBilling = await this.billingService.findOneBillingById(billing);
         await this.findOneVehicleByPlate(plate, conts_1.EXIST);
         await this.findOneVehicleByNroGPS(nroGPS, conts_1.EXIST);
         const dataStart = date_fns_1.startOfDay(new Date());
         const addDaytoEnd = date_fns_1.add(dataStart, { days: findBilling.day });
-        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: dataStart, billigEnd: addDaytoEnd, createdBy: user, updatedBy: user, status: 1 }));
+        const newVehicle = new this.vehicleModel(Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: dataStart, billigEnd: addDaytoEnd, createdBy: user, updatedBy: user, status: 1, retired: false }));
         let vehicleSaved;
         let foundVehicle;
         try {
@@ -66,7 +66,7 @@ let VehicleService = class VehicleService {
         return foundVehicle;
     }
     async updateVehicle(vehicleInput, user) {
-        const { id, customer, device, billing, renew, billigEnd, nroGPS, plate, } = vehicleInput;
+        const { id, customer, device, billing, renew, nroGPS, plate, } = vehicleInput;
         let findCustomer;
         let findDevice;
         let findBilling;
@@ -85,25 +85,30 @@ let VehicleService = class VehicleService {
             findCustomer = await this.customerService.findOneCustomerById(findVehicleById.customer._id);
         }
         if (device) {
-            findDevice = await this.deviceService.findOneDeviceByName(device, conts_1.NOEXIST);
+            findDevice = await this.deviceService.findOneDeviceById(device);
         }
         else {
-            findDevice = await this.deviceService.findOneDeviceByName(findVehicleById.device.name, conts_1.NULL);
+            findDevice = await this.deviceService.findOneDeviceById(findVehicleById.device._id);
+        }
+        if (renew === false && billing) {
+            throw new common_1.NotFoundException({
+                path: `billing`,
+                message: [`Valor no permitido`],
+            });
         }
         if (billing) {
-            findBilling = await this.billingService.findOneBillingByName(billing, conts_1.NOEXIST);
+            findBilling = await this.billingService.findOneBillingById(billing);
         }
         else {
-            findBilling = await this.billingService.findOneBillingByName(findVehicleById.billing.name, conts_1.NULL);
+            findBilling = await this.billingService.findOneBillingById(findVehicleById.billing._id);
         }
-        const addDaytoEnd = date_fns_1.add(findVehicleById.billigStart, {
-            days: findBilling.day,
-        });
         try {
             updateVehicle = await this.vehicleModel
                 .findByIdAndUpdate(id, Object.assign(Object.assign({}, vehicleInput), { customer: findCustomer._id, device: findDevice._id, billing: findBilling._id, billigStart: renew
                     ? vehicleInput.billigStart
-                    : findVehicleById.billigStart, billigEnd: renew ? billigEnd : addDaytoEnd, updatedBy: user }), { new: true })
+                    : findVehicleById.billigStart, billigEnd: renew
+                    ? vehicleInput.billigEnd
+                    : findVehicleById.billigEnd, updatedBy: user }), { new: true })
                 .populate([
                 {
                     path: 'customer',
@@ -117,6 +122,7 @@ let VehicleService = class VehicleService {
                 { path: 'createdBy' },
                 { path: 'updatedBy' },
             ]);
+            console.log('updateVehicle', updateVehicle);
         }
         catch (e) {
             throw new Error(`Error en VehicleService.updateVehicle ${e}`);
