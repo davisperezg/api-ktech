@@ -199,7 +199,7 @@ let RenewService = class RenewService {
             vehiculos = await this.renewModel
                 .find({
                 status: 1,
-                renovationStart: {
+                createdAt: {
                     $gte: addDesde,
                     $lt: addHasta,
                 },

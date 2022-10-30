@@ -176,8 +176,6 @@ export class VehicleService {
           { path: 'createdBy' },
           { path: 'updatedBy' },
         ]);
-
-      console.log('updateVehicle', updateVehicle);
     } catch (e) {
       throw new Error(`Error en VehicleService.updateVehicle ${e}`);
     }

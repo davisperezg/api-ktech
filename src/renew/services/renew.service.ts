@@ -13,8 +13,6 @@ import { CreateRenewInput } from '../dto/inputs/create-renew.input';
 import { RenewDocument } from '../schemas/renew.schema';
 import { startOfDay, add, endOfDay, format, isBefore } from 'date-fns';
 import { UpdateVehicleInput } from 'src/vehicle/dto/inputs/update-vehicle.input';
-
-import * as moment from 'moment';
 import { UpdateRenewInput } from '../dto/inputs/update-renew.input';
 import { CanceledService } from 'src/renews-canceled/services/canceled.service';
 
@@ -270,7 +268,7 @@ export class RenewService {
       vehiculos = await this.renewModel
         .find({
           status: 1,
-          renovationStart: {
+          createdAt: {
             $gte: addDesde,
             $lt: addHasta,
           },
