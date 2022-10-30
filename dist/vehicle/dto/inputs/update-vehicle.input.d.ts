@@ -6,5 +6,5 @@ export declare class UpdateVehicleInput {
     plate: string;
     sim: string;
     nroGPS: string;
-    retired: boolean;
+    retired?: boolean;
 }

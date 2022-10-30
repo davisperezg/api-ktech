@@ -35,8 +35,8 @@ export class UpdateVehicleInput {
   @IsOptional()
   nroGPS: string;
 
-  @Field()
-  retired: boolean;
+  @Field({ nullable: true })
+  retired?: boolean;
   // @Field()
   // @IsOptional()
   // billigStart: string;

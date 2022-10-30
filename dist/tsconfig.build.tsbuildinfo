@@ -5466,8 +5466,8 @@
         "affectsGlobalScope": false
       },
       "../src/vehicle/dto/inputs/update-vehicle.input.ts": {
-        "version": "6aace53249782453b00b4b4f23e45e9b2d5dddd3827028405ab1b4f4c7e5c757",
-        "signature": "5251ae0df4d9678206dc8ca4212c815c727dfb258cb83dce848cf53a7578651c",
+        "version": "83d6319ce3a9a679d2c9752fd54ff17f08ea9e5a68142b56885bf6d1ba34c17d",
+        "signature": "d22588019c9ad05ab1e090ff0fd5117a891697d4c0f94d6bf86615d223bf8acc",
         "affectsGlobalScope": false
       },
       "../src/billing/dto/querys/billing.type.ts": {
