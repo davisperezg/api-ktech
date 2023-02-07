@@ -17,9 +17,6 @@ export class UpdateEgressInput {
   id: string;
 
   @Field({ nullable: true })
-  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
-    message: 'La categoria solo puede contener letras',
-  })
   @IsOptional()
   category?: string;
 

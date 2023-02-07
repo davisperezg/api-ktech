@@ -37,10 +37,9 @@ let EgressService = class EgressService {
         }
     }
     async createEgress(egressInput) {
-        const { category, user } = egressInput;
-        const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
+        const { user } = egressInput;
         const findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
-        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { category: findCategory._id, user: findUser._id, status: 1 }));
+        const newEgress = new this.egressModel(Object.assign(Object.assign({}, egressInput), { user: findUser._id, status: 1 }));
         let egressSaved;
         let foundEgress;
         try {
@@ -61,16 +60,10 @@ let EgressService = class EgressService {
     }
     async updateEgress(egressInput) {
         const { id, category, user } = egressInput;
-        let findCategory;
         let findUser;
         let updateEgress;
         const findEgressById = await this.findOneEgressById(id);
-        if (category) {
-            findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        }
-        else {
-            findCategory = await this.categoryService.findOneCategoryByName(findEgressById.category.name, conts_1.NULL);
-        }
+        const findCategory = await this.categoryService.findOneCategoryById(category);
         if (user) {
             findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
         }

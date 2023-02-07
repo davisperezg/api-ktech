@@ -32,18 +32,12 @@ export class IngressService implements OnModuleInit {
   async createIngress(
     ingressInput: CreateIngressInput,
   ): Promise<IngressDocument> {
-    const { category, user } = ingressInput;
-
-    const findCategory = await this.categoryService.findOneCategoryByName(
-      category,
-      NOEXIST,
-    );
+    const { user } = ingressInput;
 
     const findUser = await this.userService.findOneUserByName(user, NOEXIST);
 
     const newIngress = new this.ingressModel({
       ...ingressInput,
-      category: findCategory._id,
       user: findUser._id,
       status: 1,
     });
@@ -73,23 +67,14 @@ export class IngressService implements OnModuleInit {
   ): Promise<IngressDocument> {
     const { id, category, user } = ingressInput;
 
-    let findCategory: CategoryDocument;
     let findUser: UserDocument;
     let updateIngress: IngressDocument;
 
     const findIngressById = await this.findOneIngressById(id);
 
-    if (category) {
-      findCategory = await this.categoryService.findOneCategoryByName(
-        category,
-        NOEXIST,
-      );
-    } else {
-      findCategory = await this.categoryService.findOneCategoryByName(
-        findIngressById.category.name,
-        NULL,
-      );
-    }
+    const findCategory = await this.categoryService.findOneCategoryById(
+      category,
+    );
 
     if (user) {
       findUser = await this.userService.findOneUserByName(user, NOEXIST);

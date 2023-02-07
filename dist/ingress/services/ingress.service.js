@@ -37,10 +37,9 @@ let IngressService = class IngressService {
         }
     }
     async createIngress(ingressInput) {
-        const { category, user } = ingressInput;
-        const findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
+        const { user } = ingressInput;
         const findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
-        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { category: findCategory._id, user: findUser._id, status: 1 }));
+        const newIngress = new this.ingressModel(Object.assign(Object.assign({}, ingressInput), { user: findUser._id, status: 1 }));
         let ingressSaved;
         let foundIngress;
         try {
@@ -61,16 +60,10 @@ let IngressService = class IngressService {
     }
     async updateIngress(ingressInput) {
         const { id, category, user } = ingressInput;
-        let findCategory;
         let findUser;
         let updateIngress;
         const findIngressById = await this.findOneIngressById(id);
-        if (category) {
-            findCategory = await this.categoryService.findOneCategoryByName(category, conts_1.NOEXIST);
-        }
-        else {
-            findCategory = await this.categoryService.findOneCategoryByName(findIngressById.category.name, conts_1.NULL);
-        }
+        const findCategory = await this.categoryService.findOneCategoryById(category);
         if (user) {
             findUser = await this.userService.findOneUserByName(user, conts_1.NOEXIST);
         }

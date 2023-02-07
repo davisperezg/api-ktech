@@ -5351,12 +5351,12 @@
         "affectsGlobalScope": false
       },
       "../src/ingress/dto/inputs/create-ingress.input.ts": {
-        "version": "42c548237a6466b1fa41c5442954f7a2a54f4b0b881fba2f6bd8a4167ce14a39",
+        "version": "751c609bfc270eb27c309bee1ae57a091e61133ff2fea8bf53242d462fe4f6f3",
         "signature": "2c3686516adb325efb97e1ed2d5c860b3f0e194e925b91b4f11c012c8a3dacda",
         "affectsGlobalScope": false
       },
       "../src/ingress/dto/inputs/update-ingress.input.ts": {
-        "version": "02f225c92f8ce4a209d6be1cd0552ea3ea752a2ac0a8b3521bd473bcc52c4fe9",
+        "version": "6eb331899f0b1e1861bb1482ab8935d4343d057b4a9fba9cbf52c8a280bb2d55",
         "signature": "2d7cb5c83dfd6eb36052321dc2eb80c417e784f5b0bb4b75d9a3ea9f8039dc92",
         "affectsGlobalScope": false
       },
@@ -5371,7 +5371,7 @@
         "affectsGlobalScope": true
       },
       "../src/ingress/services/ingress.service.ts": {
-        "version": "b89759f4edbfc9d61edc37be7d55da1f56c9ea549c6a266e808da6b8b824f53d",
+        "version": "aef2d76fe2d7ca05f20cd9ab36a771397fd72ebca417a59d3c6485391a94838b",
         "signature": "c834dc252b386023beb44471db83d1516facb8e573648126a410684b067608ee",
         "affectsGlobalScope": false
       },
@@ -5396,17 +5396,17 @@
         "affectsGlobalScope": false
       },
       "../src/egress/dto/inputs/create-egress.input.ts": {
-        "version": "8e7f8472d025a575b5a6c8d44498b2393aa14d3787a5a5cd91c4f1a937ec350b",
+        "version": "ef1e8a765cce53a64e4199f5ecc60a357228af1d3c632b9d092ae164983d313c",
         "signature": "3865a41ce7c75b6411664eebffa0595916be3c5398fe5f34c921bba632c1b0ef",
         "affectsGlobalScope": false
       },
       "../src/egress/dto/inputs/update-egress.input.ts": {
-        "version": "dc2489d1befb81f12d882075a4cbef3db8867df461ff336bb5f998933d284997",
+        "version": "654afc42730536c07e87bad23ba9fb6fb70b1a22d50a0372b364ec459c03eb49",
         "signature": "1f52e00f3f383e536a8a3c150c9a0243a24520021026abfe699e97fa8d21b42b",
         "affectsGlobalScope": false
       },
       "../src/egress/services/egress.service.ts": {
-        "version": "a563e2e55436d33193f0d852574c4efbf98736d65101b5aba9ca3836b9d578e6",
+        "version": "79cfd3cc6047a6ab81e8c228f89bc283aac6a963bdc090537db51d1297396a20",
         "signature": "8b7313b01217a30abe36fcf1006db1dd2924f7578b7c04df7e6bc7cf36c546dc",
         "affectsGlobalScope": false
       },

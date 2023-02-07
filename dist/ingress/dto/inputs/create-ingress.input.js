@@ -16,9 +16,6 @@ let CreateIngressInput = class CreateIngressInput {
 };
 __decorate([
     graphql_1.Field(),
-    class_validator_1.Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
-        message: 'La categoria solo puede contener letras',
-    }),
     class_validator_1.IsNotEmpty({ message: 'Debe completar la categoria' }),
     __metadata("design:type", String)
 ], CreateIngressInput.prototype, "category", void 0);

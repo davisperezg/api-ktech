@@ -22,9 +22,6 @@ __decorate([
 ], UpdateEgressInput.prototype, "id", void 0);
 __decorate([
     graphql_1.Field({ nullable: true }),
-    class_validator_1.Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
-        message: 'La categoria solo puede contener letras',
-    }),
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], UpdateEgressInput.prototype, "category", void 0);

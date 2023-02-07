@@ -11,9 +11,6 @@ import {
 @InputType()
 export class CreateIngressInput {
   @Field()
-  @Matches(/^[A-Za-záéíóúÑñ\s]+$/, {
-    message: 'La categoria solo puede contener letras',
-  })
   @IsNotEmpty({ message: 'Debe completar la categoria' })
   category: string;
 

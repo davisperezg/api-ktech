@@ -30,18 +30,12 @@ export class EgressService implements OnModuleInit {
   }
 
   async createEgress(egressInput: CreateEgressInput): Promise<EgressDocument> {
-    const { category, user } = egressInput;
-
-    const findCategory = await this.categoryService.findOneCategoryByName(
-      category,
-      NOEXIST,
-    );
+    const { user } = egressInput;
 
     const findUser = await this.userService.findOneUserByName(user, NOEXIST);
 
     const newEgress = new this.egressModel({
       ...egressInput,
-      category: findCategory._id,
       user: findUser._id,
       status: 1,
     });
@@ -69,23 +63,14 @@ export class EgressService implements OnModuleInit {
   async updateEgress(egressInput: UpdateEgressInput): Promise<EgressDocument> {
     const { id, category, user } = egressInput;
 
-    let findCategory: CategoryDocument;
     let findUser: UserDocument;
     let updateEgress: EgressDocument;
 
     const findEgressById = await this.findOneEgressById(id);
 
-    if (category) {
-      findCategory = await this.categoryService.findOneCategoryByName(
-        category,
-        NOEXIST,
-      );
-    } else {
-      findCategory = await this.categoryService.findOneCategoryByName(
-        findEgressById.category.name,
-        NULL,
-      );
-    }
+    const findCategory = await this.categoryService.findOneCategoryById(
+      category,
+    );
 
     if (user) {
       findUser = await this.userService.findOneUserByName(user, NOEXIST);
@@ -235,6 +220,4 @@ export class EgressService implements OnModuleInit {
 
     return egress;
   }
-
-  
 }
